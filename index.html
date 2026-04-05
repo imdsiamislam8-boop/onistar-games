@@ -240,6 +240,52 @@ body {
 .tag.appsflyer { background: rgba(0, 198, 255, 0.3); color: #0055aa; }
 .status-badge { background: rgba(0, 200, 83, 0.2); color: #2a7a3a; border: 1px solid rgba(0, 200, 83, 0.4); }
 
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 30px 0 20px;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+  cursor: pointer;
+  transition: 0.2s;
+  min-width: 40px;
+}
+
+.page-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+.page-btn.active {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.8);
+  color: #000;
+  font-weight: 700;
+}
+
+.page-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-btn.disabled:hover {
+  transform: none;
+  background: rgba(255, 255, 255, 0.2);
+}
+
 /* Detail View */
 .detail-view {
   position: relative;
@@ -377,6 +423,9 @@ body {
     </div>
 
     <div class="games-grid" id="gamesList">🎮 loading games...</div>
+    
+    <!-- Pagination -->
+    <div class="pagination" id="pagination"></div>
   </div>
 
   <div id="detailView" class="hidden">
@@ -388,13 +437,7 @@ body {
 </div>
 
 <script>
-  function getGameIcon(game) {
-    if (game.image && game.image !== "") {
-      return `<img src="${game.image}" alt="${game.name}">`;
-    }
-    return game.icon;
-  }
-
+  // Game Database
   const GAMES_DB = {
     "appsflyer": {
       "domino_dreams": {
@@ -435,9 +478,11 @@ body {
         "added_date": "2024-01-25"
       }
     },
-    "adjust": {}, "singular": {}
+    "adjust": {}, 
+    "singular": {}
   };
 
+  // Collect all games
   let allGames = [];
   for (const [provider, games] of Object.entries(GAMES_DB)) {
     for (const [id, game] of Object.entries(games)) {
@@ -445,7 +490,34 @@ body {
     }
   }
 
-  let currentPlatform = "all", currentProvider = "all", searchTerm = "";
+  // Add more sample games for testing pagination (remove this later)
+  for (let i = 1; i <= 15; i++) {
+    allGames.push({
+      id: `sample_game_${i}`,
+      provider: "appsflyer",
+      name: `Sample Game ${i}`,
+      package: `com.sample.game${i}`,
+      android: true,
+      ios: i % 2 === 0,
+      icon: "🎮",
+      dev_key: "sample_dev_key",
+      event_format: "af_sample_event_{}",
+      added_date: "2024-04-05"
+    });
+  }
+
+  let currentPlatform = "all";
+  let currentProvider = "all";
+  let searchTerm = "";
+  let currentPage = 1;
+  const gamesPerPage = 15;
+
+  function getGameIcon(game) {
+    if (game.image && game.image !== "") {
+      return `<img src="${game.image}" alt="${game.name}">`;
+    }
+    return game.icon;
+  }
 
   function updateStats() {
     let total = allGames.length;
@@ -460,6 +532,98 @@ body {
       <div class="stat-card"><div class="stat-number">${singular}</div><div class="stat-label">SINGULAR</div></div>
       <div class="stat-card"><div class="stat-number">${active}</div><div class="stat-label">ACTIVE</div></div>
     `;
+  }
+
+  function getFilteredGames() {
+    return allGames.filter(game => {
+      if (searchTerm && !game.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          !game.package.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+      if (currentPlatform !== "all") {
+        if (currentPlatform === "android" && !game.android) return false;
+        if (currentPlatform === "ios" && !game.ios) return false;
+      }
+      if (currentProvider !== "all" && game.provider !== currentProvider) return false;
+      return true;
+    });
+  }
+
+  function renderGames() {
+    const filteredGames = getFilteredGames();
+    const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
+    const start = (currentPage - 1) * gamesPerPage;
+    const end = start + gamesPerPage;
+    const gamesToShow = filteredGames.slice(start, end);
+    
+    const container = document.getElementById("gamesList");
+    
+    if (gamesToShow.length === 0) {
+      container.innerHTML = `<div class="no-results">🎮 NO GAMES FOUND</div>`;
+      document.getElementById("pagination").innerHTML = "";
+      return;
+    }
+    
+    let html = "";
+    gamesToShow.forEach(game => {
+      let tags = `<span class="tag ${game.provider}">📡 ${game.provider.toUpperCase()}</span>`;
+      if (game.android) tags += `<span class="tag android">🤖 ANDROID</span>`;
+      if (game.ios) tags += `<span class="tag ios">🍎 IOS</span>`;
+      tags += `<span class="tag status-badge">● ACTIVE</span>`;
+      html += `
+        <div class="game-card" onclick='showGameDetail("${game.id}", "${game.provider}")'>
+          <div class="game-icon">${getGameIcon(game)}</div>
+          <div class="game-info">
+            <div class="game-name">${game.name}</div>
+            <div class="game-package">${game.package}</div>
+            <div class="game-tags">${tags}</div>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+    
+    renderPagination(totalPages);
+  }
+
+  function renderPagination(totalPages) {
+    if (totalPages <= 1) {
+      document.getElementById("pagination").innerHTML = "";
+      return;
+    }
+    
+    let paginationHtml = "";
+    
+    // Previous button
+    paginationHtml += `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="${currentPage > 1 ? `changePage(${currentPage - 1})` : ''}">◀ PREV</button>`;
+    
+    // Page numbers
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, currentPage + 2);
+    
+    if (startPage > 1) {
+      paginationHtml += `<button class="page-btn" onclick="changePage(1)">1</button>`;
+      if (startPage > 2) paginationHtml += `<span class="page-btn disabled" style="background:transparent;">...</span>`;
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+      paginationHtml += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+    }
+    
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) paginationHtml += `<span class="page-btn disabled" style="background:transparent;">...</span>`;
+      paginationHtml += `<button class="page-btn" onclick="changePage(${totalPages})">${totalPages}</button>`;
+    }
+    
+    // Next button
+    paginationHtml += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="${currentPage < totalPages ? `changePage(${currentPage + 1})` : ''}">NEXT ▶</button>`;
+    
+    document.getElementById("pagination").innerHTML = paginationHtml;
+  }
+
+  function changePage(page) {
+    currentPage = page;
+    renderGames();
+    // Scroll to top smoothly
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function showGameDetail(gameId, provider) {
@@ -507,61 +671,33 @@ body {
     renderGames();
   }
 
-  function renderGames() {
-    const container = document.getElementById("gamesList");
-    let filtered = allGames.filter(game => {
-      if (searchTerm && !game.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          !game.package.toLowerCase().includes(searchTerm.toLowerCase())) return false;
-      if (currentPlatform !== "all") {
-        if (currentPlatform === "android" && !game.android) return false;
-        if (currentPlatform === "ios" && !game.ios) return false;
-      }
-      if (currentProvider !== "all" && game.provider !== currentProvider) return false;
-      return true;
-    });
-    if (filtered.length === 0) {
-      container.innerHTML = `<div class="no-results">🎮 NO GAMES FOUND</div>`;
-      return;
-    }
-    let html = "";
-    filtered.forEach(game => {
-      let tags = `<span class="tag ${game.provider}">📡 ${game.provider.toUpperCase()}</span>`;
-      if (game.android) tags += `<span class="tag android">🤖 ANDROID</span>`;
-      if (game.ios) tags += `<span class="tag ios">🍎 IOS</span>`;
-      tags += `<span class="tag status-badge">● ACTIVE</span>`;
-      html += `
-        <div class="game-card" onclick='showGameDetail("${game.id}", "${game.provider}")'>
-          <div class="game-icon">${getGameIcon(game)}</div>
-          <div class="game-info">
-            <div class="game-name">${game.name}</div>
-            <div class="game-package">${game.package}</div>
-            <div class="game-tags">${tags}</div>
-          </div>
-        </div>
-      `;
-    });
-    container.innerHTML = html;
+  function resetAndRender() {
+    currentPage = 1;
+    renderGames();
   }
 
+  // Event Listeners
   document.querySelectorAll("[data-platform]").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll("[data-platform]").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       currentPlatform = btn.dataset.platform;
-      renderGames();
+      resetAndRender();
     });
   });
+  
   document.querySelectorAll("[data-provider]").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll("[data-provider]").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       currentProvider = btn.dataset.provider;
-      renderGames();
+      resetAndRender();
     });
   });
+  
   document.getElementById("searchInput").addEventListener("input", (e) => {
     searchTerm = e.target.value;
-    renderGames();
+    resetAndRender();
   });
 
   updateStats();
