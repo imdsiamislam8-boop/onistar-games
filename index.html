@@ -83,7 +83,19 @@ body {
   gap: 12px;
   margin-bottom: 25px;
 }
-@media (max-width: 550px) { .stats-grid { grid-template-columns: repeat(5, 1fr); } }
+@media (max-width: 550px) { 
+  .stats-grid { 
+    display: flex; 
+    flex-wrap: nowrap; 
+    overflow-x: auto; 
+    gap: 8px; 
+    padding-bottom: 5px;
+  }
+  .stat-card { 
+    flex: 0 0 auto; 
+    min-width: 70px;
+  }
+}
 
 .stat-card {
   background: rgba(255, 255, 255, 0.2);
@@ -91,51 +103,66 @@ body {
   border-radius: 13px;
   padding: 12px 8px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   transition: 0.3s;
 }
 .stat-card:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.3); }
 .stat-number { font-size: 20px; font-weight: 600; background: linear-gradient(90deg, #333, #111); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .stat-label { font-size: 11px; color: #000000; margin-top: 4px; }
 
-/* Search & Filters */
-.search-box {
-  width: 100%;
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.2);
+/* Sticky Search Wrapper */
+.sticky-container {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(200, 200, 200, 0.95);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50px;
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 25px;
-}
-.search-box:focus { outline: none; background: rgba(255, 255, 255, 0.35); }
-
-/* Filter Sections */
-.filter-section {
+  padding: 10px 0;
+  margin: 0 -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 0 0 25px 25px;
   margin-bottom: 20px;
 }
 
+/* Search Box */
+.search-box {
+  width: 100%;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50px;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 15px;
+}
+.search-box:focus { outline: none; background: rgba(255, 255, 255, 0.4); }
+
+/* Filter Sections */
+.filter-section {
+  margin-bottom: 12px;
+}
+
 .filter-title {
-  font-size: 11px;
+  font-size: 10px;
   color: #555;
   letter-spacing: 2px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   padding-left: 5px;
 }
 
 .filter-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
 .filter-btn {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 8px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 6px 16px;
   border-radius: 30px;
   font-size: 12px;
   font-weight: 500;
@@ -146,13 +173,13 @@ body {
 }
 
 .filter-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.35);
   transform: scale(1.02);
 }
 
 .filter-btn.active {
-  background: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.8);
   color: #000;
   font-weight: 600;
 }
@@ -166,16 +193,15 @@ body {
     padding-bottom: 5px;
     -webkit-overflow-scrolling: touch;
   }
-  
   .filter-btn {
     flex: 0 0 auto;
-    padding: 6px 14px;
+    padding: 5px 12px;
     font-size: 11px;
   }
 }
 
 /* Games Grid */
-.games-grid { display: flex; flex-direction: column; gap: 16px; margin: 25px 0; }
+.games-grid { display: flex; flex-direction: column; gap: 16px; margin: 20px 0; }
 .game-card {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(15px);
@@ -214,7 +240,7 @@ body {
 .tag.appsflyer { background: rgba(0, 198, 255, 0.3); color: #0055aa; }
 .status-badge { background: rgba(0, 200, 83, 0.2); color: #2a7a3a; border: 1px solid rgba(0, 200, 83, 0.4); }
 
-/* Detail View with Background Image */
+/* Detail View */
 .detail-view {
   position: relative;
   background-size: cover;
@@ -224,8 +250,9 @@ body {
   padding: 30px;
   overflow: hidden;
   z-index: 1;
+  min-height: 500px;
 }
-/* Dark overlay for better text readability */
+
 .detail-view::before {
   content: '';
   position: absolute;
@@ -233,43 +260,54 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  z-index: -1;
+  background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.7) 100%);
+  backdrop-filter: blur(5px);
+  z-index: 0;
 }
+
 .detail-content {
   position: relative;
   z-index: 2;
   color: white;
 }
+
 .detail-icon {
   width: 100px;
   height: 100px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
   border-radius: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 55px;
   margin: 0 auto 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   overflow: hidden;
 }
-.detail-name { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 10px; }
-.detail-package { font-size: 12px; text-align: center; font-family: monospace; margin-bottom: 25px; opacity: 0.8; }
+
+.detail-name { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.detail-package { font-size: 12px; text-align: center; font-family: monospace; margin-bottom: 25px; opacity: 0.9; }
+
 .detail-info {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   border-radius: 25px;
   padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
+
 .detail-row {
   display: flex;
   justify-content: space-between;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
-.detail-label { color: #ccc; font-size: 12px; }
+
+.detail-row:last-child { border-bottom: none; }
+.detail-label { color: rgba(255,255,255,0.7); font-size: 12px; }
 .detail-value { color: #fff; font-weight: 600; }
+
 .back-btn {
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -282,10 +320,11 @@ body {
   margin-top: 20px;
   transition: 0.2s;
 }
-.back-btn:hover { background: rgba(255, 255, 255, 0.4); }
+.back-btn:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.02); }
 
 .hidden { display: none; }
 .no-results { text-align: center; padding: 40px; color: #555; background: rgba(255,255,255,0.15); border-radius: 30px; }
+
 .glass-footer {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
@@ -310,25 +349,30 @@ body {
       <div class="logo">ONI<span>STAR</span></div>
       <div class="subtitle">✦ GLASS GAME LIBRARY ✦</div>
     </div>
-    <div class="stats-grid" id="stats"></div>
-    <input type="text" class="search-box" id="searchInput" placeholder="🔍 search game or package...">
     
-    <div class="filter-section">
-      <div class="filter-title">PLATFORM</div>
-      <div class="filter-buttons" id="platformFilters">
-        <button class="filter-btn active" data-platform="all">ALL</button>
-        <button class="filter-btn" data-platform="android">🤖 ANDROID</button>
-        <button class="filter-btn" data-platform="ios">🍎 IOS</button>
+    <div class="stats-grid" id="stats"></div>
+    
+    <!-- Sticky Container for Search and Filters -->
+    <div class="sticky-container">
+      <input type="text" class="search-box" id="searchInput" placeholder="🔍 search game or package...">
+      
+      <div class="filter-section">
+        <div class="filter-title">PLATFORM</div>
+        <div class="filter-buttons" id="platformFilters">
+          <button class="filter-btn active" data-platform="all">ALL</button>
+          <button class="filter-btn" data-platform="android">🤖 ANDROID</button>
+          <button class="filter-btn" data-platform="ios">🍎 IOS</button>
+        </div>
       </div>
-    </div>
 
-    <div class="filter-section">
-      <div class="filter-title">PROVIDER</div>
-      <div class="filter-buttons" id="providerFilters">
-        <button class="filter-btn active" data-provider="all">ALL</button>
-        <button class="filter-btn" data-provider="appsflyer">📡 APPSFLYER</button>
-        <button class="filter-btn" data-provider="adjust">📊 ADJUST</button>
-        <button class="filter-btn" data-provider="singular">🎯 SINGULAR</button>
+      <div class="filter-section">
+        <div class="filter-title">PROVIDER</div>
+        <div class="filter-buttons" id="providerFilters">
+          <button class="filter-btn active" data-provider="all">ALL</button>
+          <button class="filter-btn" data-provider="appsflyer">📡 APPSFLYER</button>
+          <button class="filter-btn" data-provider="adjust">📊 ADJUST</button>
+          <button class="filter-btn" data-provider="singular">🎯 SINGULAR</button>
+        </div>
       </div>
     </div>
 
@@ -351,7 +395,6 @@ body {
     return game.icon;
   }
 
-  // Game Database (Added bg_image for Dice Dreams)
   const GAMES_DB = {
     "appsflyer": {
       "domino_dreams": {
@@ -386,7 +429,6 @@ body {
         "package": "com.superplaystudios.dicedreams",
         "android": true, "ios": false, "icon": "🎲",
         "image": "https://play-lh.googleusercontent.com/5MLgC2WWXcq1Pol8qRAXOKzIJY9qySkjF43DnWyd5F9fPj_heinHeIxvgIpPQwcaQ1w-mUzUmoP1Xeslf29irg=s48-rw",
-        // 👇👇👇 ব্যাকগ্রাউন্ড ইমেজ এখানে যোগ করুন (আপনার কাজ করা URL দিন) 👇👇👇
         "bg_image": "https://play-lh.googleusercontent.com/jZxrlBZlBckylCQbtdTF082laUuKjg0H9xzAtDgZG9vJeFx9KZHGZiS_VXkJ4SG9vxFxbeFw0m4RSgLbxXrW",
         "dev_key": "Hn5qYjVAaRNJYDcwF4LaWF",
         "event_format": "af_kingdom_{}_restored",
@@ -428,7 +470,6 @@ body {
     if (game.android) platforms.push("🤖 Android");
     if (game.ios) platforms.push("🍎 iOS");
     
-    // ব্যাকগ্রাউন্ড ইমেজ সেট করুন
     const detailDiv = document.querySelector(".detail-view");
     if (game.bg_image && game.bg_image !== "") {
       detailDiv.style.backgroundImage = `url('${game.bg_image}')`;
