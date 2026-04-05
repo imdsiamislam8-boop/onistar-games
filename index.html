@@ -32,27 +32,9 @@ body {
   z-index: 0;
 }
 
-.shape1 {
-  background: #b0b0b0;
-  top: -10%;
-  left: -10%;
-}
-
-.shape2 {
-  background: #d0d0d0;
-  bottom: -10%;
-  right: -10%;
-  animation-delay: -5s;
-}
-
-.shape3 {
-  background: #c8c8c8;
-  top: 50%;
-  left: 30%;
-  width: 300px;
-  height: 300px;
-  animation-delay: -3s;
-}
+.shape1 { background: #b0b0b0; top: -10%; left: -10%; }
+.shape2 { background: #d0d0d0; bottom: -10%; right: -10%; animation-delay: -5s; }
+.shape3 { background: #c8c8c8; top: 50%; left: 30%; width: 300px; height: 300px; animation-delay: -3s; }
 
 @keyframes float {
   0% { transform: translateY(0px) translateX(0px) scale(1);}
@@ -60,7 +42,6 @@ body {
   100% { transform: translateY(0px) translateX(0px) scale(1);}
 }
 
-/* Container */
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -72,21 +53,14 @@ body {
 .glass-header {
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border-radius: 40px;
   padding: 25px 30px;
   margin-bottom: 30px;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   text-align: center;
-  transform-style: preserve-3d;
   transition: 0.3s;
 }
-
-.glass-header:hover {
-  transform: scale(1.02);
-  background: rgba(255, 255, 255, 0.3);
-}
+.glass-header:hover { transform: scale(1.02); background: rgba(255, 255, 255, 0.3); }
 
 .logo {
   font-size: 28px;
@@ -94,168 +68,80 @@ body {
   background: linear-gradient(90deg, #4a4a4a, #2a2a2a);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: -0.5px;
 }
-
 .logo span {
   background: linear-gradient(90deg, #ff7e5f, #feb47b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.subtitle { font-size: 12px; color: #555; letter-spacing: 2px; margin-top: 8px; }
 
-.subtitle {
-  font-size: 12px;
-  color: #555;
-  letter-spacing: 2px;
-  margin-top: 8px;
-}
-
-/* Stats Cards - Glass */
+/* Stats Cards */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
   margin-bottom: 25px;
 }
+@media (max-width: 550px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .stat-card {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 25px;
-  padding: 18px 12px;
+  border-radius: 20px;
+  padding: 12px 8px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.3);
   transition: 0.3s;
-  cursor: pointer;
 }
+.stat-card:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.3); }
+.stat-number { font-size: 24px; font-weight: 700; background: linear-gradient(90deg, #333, #111); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-label { font-size: 9px; color: #555; margin-top: 4px; }
 
-.stat-card:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.5);
-}
-
-.stat-number {
-  font-size: 28px;
-  font-weight: 700;
-  background: linear-gradient(90deg, #333, #111);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.stat-label {
-  font-size: 11px;
-  color: #555;
-  letter-spacing: 1px;
-  margin-top: 5px;
-}
-
-/* Search Bar - Glass */
-.search-wrapper {
-  margin-bottom: 25px;
-}
-
+/* Search & Filters */
 .search-box {
   width: 100%;
   padding: 16px 20px;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50px;
   font-size: 14px;
   color: #333;
-  font-family: 'Poppins', sans-serif;
-  transition: 0.3s;
+  margin-bottom: 25px;
 }
+.search-box:focus { outline: none; background: rgba(255, 255, 255, 0.35); }
 
-.search-box:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.35);
-  border-color: rgba(255, 255, 255, 0.6);
-}
-
-.search-box::placeholder {
-  color: #888;
-}
-
-/* Filter Sections - Glass */
-.filter-section {
-  margin-bottom: 20px;
-}
-
-.filter-title {
-  font-size: 11px;
-  color: #555;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-  padding-left: 5px;
-}
-
-.filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
+.filter-section { margin-bottom: 20px; }
+.filter-title { font-size: 11px; color: #555; letter-spacing: 2px; margin-bottom: 12px; }
+.filter-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
 .filter-btn {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 8px 20px;
   border-radius: 30px;
   font-size: 12px;
-  font-weight: 500;
   color: #444;
   cursor: pointer;
   transition: 0.2s;
-  font-family: 'Poppins', sans-serif;
 }
+.filter-btn.active { background: rgba(255, 255, 255, 0.5); color: #000; font-weight: 600; }
 
-.filter-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.02);
-}
-
-.filter-btn.active {
-  background: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.7);
-  color: #000;
-  font-weight: 600;
-}
-
-/* Games Grid - Glass Cards */
-.games-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 25px;
-  margin-bottom: 30px;
-}
-
+/* Games Grid */
+.games-grid { display: flex; flex-direction: column; gap: 16px; margin: 25px 0; }
 .game-card {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
   border-radius: 25px;
   padding: 16px;
   display: flex;
   gap: 18px;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: 0.3s;
   cursor: pointer;
+  transition: 0.3s;
 }
-
-.game-card:hover {
-  transform: translateX(8px) scale(1.01);
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-/* Game Icon */
+.game-card:hover { transform: translateX(8px); background: rgba(255, 255, 255, 0.3); }
 .game-icon {
   width: 60px;
   height: 60px;
@@ -265,85 +151,95 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  transition: 0.3s;
+  overflow: hidden;
 }
-
-.game-card:hover .game-icon {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.game-info {
-  flex: 1;
-}
-
-.game-name {
-  font-size: 17px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 4px;
-}
-
-.game-package {
-  font-size: 10px;
-  color: #666;
-  font-family: monospace;
-  margin-bottom: 10px;
-  letter-spacing: 0.5px;
-}
-
-.game-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
+.game-icon img { width: 100%; height: 100%; object-fit: cover; }
+.game-name { font-size: 17px; font-weight: 600; color: #1a1a1a; }
+.game-package { font-size: 10px; color: #666; font-family: monospace; margin: 4px 0 8px; }
+.game-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag {
   font-size: 9px;
   padding: 4px 12px;
   border-radius: 20px;
-  font-weight: 500;
   background: rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(4px);
 }
+.tag.android { background: rgba(61, 220, 132, 0.3); color: #1a5a2a; }
+.tag.ios { background: rgba(255, 255, 255, 0.6); color: #333; }
+.tag.appsflyer { background: rgba(0, 198, 255, 0.3); color: #0055aa; }
+.status-badge { background: rgba(0, 200, 83, 0.2); color: #2a7a3a; border: 1px solid rgba(0, 200, 83, 0.4); }
 
-.tag.android {
-  background: rgba(61, 220, 132, 0.3);
-  color: #1a5a2a;
+/* Detail View with Background Image */
+.detail-view {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 40px;
+  padding: 30px;
+  overflow: hidden;
+  z-index: 1;
 }
-
-.tag.ios {
-  background: rgba(255, 255, 255, 0.6);
-  color: #333;
+/* Dark overlay for better text readability */
+.detail-view::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  z-index: -1;
 }
-
-.tag.appsflyer {
-  background: rgba(0, 198, 255, 0.3);
-  color: #0055aa;
+.detail-content {
+  position: relative;
+  z-index: 2;
+  color: white;
 }
-
-.tag.adjust {
-  background: rgba(255, 107, 53, 0.3);
-  color: #aa3300;
-}
-
-.status-badge {
-  background: rgba(0, 200, 83, 0.2);
-  color: #2a7a3a;
-  border: 1px solid rgba(0, 200, 83, 0.4);
-}
-
-.no-results {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
+.detail-icon {
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 30px;
-  padding: 40px;
-  text-align: center;
-  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 55px;
+  margin: 0 auto 20px;
+  overflow: hidden;
 }
+.detail-name { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 10px; }
+.detail-package { font-size: 12px; text-align: center; font-family: monospace; margin-bottom: 25px; opacity: 0.8; }
+.detail-info {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 20px;
+}
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.detail-label { color: #ccc; font-size: 12px; }
+.detail-value { color: #fff; font-weight: 600; }
+.back-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  transition: 0.2s;
+}
+.back-btn:hover { background: rgba(255, 255, 255, 0.4); }
 
-/* Footer */
+.hidden { display: none; }
+.no-results { text-align: center; padding: 40px; color: #555; background: rgba(255,255,255,0.15); border-radius: 30px; }
 .glass-footer {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
@@ -352,7 +248,6 @@ body {
   text-align: center;
   font-size: 10px;
   color: #666;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   margin-top: 20px;
 }
 </style>
@@ -364,154 +259,203 @@ body {
 <div class="bg-shape shape3"></div>
 
 <div class="container">
-  <!-- Glass Header -->
-  <div class="glass-header">
-    <div class="logo">ONI<span>STAR</span></div>
-    <div class="subtitle">✦ GLASS GAME LIBRARY ✦</div>
-  </div>
-
-  <!-- Stats -->
-  <div class="stats-grid" id="stats"></div>
-
-  <!-- Search -->
-  <div class="search-wrapper">
+  <div id="mainView">
+    <div class="glass-header">
+      <div class="logo">ONI<span>STAR</span></div>
+      <div class="subtitle">✦ GLASS GAME LIBRARY ✦</div>
+    </div>
+    <div class="stats-grid" id="stats"></div>
     <input type="text" class="search-box" id="searchInput" placeholder="🔍 search game or package...">
-  </div>
-
-  <!-- Filters -->
-  <div class="filter-section">
-    <div class="filter-title">PLATFORM</div>
-    <div class="filter-buttons" id="platformFilters">
-      <button class="filter-btn active" data-platform="all">ALL</button>
-      <button class="filter-btn" data-platform="android">🤖 ANDROID</button>
-      <button class="filter-btn" data-platform="ios">🍎 IOS</button>
+    
+    <div class="filter-section">
+      <div class="filter-title">PLATFORM</div>
+      <div class="filter-buttons" id="platformFilters">
+        <button class="filter-btn active" data-platform="all">ALL</button>
+        <button class="filter-btn" data-platform="android">🤖 ANDROID</button>
+        <button class="filter-btn" data-platform="ios">🍎 IOS</button>
+      </div>
     </div>
-  </div>
 
-  <div class="filter-section">
-    <div class="filter-title">PROVIDER</div>
-    <div class="filter-buttons" id="providerFilters">
-      <button class="filter-btn active" data-provider="all">ALL</button>
-      <button class="filter-btn" data-provider="appsflyer">📡 APPSFLYER</button>
-      <button class="filter-btn" data-provider="adjust">📊 ADJUST</button>
-      <button class="filter-btn" data-provider="singular">🎯 SINGULAR</button>
+    <div class="filter-section">
+      <div class="filter-title">PROVIDER</div>
+      <div class="filter-buttons" id="providerFilters">
+        <button class="filter-btn active" data-provider="all">ALL</button>
+        <button class="filter-btn" data-provider="appsflyer">📡 APPSFLYER</button>
+        <button class="filter-btn" data-provider="adjust">📊 ADJUST</button>
+        <button class="filter-btn" data-provider="singular">🎯 SINGULAR</button>
+      </div>
     </div>
+
+    <div class="games-grid" id="gamesList">🎮 loading games...</div>
   </div>
 
-  <!-- Games List -->
-  <div class="games-grid" id="gamesList">
-    <div class="no-results">🎮 loading games...</div>
+  <div id="detailView" class="hidden">
+    <div class="detail-view" id="detailContent"></div>
+    <button class="back-btn" onclick="showMainView()">🔙 BACK TO GAMES</button>
   </div>
 
-  <!-- Footer -->
-  <div class="glass-footer">
-    ONISTAR • S2S BYPASS READY • GLASS EDITION
-  </div>
+  <div class="glass-footer">ONISTAR • S2S BYPASS READY • GLASS EDITION</div>
 </div>
 
 <script>
+  function getGameIcon(game) {
+    if (game.image && game.image !== "") {
+      return `<img src="${game.image}" alt="${game.name}">`;
+    }
+    return game.icon;
+  }
+
+  // Game Database (Added bg_image for Dice Dreams)
   const GAMES_DB = {
     "appsflyer": {
       "domino_dreams": {
         "name": "Domino Dreams",
         "package": "com.screenshake.dominodreams",
-        "android": true,
-        "ios": false,
-        "icon": "🎲",
-        "color": "#ff6b6b"
+        "android": true, "ios": false, "icon": "🎲",
+        "image": "https://play-lh.googleusercontent.com/_brT-4DSyZtx1SBTfL3yMQtytM_dPBIOaOMlGF7dG67Yw9rKe4oVj3OSt96hO7w1t2Q=s48-rw",
+        "dev_key": "Hn5qYjVAaRNJYDcwF4LaWF",
+        "event_format": "af_area_{}_completed",
+        "added_date": "2024-01-15"
       },
       "sunshine_island": {
         "name": "Sunshine Island",
         "package": "com.newmoonproduction.sunshineisland",
-        "android": true,
-        "ios": false,
-        "icon": "🏝️",
-        "color": "#ffd93d"
+        "android": true, "ios": false, "icon": "🏝️",
+        "image": "https://play-lh.googleusercontent.com/CJum7I6RZyYd7hQ_qpPgg1PyErE8jJbNiF2-yOmH86lW16wKpEPoZ1dOHFswGkwLcA=s48-rw",
+        "dev_key": "FtaT5WH9rMJjJkMd4LfBCT",
+        "event_format": "af_level{}_achieved",
+        "added_date": "2024-01-20"
       },
       "nations_of_darkness": {
         "name": "Nations of Darkness",
         "package": "com.allstarunion.nod",
-        "android": true,
-        "ios": true,
-        "icon": "🌑",
-        "color": "#9b59b6"
+        "android": true, "ios": true, "icon": "🌑",
+        "image": "https://play-lh.googleusercontent.com/f8nIYbPI7TZtTQt3R4R_YBgQ5QdYpZQcZi2vU6cYv6o-TIq5VXpM0dE8q4DlF1Q=s48-rw",
+        "dev_key": "x88hdqNmd8vALRmRMhgY4Q",
+        "event_format": "af_upgrade_city_lv_{}",
+        "added_date": "2024-01-10"
       },
       "dice_dreams": {
         "name": "Dice Dreams",
         "package": "com.superplaystudios.dicedreams",
-        "android": true,
-        "ios": false,
-        "icon": "🎲",
-        "color": "#3498db"
+        "android": true, "ios": false, "icon": "🎲",
+        "image": "https://play-lh.googleusercontent.com/5MLgC2WWXcq1Pol8qRAXOKzIJY9qySkjF43DnWyd5F9fPj_heinHeIxvgIpPQwcaQ1w-mUzUmoP1Xeslf29irg=s48-rw",
+        // 👇👇👇 ব্যাকগ্রাউন্ড ইমেজ এখানে যোগ করুন (আপনার কাজ করা URL দিন) 👇👇👇
+        "bg_image": "https://play-lh.googleusercontent.com/jZxrlBZlBckylCQbtdTF082laUuKjg0H9xzAtDgZG9vJeFx9KZHGZiS_VXkJ4SG9vxFxbeFw0m4RSgLbxXrW",
+        "dev_key": "Hn5qYjVAaRNJYDcwF4LaWF",
+        "event_format": "af_kingdom_{}_restored",
+        "added_date": "2024-01-25"
       }
     },
-    "adjust": {},
-    "singular": {}
+    "adjust": {}, "singular": {}
   };
 
-  let currentPlatform = "all";
-  let currentProvider = "all";
-  let searchTerm = "";
+  let allGames = [];
+  for (const [provider, games] of Object.entries(GAMES_DB)) {
+    for (const [id, game] of Object.entries(games)) {
+      allGames.push({ id, provider, ...game });
+    }
+  }
+
+  let currentPlatform = "all", currentProvider = "all", searchTerm = "";
 
   function updateStats() {
-    let total = 0, appsflyer = 0, adjust = 0, singular = 0, active = 0;
-    for (const [provider, games] of Object.entries(GAMES_DB)) {
-      for (const [id, game] of Object.entries(games)) {
-        total++;
-        active++;
-        if (provider === "appsflyer") appsflyer++;
-        if (provider === "adjust") adjust++;
-        if (provider === "singular") singular++;
-      }
-    }
+    let total = allGames.length;
+    let appsflyer = allGames.filter(g => g.provider === "appsflyer").length;
+    let adjust = allGames.filter(g => g.provider === "adjust").length;
+    let singular = allGames.filter(g => g.provider === "singular").length;
+    let active = allGames.length;
     document.getElementById("stats").innerHTML = `
-      <div class="stat-card"><div class="stat-number">${total}</div><div class="stat-label">GAMES</div></div>
+      <div class="stat-card"><div class="stat-number">${total}</div><div class="stat-label">TOTAL</div></div>
       <div class="stat-card"><div class="stat-number">${appsflyer}</div><div class="stat-label">APPSFLYER</div></div>
+      <div class="stat-card"><div class="stat-number">${adjust}</div><div class="stat-label">ADJUST</div></div>
+      <div class="stat-card"><div class="stat-number">${singular}</div><div class="stat-label">SINGULAR</div></div>
       <div class="stat-card"><div class="stat-number">${active}</div><div class="stat-label">ACTIVE</div></div>
     `;
   }
 
+  function showGameDetail(gameId, provider) {
+    const game = GAMES_DB[provider]?.[gameId];
+    if (!game) return;
+    
+    const platforms = [];
+    if (game.android) platforms.push("🤖 Android");
+    if (game.ios) platforms.push("🍎 iOS");
+    
+    // ব্যাকগ্রাউন্ড ইমেজ সেট করুন
+    const detailDiv = document.querySelector(".detail-view");
+    if (game.bg_image && game.bg_image !== "") {
+      detailDiv.style.backgroundImage = `url('${game.bg_image}')`;
+      detailDiv.style.backgroundSize = "cover";
+      detailDiv.style.backgroundPosition = "center";
+    } else {
+      detailDiv.style.backgroundImage = "none";
+      detailDiv.style.background = "rgba(0, 0, 0, 0.7)";
+    }
+    
+    const detailHtml = `
+      <div class="detail-content">
+        <div class="detail-icon">${getGameIcon(game)}</div>
+        <div class="detail-name">${game.name}</div>
+        <div class="detail-package">${game.package}</div>
+        <div class="detail-info">
+          <div class="detail-row"><span class="detail-label">Provider</span><span class="detail-value">📡 ${provider.toUpperCase()}</span></div>
+          <div class="detail-row"><span class="detail-label">Platform</span><span class="detail-value">${platforms.join(" | ")}</span></div>
+          <div class="detail-row"><span class="detail-label">Status</span><span class="detail-value">✅ Active</span></div>
+          <div class="detail-row"><span class="detail-label">Dev Key</span><span class="detail-value"><code>${game.dev_key?.substring(0, 15)}...</code></span></div>
+          <div class="detail-row"><span class="detail-label">Event Format</span><span class="detail-value"><code>${game.event_format}</code></span></div>
+          <div class="detail-row"><span class="detail-label">Added Date</span><span class="detail-value">${game.added_date}</span></div>
+        </div>
+      </div>
+    `;
+    
+    document.getElementById("detailContent").innerHTML = detailHtml;
+    document.getElementById("mainView").classList.add("hidden");
+    document.getElementById("detailView").classList.remove("hidden");
+  }
+
+  function showMainView() {
+    document.getElementById("detailView").classList.add("hidden");
+    document.getElementById("mainView").classList.remove("hidden");
+    renderGames();
+  }
+
   function renderGames() {
     const container = document.getElementById("gamesList");
-    let html = "";
-    let count = 0;
-
-    for (const [provider, games] of Object.entries(GAMES_DB)) {
-      for (const [id, game] of Object.entries(games)) {
-        if (searchTerm && !game.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-            !game.package.toLowerCase().includes(searchTerm.toLowerCase())) continue;
-        if (currentPlatform !== "all") {
-          if (currentPlatform === "android" && !game.android) continue;
-          if (currentPlatform === "ios" && !game.ios) continue;
-        }
-        if (currentProvider !== "all" && currentProvider !== provider) continue;
-        count++;
-
-        let tags = `<span class="tag ${provider}">📡 ${provider.toUpperCase()}</span>`;
-        if (game.android) tags += `<span class="tag android">🤖 ANDROID</span>`;
-        if (game.ios) tags += `<span class="tag ios">🍎 IOS</span>`;
-        tags += `<span class="tag status-badge">● ACTIVE</span>`;
-
-        html += `
-          <div class="game-card">
-            <div class="game-icon">${game.icon}</div>
-            <div class="game-info">
-              <div class="game-name">${game.name}</div>
-              <div class="game-package">${game.package}</div>
-              <div class="game-tags">${tags}</div>
-            </div>
-          </div>
-        `;
+    let filtered = allGames.filter(game => {
+      if (searchTerm && !game.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          !game.package.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+      if (currentPlatform !== "all") {
+        if (currentPlatform === "android" && !game.android) return false;
+        if (currentPlatform === "ios" && !game.ios) return false;
       }
+      if (currentProvider !== "all" && game.provider !== currentProvider) return false;
+      return true;
+    });
+    if (filtered.length === 0) {
+      container.innerHTML = `<div class="no-results">🎮 NO GAMES FOUND</div>`;
+      return;
     }
-
-    if (count === 0) {
-      html = `<div class="no-results">🎮 NO GAMES FOUND<br><span style="font-size:12px;">try different filters</span></div>`;
-    }
+    let html = "";
+    filtered.forEach(game => {
+      let tags = `<span class="tag ${game.provider}">📡 ${game.provider.toUpperCase()}</span>`;
+      if (game.android) tags += `<span class="tag android">🤖 ANDROID</span>`;
+      if (game.ios) tags += `<span class="tag ios">🍎 IOS</span>`;
+      tags += `<span class="tag status-badge">● ACTIVE</span>`;
+      html += `
+        <div class="game-card" onclick='showGameDetail("${game.id}", "${game.provider}")'>
+          <div class="game-icon">${getGameIcon(game)}</div>
+          <div class="game-info">
+            <div class="game-name">${game.name}</div>
+            <div class="game-package">${game.package}</div>
+            <div class="game-tags">${tags}</div>
+          </div>
+        </div>
+      `;
+    });
     container.innerHTML = html;
   }
 
-  // Event Listeners
   document.querySelectorAll("[data-platform]").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll("[data-platform]").forEach(b => b.classList.remove("active"));
@@ -520,7 +464,6 @@ body {
       renderGames();
     });
   });
-
   document.querySelectorAll("[data-provider]").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll("[data-provider]").forEach(b => b.classList.remove("active"));
@@ -529,7 +472,6 @@ body {
       renderGames();
     });
   });
-
   document.getElementById("searchInput").addEventListener("input", (e) => {
     searchTerm = e.target.value;
     renderGames();
