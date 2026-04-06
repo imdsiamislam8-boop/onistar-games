@@ -654,27 +654,7 @@
         let s = Math.max(1, currentPage-2), e = Math.min(tp, currentPage+2);
         if (s > 1) { html += `<button class="page-btn" onclick="changePage(1)">1</button>`; if (s > 2) html += `<span style="padding:0 4px;">...</span>`; }
         for (let i = s; i <= e; i++) html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="changePage(${i})">${i}</button>`;
-        if (e < tp) { if (e < tp-1) html += `<span style="padding:0 4px;">...</span>`; html += `<button class="page-btn" onclick="changePage(${tp})">${tp}</button>`; }
-        html += `<button class="page-btn ${currentPage===tp?'disabled':''}" onclick="changePage(${currentPage+1})">NEXT ▶</button>`;
-        document.getElementById("pagination").innerHTML = html;
-    }
-    
-    function changePage(page) {
-        currentPage = page;
-        renderGames();
-        
-        // মোবাইল ও পিসি সাপোর্ট সহ স্মুথ স্ক্রোল
-        setTimeout(() => {
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'smooth'
-            });
-        }, 100);
-    }
-
-    function showDetail(id, provider) {
-        const game = GAMES_DB[provider]?.[id];
+ 
         if (!game) return;
         const platforms = []; if (game.android) platforms.push("🤖 Android"); if (game.ios) platforms.push("🍎 iOS");
         const dv = document.querySelector(".detail-view");
