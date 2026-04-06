@@ -1,387 +1,418 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>ONISTAR | Glass Game Library</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ONISTAR | Light Blur Sticky Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+        body {
+            background-color: #E0E5E5;
+            min-height: 100vh;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            padding: 2rem;
+            position: relative;
+        }
 
-body {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #c0c0c0, #e8e8e8, #f0f0f0);
-  font-family: 'Poppins', sans-serif;
-  padding: 20px;
-  position: relative;
-  overflow-x: hidden;
-}
+        /* Background floating shapes */
+        .bg-shape {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: float 12s ease-in-out infinite alternate;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        .shape1 { background: #c5d0d0; top: -10%; left: -5%; }
+        .shape2 { background: #d0dbdb; bottom: -10%; right: -5%; animation-delay: -5s; }
+        .shape3 { background: #bcc7c7; top: 40%; left: 60%; width: 300px; height: 300px; animation-delay: -3s; }
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) scale(1);}
+            100% { transform: translateY(40px) translateX(25px) scale(1.1);}
+        }
 
-/* Liquid blur shapes */
-.bg-shape {
-  position: fixed;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  filter: blur(100px);
-  animation: float 10s ease-in-out infinite alternate;
-  z-index: 0;
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
 
-.shape1 { background: #b0b0b0; top: -10%; left: -10%; }
-.shape2 { background: #d0d0d0; bottom: -10%; right: -10%; animation-delay: -5s; }
-.shape3 { background: #c8c8c8; top: 50%; left: 30%; width: 300px; height: 300px; animation-delay: -3s; }
+        /* Header */
+        .glass-header {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2c3e3e, #1a2a2a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo span {
+            background: linear-gradient(135deg, #e6b422, #ffd966);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            font-size: 0.75rem;
+            color: #5a6a6a;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+        }
 
-@keyframes float {
-  0% { transform: translateY(0px) translateX(0px) scale(1);}
-  50% { transform: translateY(30px) translateX(20px) scale(1.1);}
-  100% { transform: translateY(0px) translateX(0px) scale(1);}
-}
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(6px);
+            border-radius: 1.2rem;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: 0.2s;
+        }
+        .stat-number {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #2c3e3e, #1e2e2e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: #4a5a5a;
+            font-weight: 600;
+            margin-top: 0.3rem;
+        }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 10;
-}
+        /* ========== STICKY LIGHT BLUR SEARCH BAR ========== */
+        .sticky-search-wrapper {
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            margin-bottom: 2rem;
+        }
+        
+        .blur-search-bar-container {
+            position: relative;
+            border-radius: 2rem;
+            background: rgba(220, 230, 230, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar-content {
+            padding: 0.9rem 1.5rem;
+        }
+        
+        .blur-search-input {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 245, 0.7);
+            border-radius: 3rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1e2e2a;
+            font-family: 'Poppins', sans-serif;
+        }
+        .blur-search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #c0d0b0;
+        }
+        
+        /* Filter sections - SMALLER SIZE with light blur */
+        .filter-section {
+            margin-top: 0.7rem;
+        }
+        .filter-title {
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #4a5e5a;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.4rem;
+            padding-left: 0.5rem;
+        }
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .filter-btn {
+            background: rgba(250, 252, 250, 0.75);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(180, 190, 170, 0.5);
+            padding: 0.35rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #3a4e4a;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .filter-btn:hover {
+            background: rgba(255, 250, 220, 0.9);
+            transform: scale(1.02);
+        }
+        .filter-btn.active {
+            background: #2c3e3e;
+            border-color: #2c3e3e;
+            color: white;
+            font-weight: 700;
+        }
 
-/* Glass Header */
-.glass-header {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(20px);
-  border-radius: 40px;
-  padding: 25px 30px;
-  margin-bottom: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  text-align: center;
-  transition: 0.3s;
-}
-.glass-header:hover { transform: scale(1.02); background: rgba(255, 255, 255, 0.3); }
+        /* ========== GAME CARDS - LIGHT BLUR (পেছনের জিনিস দেখা যাবে) ========== */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .game-card {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 1.8rem;
+            padding: 1.2rem;
+            display: flex;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+        .game-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border-color: rgba(255, 245, 200, 0.8);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.12);
+        }
+        .game-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .game-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .game-info {
+            flex: 1;
+        }
+        .game-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #1a2a2a;
+            letter-spacing: -0.3px;
+        }
+        .game-package {
+            font-size: 0.7rem;
+            color: #5a6a6a;
+            font-family: monospace;
+            margin: 0.3rem 0 0.6rem;
+        }
+        .game-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .tag {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 1.5rem;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(2px);
+            font-weight: 600;
+        }
+        .tag.android { background: rgba(165, 215, 110, 0.55); color: #1e4a1a; }
+        .tag.ios { background: rgba(210, 225, 250, 0.75); color: #2c3a6a; }
+        .tag.appsflyer { background: rgba(0, 160, 210, 0.4); color: #005577; }
+        .tag.adjust { background: rgba(255, 140, 80, 0.4); color: #884d00; }
+        .tag.singular { background: rgba(140, 100, 200, 0.4); color: #3a2260; }
+        .status-badge { background: rgba(100, 180, 100, 0.35); color: #2a6a2a; border: 1px solid rgba(100, 150, 70, 0.4); }
 
-.logo {
-  font-size: 28px;
-  font-weight: 700;
-  background: linear-gradient(90deg, #4a4a4a, #2a2a2a);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.logo span {
-  background: linear-gradient(90deg, #ff7e5f, #feb47b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.subtitle { font-size: 12px; color: #555; letter-spacing: 2px; margin-top: 8px; }
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            margin: 2rem 0 1rem;
+            flex-wrap: wrap;
+        }
+        .page-btn {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #4a5a5a;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .page-btn:hover {
+            background: rgba(255, 255, 255, 0.85);
+            transform: scale(1.03);
+        }
+        .page-btn.active {
+            background: #2c3e3e;
+            border-color: #2c3e3e;
+            color: white;
+        }
+        .page-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
 
-/* Stats Cards */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-  margin-bottom: 25px;
-}
-@media (max-width: 550px) { 
-  .stats-grid { 
-    display: flex; 
-    flex-wrap: nowrap; 
-    overflow-x: auto; 
-    gap: 8px; 
-    padding-bottom: 5px;
-  }
-  .stat-card { 
-    flex: 0 0 auto; 
-    min-width: 70px;
-  }
-}
+        /* Detail View */
+        .detail-view {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            border-radius: 2rem;
+            padding: 2rem;
+            min-height: 500px;
+        }
+        .detail-view::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 2rem;
+            z-index: 0;
+        }
+        .detail-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+        }
+        .detail-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 1rem;
+            border: 1px solid rgba(255,215,120,0.6);
+        }
+        .detail-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+        }
+        .detail-package {
+            text-align: center;
+            font-family: monospace;
+            margin: 0.5rem 0 1.5rem;
+            opacity: 0.8;
+        }
+        .detail-info {
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(16px);
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255,215,120,0.2);
+        }
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 0.7rem;
+            border-radius: 2rem;
+            width: 100%;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            transition: 0.2s;
+        }
+        .back-btn:hover {
+            background: rgba(255,255,255,0.35);
+        }
+        .hidden { display: none; }
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            color: #6a7a6a;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #6a7a7a;
+            padding: 1rem;
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(4px);
+            border-radius: 2rem;
+        }
 
-.stat-card {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(15px);
-  border-radius: 13px;
-  padding: 12px 8px;
-  text-align: center;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  transition: 0.3s;
-}
-.stat-card:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.3); }
-.stat-number { font-size: 20px; font-weight: 600; background: linear-gradient(90deg, #333, #111); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.stat-label { font-size: 11px; color: #000000; margin-top: 4px; }
-
-/* Sticky Search Wrapper */
-.sticky-container {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(200, 200, 200, 0.95);
-  backdrop-filter: blur(15px);
-  padding: 10px 0;
-  margin: 0 -20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 0 0 25px 25px;
-  margin-bottom: 20px;
-}
-
-/* Search Box */
-.search-box {
-  width: 100%;
-  padding: 14px 20px;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 50px;
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 15px;
-}
-.search-box:focus { outline: none; background: rgba(255, 255, 255, 0.4); }
-
-/* Filter Sections */
-.filter-section {
-  margin-bottom: 12px;
-}
-
-.filter-title {
-  font-size: 10px;
-  color: #555;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
-  padding-left: 5px;
-}
-
-.filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.filter-btn {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 6px 16px;
-  border-radius: 30px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #444;
-  cursor: pointer;
-  transition: 0.2s;
-  white-space: nowrap;
-}
-
-.filter-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
-  transform: scale(1.02);
-}
-
-.filter-btn.active {
-  background: rgba(255, 255, 255, 0.6);
-  border-color: rgba(255, 255, 255, 0.8);
-  color: #000;
-  font-weight: 600;
-}
-
-/* Mobile: horizontal scroll for filters */
-@media (max-width: 550px) {
-  .filter-buttons {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 8px;
-    padding-bottom: 5px;
-    -webkit-overflow-scrolling: touch;
-  }
-  .filter-btn {
-    flex: 0 0 auto;
-    padding: 5px 12px;
-    font-size: 11px;
-  }
-}
-
-/* Games Grid */
-.games-grid { display: flex; flex-direction: column; gap: 16px; margin: 20px 0; }
-.game-card {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(15px);
-  border-radius: 25px;
-  padding: 16px;
-  display: flex;
-  gap: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-  transition: 0.3s;
-}
-.game-card:hover { transform: translateX(8px); background: rgba(255, 255, 255, 0.3); }
-.game-icon {
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-  overflow: hidden;
-}
-.game-icon img { width: 100%; height: 100%; object-fit: cover; }
-.game-name { font-size: 17px; font-weight: 600; color: #1a1a1a; }
-.game-package { font-size: 10px; color: #666; font-family: monospace; margin: 4px 0 8px; }
-.game-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.tag {
-  font-size: 9px;
-  padding: 4px 12px;
-  border-radius: 20px;
-  background: rgba(0, 0, 0, 0.05);
-}
-.tag.android { background: rgba(61, 220, 132, 0.3); color: #1a5a2a; }
-.tag.ios { background: rgba(255, 255, 255, 0.6); color: #333; }
-.tag.appsflyer { background: rgba(0, 198, 255, 0.3); color: #0055aa; }
-.status-badge { background: rgba(0, 200, 83, 0.2); color: #2a7a3a; border: 1px solid rgba(0, 200, 83, 0.4); }
-
-/* Pagination Styles */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin: 30px 0 20px;
-  flex-wrap: wrap;
-}
-
-.page-btn {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 8px 14px;
-  border-radius: 30px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #444;
-  cursor: pointer;
-  transition: 0.2s;
-  min-width: 40px;
-}
-
-.page-btn:hover {
-  background: rgba(255, 255, 255, 0.4);
-  transform: scale(1.05);
-}
-
-.page-btn.active {
-  background: rgba(255, 255, 255, 0.6);
-  border-color: rgba(255, 255, 255, 0.8);
-  color: #000;
-  font-weight: 700;
-}
-
-.page-btn.disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.page-btn.disabled:hover {
-  transform: none;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Detail View */
-.detail-view {
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 40px;
-  padding: 30px;
-  overflow: hidden;
-  z-index: 1;
-  min-height: 500px;
-}
-
-.detail-view::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.7) 100%);
-  backdrop-filter: blur(5px);
-  z-index: 0;
-}
-
-.detail-content {
-  position: relative;
-  z-index: 2;
-  color: white;
-}
-
-.detail-icon {
-  width: 100px;
-  height: 100px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 55px;
-  margin: 0 auto 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  overflow: hidden;
-}
-
-.detail-name { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-.detail-package { font-size: 12px; text-align: center; font-family: monospace; margin-bottom: 25px; opacity: 0.9; }
-
-.detail-info {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  border-radius: 25px;
-  padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.detail-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.detail-row:last-child { border-bottom: none; }
-.detail-label { color: rgba(255,255,255,0.7); font-size: 12px; }
-.detail-value { color: #fff; font-weight: 600; }
-
-.back-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 12px 24px;
-  border-radius: 30px;
-  font-size: 14px;
-  color: #fff;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 20px;
-  transition: 0.2s;
-}
-.back-btn:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.02); }
-
-.hidden { display: none; }
-.no-results { text-align: center; padding: 40px; color: #555; background: rgba(255,255,255,0.15); border-radius: 30px; }
-
-.glass-footer {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 30px;
-  padding: 15px;
-  text-align: center;
-  font-size: 10px;
-  color: #666;
-  margin-top: 20px;
-}
-</style>
+        @media (max-width: 680px) {
+            body { padding: 1rem; }
+            .games-grid { grid-template-columns: 1fr; }
+            .game-card { padding: 1rem; }
+            .sticky-search-wrapper {
+                top: 0.5rem;
+            }
+            .search-bar-content {
+                padding: 0.7rem 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -390,318 +421,194 @@ body {
 <div class="bg-shape shape3"></div>
 
 <div class="container">
-  <div id="mainView">
-    <div class="glass-header">
-      <div class="logo">ONI<span>STAR</span></div>
-      <div class="subtitle">✦ GLASS GAME LIBRARY ✦</div>
-    </div>
-    
-    <div class="stats-grid" id="stats"></div>
-    
-    <!-- Sticky Container for Search and Filters -->
-    <div class="sticky-container">
-      <input type="text" class="search-box" id="searchInput" placeholder="🔍 search game or package...">
-      
-      <div class="filter-section">
-        <div class="filter-title">PLATFORM</div>
-        <div class="filter-buttons" id="platformFilters">
-          <button class="filter-btn active" data-platform="all">ALL</button>
-          <button class="filter-btn" data-platform="android">🤖 ANDROID</button>
-          <button class="filter-btn" data-platform="ios">🍎 IOS</button>
+    <div id="mainView">
+        <div class="glass-header">
+            <div class="logo">ONI<span>STAR</span></div>
+            <div class="subtitle">✦ LIGHT BLUR STICKY SEARCH ✦</div>
         </div>
-      </div>
 
-      <div class="filter-section">
-        <div class="filter-title">PROVIDER</div>
-        <div class="filter-buttons" id="providerFilters">
-          <button class="filter-btn active" data-provider="all">ALL</button>
-          <button class="filter-btn" data-provider="appsflyer">📡 APPSFLYER</button>
-          <button class="filter-btn" data-provider="adjust">📊 ADJUST</button>
-          <button class="filter-btn" data-provider="singular">🎯 SINGULAR</button>
+        <div class="stats-grid" id="stats"></div>
+
+        <!-- Sticky Search Bar Wrapper - Light Blur -->
+        <div class="sticky-search-wrapper">
+            <div class="blur-search-bar-container">
+                <div class="search-bar-content">
+                    <input type="text" class="blur-search-input" id="searchInput" placeholder="🔍 search game or package...">
+                    <div class="filter-section">
+                        <div class="filter-title">PLATFORM</div>
+                        <div class="filter-buttons" id="platformFilters">
+                            <button class="filter-btn active" data-platform="all">ALL</button>
+                            <button class="filter-btn" data-platform="android">🤖 ANDROID</button>
+                            <button class="filter-btn" data-platform="ios">🍎 IOS</button>
+                        </div>
+                    </div>
+                    <div class="filter-section">
+                        <div class="filter-title">PROVIDER</div>
+                        <div class="filter-buttons" id="providerFilters">
+                            <button class="filter-btn active" data-provider="all">ALL</button>
+                            <button class="filter-btn" data-provider="appsflyer">📡 APPSFLYER</button>
+                            <button class="filter-btn" data-provider="adjust">📊 ADJUST</button>
+                            <button class="filter-btn" data-provider="singular">🎯 SINGULAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <!-- Games Grid with LIGHT BLUR CARDS -->
+        <div class="games-grid" id="gamesList">🎮 loading games...</div>
+        <div class="pagination" id="pagination"></div>
+        <div class="footer">ONISTAR • S2S BYPASS • LIGHT BLUR SYSTEM</div>
     </div>
 
-    <div class="games-grid" id="gamesList">🎮 loading games...</div>
-    
-    <!-- Pagination -->
-    <div class="pagination" id="pagination"></div>
-  </div>
-
-  <div id="detailView" class="hidden">
-    <div class="detail-view" id="detailContent"></div>
-    <button class="back-btn" onclick="showMainView()">🔙 BACK TO GAMES</button>
-  </div>
-
-  <div class="glass-footer">ONISTAR • S2S BYPASS READY • GLASS EDITION</div>
+    <div id="detailView" class="hidden">
+        <div class="detail-view" id="detailContent"></div>
+        <button class="back-btn" onclick="showMainView()">🔙 BACK TO GAMES</button>
+    </div>
 </div>
 
 <script>
-  // Game Database
-  const GAMES_DB = {
-    "appsflyer": {
-      "domino_dreams": {
-        "name": "Domino Dreams",
-        "package": "com.screenshake.dominodreams",
-        "android": true, "ios": false, "icon": "🎲",
-        "image": "https://play-lh.googleusercontent.com/_brT-4DSyZtx1SBTfL3yMQtytM_dPBIOaOMlGF7dG67Yw9rKe4oVj3OSt96hO7w1t2Q=s48-rw",
-        "dev_key": "Hn5qYjVAaRNJYDcwF4LaWF",
-        "event_format": "af_area_{}_completed",
-        "added_date": "2024-01-15"
-      },
-      "sunshine_island": {
-        "name": "Sunshine Island",
-        "package": "com.newmoonproduction.sunshineisland",
-        "android": true, "ios": false, "icon": "🏝️",
-        "image": "https://play-lh.googleusercontent.com/CJum7I6RZyYd7hQ_qpPgg1PyErE8jJbNiF2-yOmH86lW16wKpEPoZ1dOHFswGkwLcA=s48-rw",
-        "dev_key": "FtaT5WH9rMJjJkMd4LfBCT",
-        "event_format": "af_level{}_achieved",
-        "added_date": "2024-01-20"
-      },
-      "nations_of_darkness": {
-        "name": "Nations of Darkness",
-        "package": "com.allstarunion.nod",
-        "android": true, "ios": true, "icon": "🌑",
-        "image": "https://play-lh.googleusercontent.com/f8nIYbPI7TZtTQt3R4R_YBgQ5QdYpZQcZi2vU6cYv6o-TIq5VXpM0dE8q4DlF1Q=s48-rw",
-        "dev_key": "x88hdqNmd8vALRmRMhgY4Q",
-        "event_format": "af_upgrade_city_lv_{}",
-        "added_date": "2024-01-10"
-      },
-      "dice_dreams": {
-        "name": "Dice Dreams",
-        "package": "com.superplaystudios.dicedreams",
-        "android": true, "ios": false, "icon": "🎲",
-        "image": "https://play-lh.googleusercontent.com/5MLgC2WWXcq1Pol8qRAXOKzIJY9qySkjF43DnWyd5F9fPj_heinHeIxvgIpPQwcaQ1w-mUzUmoP1Xeslf29irg=s48-rw",
-        "bg_image": "https://play-lh.googleusercontent.com/jZxrlBZlBckylCQbtdTF082laUuKjg0H9xzAtDgZG9vJeFx9KZHGZiS_VXkJ4SG9vxFxbeFw0m4RSgLbxXrW",
-        "dev_key": "Hn5qYjVAaRNJYDcwF4LaWF",
-        "event_format": "af_kingdom_{}_restored",
-        "added_date": "2024-01-25"
-      }
-    },
-    "adjust": {}, 
-    "singular": {}
-  };
+    // Game Database
+    const GAMES_DB = {
+        "appsflyer": {
+            "domino_dreams": { "name": "Domino Dreams", "package": "com.screenshake.dominodreams", "android": true, "ios": false, "icon": "🎲", "image": "https://play-lh.googleusercontent.com/_brT-4DSyZtx1SBTfL3yMQtytM_dPBIOaOMlGF7dG67Yw9rKe4oVj3OSt96hO7w1t2Q=s48-rw", "dev_key": "Hn5qYjVAaRNJYDcwF4LaWF", "event_format": "af_area_{}_completed", "added_date": "2024-01-15" },
+            "sunshine_island": { "name": "Sunshine Island", "package": "com.newmoonproduction.sunshineisland", "android": true, "ios": false, "icon": "🏝️", "image": "https://play-lh.googleusercontent.com/CJum7I6RZyYd7hQ_qpPgg1PyErE8jJbNiF2-yOmH86lW16wKpEPoZ1dOHFswGkwLcA=s48-rw", "dev_key": "FtaT5WH9rMJjJkMd4LfBCT", "event_format": "af_level{}_achieved", "added_date": "2024-01-20" },
+            "nations_of_darkness": { "name": "Nations of Darkness", "package": "com.allstarunion.nod", "android": true, "ios": true, "icon": "🌑", "image": "https://play-lh.googleusercontent.com/f8nIYbPI7TZtTQt3R4R_YBgQ5QdYpZQcZi2vU6cYv6o-TIq5VXpM0dE8q4DlF1Q=s48-rw", "dev_key": "x88hdqNmd8vALRmRMhgY4Q", "event_format": "af_upgrade_city_lv_{}", "added_date": "2024-01-10" },
+            "dice_dreams": { "name": "Dice Dreams", "package": "com.superplaystudios.dicedreams", "android": true, "ios": false, "icon": "🎲", "image": "https://play-lh.googleusercontent.com/5MLgC2WWXcq1Pol8qRAXOKzIJY9qySkjF43DnWyd5F9fPj_heinHeIxvgIpPQwcaQ1w-mUzUmoP1Xeslf29irg=s48-rw", "bg_image": "https://play-lh.googleusercontent.com/jZxrlBZlBckylCQbtdTF082laUuKjg0H9xzAtDgZG9vJeFx9KZHGZiS_VXkJ4SG9vxFxbeFw0m4RSgLbxXrW", "dev_key": "Hn5qYjVAaRNJYDcwF4LaWF", "event_format": "af_kingdom_{}_restored", "added_date": "2024-01-25" }
+        },
+        "adjust": {
+            "mythic_raid": { "name": "Mythic Raid", "package": "com.adjust.mythicraid", "android": true, "ios": true, "icon": "⚔️", "image": "", "dev_key": "adj_mythic123", "event_format": "adjust_raid_boss_{}", "added_date": "2024-02-10" }
+        },
+        "singular": {
+            "shadow_legends": { "name": "Shadow Legends", "package": "com.singular.shadow", "android": true, "ios": true, "icon": "👑", "image": "", "dev_key": "sing_shadow456", "event_format": "singular_battle_{}", "added_date": "2024-03-01" }
+        }
+    };
 
-  // Collect all games
-  let allGames = [];
-  for (const [provider, games] of Object.entries(GAMES_DB)) {
-    for (const [id, game] of Object.entries(games)) {
-      allGames.push({ id, provider, ...game });
+    let allGames = [];
+    for (const [provider, games] of Object.entries(GAMES_DB)) {
+        for (const [id, game] of Object.entries(games)) {
+            allGames.push({ id, provider, ...game });
+        }
     }
-  }
+    // extra games
+    for (let i = 1; i <= 14; i++) {
+        const prov = i % 3 === 0 ? "adjust" : (i % 2 === 0 ? "singular" : "appsflyer");
+        allGames.push({
+            id: `extra_${i}`, provider: prov, name: `${prov === 'appsflyer' ? 'Aurora' : prov === 'adjust' ? 'Vortex' : 'Eclipse'} Game ${i}`,
+            package: `com.blur.${prov}.game${i}`, android: true, ios: i % 2 === 0, icon: "🎮",
+            dev_key: `blurkey_${i}`, event_format: `blur_event_${i}_{}`, added_date: "2024-04-10"
+        });
+    }
 
-  // Add more sample games for testing pagination (remove this later)
-  for (let i = 1; i <= 15; i++) {
-    allGames.push({
-      id: `sample_game_${i}`,
-      provider: "appsflyer",
-      name: `Sample Game ${i}`,
-      package: `com.sample.game${i}`,
-      android: true,
-      ios: i % 2 === 0,
-      icon: "🎮",
-      dev_key: "sample_dev_key",
-      event_format: "af_sample_event_{}",
-      added_date: "2024-04-05"
+    let currentPlatform = "all", currentProvider = "all", searchTerm = "", currentPage = 1;
+    const gamesPerPage = 12;
+
+    function getGameIcon(g) { return (g.image && g.image.startsWith("http")) ? `<img src="${g.image}" alt="${g.name}">` : g.icon; }
+    
+    function updateStats() {
+        document.getElementById("stats").innerHTML = `
+            <div class="stat-card"><div class="stat-number">${allGames.length}</div><div class="stat-label">TOTAL</div></div>
+            <div class="stat-card"><div class="stat-number">${allGames.filter(g=>g.provider==="appsflyer").length}</div><div class="stat-label">APPSFLYER</div></div>
+            <div class="stat-card"><div class="stat-number">${allGames.filter(g=>g.provider==="adjust").length}</div><div class="stat-label">ADJUST</div></div>
+            <div class="stat-card"><div class="stat-number">${allGames.filter(g=>g.provider==="singular").length}</div><div class="stat-label">SINGULAR</div></div>
+            <div class="stat-card"><div class="stat-number">${allGames.length}</div><div class="stat-label">ACTIVE</div></div>
+        `;
+    }
+
+    function getFiltered() {
+        return allGames.filter(g => {
+            if (searchTerm && !g.name.toLowerCase().includes(searchTerm.toLowerCase()) && !g.package.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+            if (currentPlatform !== "all") { if (currentPlatform === "android" && !g.android) return false; if (currentPlatform === "ios" && !g.ios) return false; }
+            if (currentProvider !== "all" && g.provider !== currentProvider) return false;
+            return true;
+        });
+    }
+
+    function renderGames() {
+        const filtered = getFiltered();
+        const totalPages = Math.ceil(filtered.length / gamesPerPage);
+        const start = (currentPage-1)*gamesPerPage;
+        const gamesToShow = filtered.slice(start, start+gamesPerPage);
+        const container = document.getElementById("gamesList");
+        if (!gamesToShow.length) { container.innerHTML = `<div class="no-results">🎮 NO GAMES FOUND</div>`; document.getElementById("pagination").innerHTML = ""; return; }
+        let html = "";
+        gamesToShow.forEach(g => {
+            let tags = `<span class="tag ${g.provider}">📡 ${g.provider.toUpperCase()}</span>`;
+            if(g.android) tags += `<span class="tag android">🤖 ANDROID</span>`;
+            if(g.ios) tags += `<span class="tag ios">🍎 IOS</span>`;
+            tags += `<span class="tag status-badge">● ACTIVE</span>`;
+            html += `<div class="game-card" onclick='showDetail("${g.id}","${g.provider}")'>
+                <div class="game-icon">${getGameIcon(g)}</div>
+                <div class="game-info">
+                    <div class="game-name">${escapeHtml(g.name)}</div>
+                    <div class="game-package">${g.package}</div>
+                    <div class="game-tags">${tags}</div>
+                </div>
+            </div>`;
+        });
+        container.innerHTML = html;
+        renderPagination(totalPages);
+    }
+
+    function escapeHtml(str) { return String(str).replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
+    
+    function renderPagination(tp) {
+        if (tp <= 1) { document.getElementById("pagination").innerHTML = ""; return; }
+        let html = `<button class="page-btn ${currentPage===1?'disabled':''}" onclick="changePage(${currentPage-1})">◀ PREV</button>`;
+        let s = Math.max(1, currentPage-2), e = Math.min(tp, currentPage+2);
+        if (s > 1) { html += `<button class="page-btn" onclick="changePage(1)">1</button>`; if (s > 2) html += `<span style="padding:0 4px;">...</span>`; }
+        for (let i = s; i <= e; i++) html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="changePage(${i})">${i}</button>`;
+        if (e < tp) { if (e < tp-1) html += `<span style="padding:0 4px;">...</span>`; html += `<button class="page-btn" onclick="changePage(${tp})">${tp}</button>`; }
+        html += `<button class="page-btn ${currentPage===tp?'disabled':''}" onclick="changePage(${currentPage+1})">NEXT ▶</button>`;
+        document.getElementById("pagination").innerHTML = html;
+    }
+    
+    function changePage(p) { currentPage = p; renderGames(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    function showDetail(id, provider) {
+        const game = GAMES_DB[provider]?.[id];
+        if (!game) return;
+        const platforms = []; if (game.android) platforms.push("🤖 Android"); if (game.ios) platforms.push("🍎 iOS");
+        const dv = document.querySelector(".detail-view");
+        if (game.bg_image) dv.style.backgroundImage = `url('${game.bg_image}')`;
+        else dv.style.background = "#1e2a2a";
+        const detailHtml = `<div class="detail-content"><div class="detail-icon">${getGameIcon(game)}</div><div class="detail-name">${escapeHtml(game.name)}</div><div class="detail-package">${game.package}</div><div class="detail-info">
+            <div class="detail-row"><span class="detail-label">Provider</span><span class="detail-value">📡 ${provider.toUpperCase()}</span></div>
+            <div class="detail-row"><span class="detail-label">Platform</span><span class="detail-value">${platforms.join(" | ")}</span></div>
+            <div class="detail-row"><span class="detail-label">Dev Key</span><span class="detail-value">${game.dev_key || '—'}</span></div>
+            <div class="detail-row"><span class="detail-label">Event Format</span><span class="detail-value">${game.event_format || '—'}</span></div>
+            <div class="detail-row"><span class="detail-label">Added</span><span class="detail-value">${game.added_date || '—'}</span></div>
+        </div></div>`;
+        document.getElementById("detailContent").innerHTML = detailHtml;
+        document.getElementById("mainView").classList.add("hidden");
+        document.getElementById("detailView").classList.remove("hidden");
+    }
+    
+    function showMainView() { document.getElementById("mainView").classList.remove("hidden"); document.getElementById("detailView").classList.add("hidden"); renderGames(); updateStats(); }
+
+    // Event Listeners
+    document.querySelectorAll("#platformFilters .filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll("#platformFilters .filter-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentPlatform = btn.getAttribute("data-platform");
+            currentPage = 1;
+            renderGames();
+        });
     });
-  }
-
-  let currentPlatform = "all";
-  let currentProvider = "all";
-  let searchTerm = "";
-  let currentPage = 1;
-  const gamesPerPage = 15;
-
-  function getGameIcon(game) {
-    if (game.image && game.image !== "") {
-      return `<img src="${game.image}" alt="${game.name}">`;
-    }
-    return game.icon;
-  }
-
-  function updateStats() {
-    let total = allGames.length;
-    let appsflyer = allGames.filter(g => g.provider === "appsflyer").length;
-    let adjust = allGames.filter(g => g.provider === "adjust").length;
-    let singular = allGames.filter(g => g.provider === "singular").length;
-    let active = allGames.length;
-    document.getElementById("stats").innerHTML = `
-      <div class="stat-card"><div class="stat-number">${total}</div><div class="stat-label">TOTAL</div></div>
-      <div class="stat-card"><div class="stat-number">${appsflyer}</div><div class="stat-label">APPSFLYER</div></div>
-      <div class="stat-card"><div class="stat-number">${adjust}</div><div class="stat-label">ADJUST</div></div>
-      <div class="stat-card"><div class="stat-number">${singular}</div><div class="stat-label">SINGULAR</div></div>
-      <div class="stat-card"><div class="stat-number">${active}</div><div class="stat-label">ACTIVE</div></div>
-    `;
-  }
-
-  function getFilteredGames() {
-    return allGames.filter(game => {
-      if (searchTerm && !game.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          !game.package.toLowerCase().includes(searchTerm.toLowerCase())) return false;
-      if (currentPlatform !== "all") {
-        if (currentPlatform === "android" && !game.android) return false;
-        if (currentPlatform === "ios" && !game.ios) return false;
-      }
-      if (currentProvider !== "all" && game.provider !== currentProvider) return false;
-      return true;
+    document.querySelectorAll("#providerFilters .filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll("#providerFilters .filter-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentProvider = btn.getAttribute("data-provider");
+            currentPage = 1;
+            renderGames();
+        });
     });
-  }
+    document.getElementById("searchInput").addEventListener("input", (e) => { searchTerm = e.target.value; currentPage = 1; renderGames(); });
 
-  function renderGames() {
-    const filteredGames = getFilteredGames();
-    const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
-    const start = (currentPage - 1) * gamesPerPage;
-    const end = start + gamesPerPage;
-    const gamesToShow = filteredGames.slice(start, end);
-    
-    const container = document.getElementById("gamesList");
-    
-    if (gamesToShow.length === 0) {
-      container.innerHTML = `<div class="no-results">🎮 NO GAMES FOUND</div>`;
-      document.getElementById("pagination").innerHTML = "";
-      return;
-    }
-    
-    let html = "";
-    gamesToShow.forEach(game => {
-      let tags = `<span class="tag ${game.provider}">📡 ${game.provider.toUpperCase()}</span>`;
-      if (game.android) tags += `<span class="tag android">🤖 ANDROID</span>`;
-      if (game.ios) tags += `<span class="tag ios">🍎 IOS</span>`;
-      tags += `<span class="tag status-badge">● ACTIVE</span>`;
-      html += `
-        <div class="game-card" onclick='showGameDetail("${game.id}", "${game.provider}")'>
-          <div class="game-icon">${getGameIcon(game)}</div>
-          <div class="game-info">
-            <div class="game-name">${game.name}</div>
-            <div class="game-package">${game.package}</div>
-            <div class="game-tags">${tags}</div>
-          </div>
-        </div>
-      `;
-    });
-    container.innerHTML = html;
-    
-    renderPagination(totalPages);
-  }
-
-  function renderPagination(totalPages) {
-    if (totalPages <= 1) {
-      document.getElementById("pagination").innerHTML = "";
-      return;
-    }
-    
-    let paginationHtml = "";
-    
-    // Previous button
-    paginationHtml += `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="${currentPage > 1 ? `changePage(${currentPage - 1})` : ''}">◀ PREV</button>`;
-    
-    // Page numbers
-    let startPage = Math.max(1, currentPage - 2);
-    let endPage = Math.min(totalPages, currentPage + 2);
-    
-    if (startPage > 1) {
-      paginationHtml += `<button class="page-btn" onclick="changePage(1)">1</button>`;
-      if (startPage > 2) paginationHtml += `<span class="page-btn disabled" style="background:transparent;">...</span>`;
-    }
-    
-    for (let i = startPage; i <= endPage; i++) {
-      paginationHtml += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
-    }
-    
-    if (endPage < totalPages) {
-      if (endPage < totalPages - 1) paginationHtml += `<span class="page-btn disabled" style="background:transparent;">...</span>`;
-      paginationHtml += `<button class="page-btn" onclick="changePage(${totalPages})">${totalPages}</button>`;
-    }
-    
-    // Next button
-    paginationHtml += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="${currentPage < totalPages ? `changePage(${currentPage + 1})` : ''}">NEXT ▶</button>`;
-    
-    document.getElementById("pagination").innerHTML = paginationHtml;
-  }
-
-  function changePage(page) {
-    currentPage = page;
+    updateStats();
     renderGames();
-    // Scroll to top smoothly
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function showGameDetail(gameId, provider) {
-    const game = GAMES_DB[provider]?.[gameId];
-    if (!game) return;
-    
-    const platforms = [];
-    if (game.android) platforms.push("🤖 Android");
-    if (game.ios) platforms.push("🍎 iOS");
-    
-    const detailDiv = document.querySelector(".detail-view");
-    if (game.bg_image && game.bg_image !== "") {
-      detailDiv.style.backgroundImage = `url('${game.bg_image}')`;
-      detailDiv.style.backgroundSize = "cover";
-      detailDiv.style.backgroundPosition = "center";
-    } else {
-      detailDiv.style.backgroundImage = "none";
-      detailDiv.style.background = "rgba(0, 0, 0, 0.7)";
-    }
-    
-    const detailHtml = `
-      <div class="detail-content">
-        <div class="detail-icon">${getGameIcon(game)}</div>
-        <div class="detail-name">${game.name}</div>
-        <div class="detail-package">${game.package}</div>
-        <div class="detail-info">
-          <div class="detail-row"><span class="detail-label">Provider</span><span class="detail-value">📡 ${provider.toUpperCase()}</span></div>
-          <div class="detail-row"><span class="detail-label">Platform</span><span class="detail-value">${platforms.join(" | ")}</span></div>
-          <div class="detail-row"><span class="detail-label">Status</span><span class="detail-value">✅ Active</span></div>
-          <div class="detail-row"><span class="detail-label">Dev Key</span><span class="detail-value"><code>${game.dev_key?.substring(0, 15)}...</code></span></div>
-          <div class="detail-row"><span class="detail-label">Event Format</span><span class="detail-value"><code>${game.event_format}</code></span></div>
-          <div class="detail-row"><span class="detail-label">Added Date</span><span class="detail-value">${game.added_date}</span></div>
-        </div>
-      </div>
-    `;
-    
-    document.getElementById("detailContent").innerHTML = detailHtml;
-    document.getElementById("mainView").classList.add("hidden");
-    document.getElementById("detailView").classList.remove("hidden");
-  }
-
-  function showMainView() {
-    document.getElementById("detailView").classList.add("hidden");
-    document.getElementById("mainView").classList.remove("hidden");
-    renderGames();
-  }
-
-  function resetAndRender() {
-    currentPage = 1;
-    renderGames();
-  }
-
-  // Event Listeners
-  document.querySelectorAll("[data-platform]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll("[data-platform]").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      currentPlatform = btn.dataset.platform;
-      resetAndRender();
-    });
-  });
-  
-  document.querySelectorAll("[data-provider]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll("[data-provider]").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      currentProvider = btn.dataset.provider;
-      resetAndRender();
-    });
-  });
-  
-  document.getElementById("searchInput").addEventListener("input", (e) => {
-    searchTerm = e.target.value;
-    resetAndRender();
-  });
-
-  updateStats();
-  renderGames();
 </script>
 </body>
 </html>
