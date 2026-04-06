@@ -648,31 +648,113 @@
 
     function escapeHtml(str) { return String(str).replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
     
-    function renderPagination(tp) {
-        if (tp <= 1) { document.getElementById("pagination").innerHTML = ""; return; }
-        let html = `<button class="page-btn ${currentPage===1?'disabled':''}" onclick="changePage(${currentPage-1})">◀ PREV</button>`;
-        let s = Math.max(1, currentPage-2), e = Math.min(tp, currentPage+2);
-        if (s > 1) { html += `<button class="page-btn" onclick="changePage(1)">1</button>`; if (s > 2) html += `<span style="padding:0 4px;">...</span>`; }
-        for (let i = s; i <= e; i++) html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="changePage(${i})">${i}</button>`;
- 
-        if (!game) return;
-        const platforms = []; if (game.android) platforms.push("🤖 Android"); if (game.ios) platforms.push("🍎 iOS");
-        const dv = document.querySelector(".detail-view");
-        if (game.bg_image) dv.style.backgroundImage = `url('${game.bg_image}')`;
-        else dv.style.background = "#1e2a2a";
-        const detailHtml = `<div class="detail-content"><div class="detail-icon">${getGameIcon(game)}</div><div class="detail-name">${escapeHtml(game.name)}</div><div class="detail-package">${game.package}</div><div class="detail-info">
-            <div class="detail-row"><span class="detail-label">Provider</span><span class="detail-value">📡 ${provider.toUpperCase()}</span></div>
-            <div class="detail-row"><span class="detail-label">Platform</span><span class="detail-value">${platforms.join(" | ")}</span></div>
-            <div class="detail-row"><span class="detail-label">Dev Key</span><span class="detail-value">${game.dev_key || '—'}</span></div>
-            <div class="detail-row"><span class="detail-label">Event Format</span><span class="detail-value">${game.event_format || '—'}</span></div>
-            <div class="detail-row"><span class="detail-label">Added</span><span class="detail-value">${game.added_date || '—'}</span></div>
-        </div></div>`;
-        document.getElementById("detailContent").innerHTML = detailHtml;
-        document.getElementById("mainView").classList.add("hidden");
-        document.getElementById("detailView").classList.remove("hidden");
+    function renderPagination(totalPages) {
+    console.log("Total pages:", totalPages);  // ডিবাগিং
+    console.log("Current page:", currentPage); // ডিবাগিং
+    
+    if (totalPages <= 1) {
+        document.getElementById("pagination").innerHTML = "";
+        return;
     }
     
-    function showMainView() { document.getElementById("mainView").classList.remove("hidden"); document.getElementById("detailView").classList.add("hidden"); renderGames(); updateStats(); }
+    let paginationHtml = '';
+    
+    // PREV বাটন
+    if (currentPage > 1) {
+        paginationHtml += `<button class="page-btn" onclick="changePage(${currentPage - 1})">◀ PREV</button>`;
+    } else {
+        paginationHtml += `<button class="page-btn disabled" style="opacity:0.5; cursor:not-allowed;">◀ PREV</button>`;
+    }
+    
+    // পেজ নম্বর
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === currentPage) {
+            paginationHtml += `<button class="page-btn active" style="background:#2c3e3e; color:white;">${i}</button>`;
+        } else if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+            paginationHtml += `<button class="page-btn" onclick="changePage(${i})">${i}</button>`;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+            paginationHtml += `<span class="page-dots" style="padding:0 5px;">...</span>`;
+        }
+    }
+    
+    // NEXT বাটন
+    if (currentPage < totalPages) {
+        paginationHtml += `<button class="page-btn" onclick="changePage(${currentPage + 1})">NEXT ▶</button>`;
+    } else {
+        paginationHtml += `<button class="page-btn disabled" style="opacity:0.5; cursor:not-allowed;">NEXT ▶</button>`;
+    }
+    
+    document.getElementById("pagination").innerHTML = paginationHtml;
+}
+
+// changePage ফাংশন ঠিক করুন
+function changePage(page) {
+    console.log("Navigating to page:", page);
+    if (page < 1) return;
+    
+    currentPage = page;
+    renderGames();
+    
+    // স্মুথ স্ক্রোল
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// showDetail ফাংশন - এটি যোগ করুন
+function showDetail(id, provider) {
+    console.log("Opening detail for:", id, provider);
+    
+    const game = GAMES_DB[provider]?.[id];
+    if (!game) {
+        console.error("Game not found!");
+        return;
+    }
+    
+    const platforms = [];
+    if (game.android) platforms.push("🤖 Android");
+    if (game.ios) platforms.push("🍎 iOS");
+    
+    const dv = document.querySelector(".detail-view");
+    if (game.bg_image && game.bg_image !== "") {
+        dv.style.backgroundImage = `url('${game.bg_image}')`;
+        dv.style.backgroundSize = "cover";
+        dv.style.backgroundPosition = "center";
+    } else {
+        dv.style.backgroundImage = "none";
+        dv.style.background = "#1e2a2a";
+    }
+    
+    const detailHtml = `
+        <div class="detail-content">
+            <div class="detail-icon">${getGameIcon(game)}</div>
+            <div class="detail-name">${escapeHtml(game.name)}</div>
+            <div class="detail-package">${game.package}</div>
+            <div class="detail-info">
+                <div class="detail-row"><span class="detail-label">Provider</span><span class="detail-value">📡 ${provider.toUpperCase()}</span></div>
+                <div class="detail-row"><span class="detail-label">Platform</span><span class="detail-value">${platforms.join(" | ")}</span></div>
+                <div class="detail-row"><span class="detail-label">Status</span><span class="detail-value">✅ Active</span></div>
+                <div class="detail-row"><span class="detail-label">Dev Key</span><span class="detail-value">${game.dev_key || '—'}</span></div>
+                <div class="detail-row"><span class="detail-label">Event Format</span><span class="detail-value">${game.event_format || '—'}</span></div>
+                <div class="detail-row"><span class="detail-label">Added</span><span class="detail-value">${game.added_date || '—'}</span></div>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById("detailContent").innerHTML = detailHtml;
+    document.getElementById("mainView").classList.add("hidden");
+    document.getElementById("detailView").classList.remove("hidden");
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+    
+    function showMainView() { 
+    document.getElementById("mainView").classList.remove("hidden"); 
+    document.getElementById("detailView").classList.add("hidden"); 
+    renderGames(); 
+    updateStats(); 
+}
 
     // Event Listeners
     document.querySelectorAll("#platformFilters .filter-btn").forEach(btn => {
