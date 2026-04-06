@@ -127,14 +127,14 @@
         
         .stats-grid {
             display: flex;
-            gap: 0.6rem;
+            gap: .6rem;
             min-width: min-content;
             justify-content: center;
         }
         .stat-card {
             background: #E0E5E5;
             backdrop-filter: blur(1px);
-            border-radius: 0.7rem;
+            border-radius: .7rem;
             padding: 0.4rem 0.7rem;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.5);
@@ -659,11 +659,6 @@
         document.getElementById("pagination").innerHTML = html;
     }
     
-           if (e < tp) { if (e < tp-1) html += `<span style="padding:0 4px;">...</span>`; html += `<button class="page-btn" onclick="changePage(${tp})">${tp}</button>`; }
-        html += `<button class="page-btn ${currentPage===tp?'disabled':''}" onclick="changePage(${currentPage+1})">NEXT ▶</button>`;
-        document.getElementById("pagination").innerHTML = html;
-    }
-    
     function changePage(page) {
         currentPage = page;
         renderGames();
@@ -677,9 +672,6 @@
             });
         }, 100);
     }
-
-    function showDetail(id, provider) {
-        const game = GAMES_DB[provider]?.[id];
 
     function showDetail(id, provider) {
         const game = GAMES_DB[provider]?.[id];
