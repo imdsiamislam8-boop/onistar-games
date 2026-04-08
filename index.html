@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>ONISTAR | OCEAN GLOW — Floating Orb Theme Switcher</title>
+    <title>ONISTAR | EMERALD FOREST — Blade Shine Effect</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -22,18 +22,18 @@
             transition: background 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), color 0.4s ease;
         }
 
-        /* ========== THEME SYSTEM - DEEP OCEAN DEFAULT ========== */
+        /* ========== THEME SYSTEM - EMERALD FOREST DEFAULT ========== */
         :root {
-            --bg-gradient-start: #00b4db;
-            --bg-gradient-end: #0083b0;
-            --glass-bg: rgba(0, 50, 70, 0.45);
-            --glass-border: rgba(0, 210, 255, 0.35);
-            --text-primary: #e0f8ff;
-            --text-secondary: #a8dadc;
-            --accent-1: #00d2ff;
-            --accent-2: #3a7bd5;
-            --glow-color: rgba(0, 210, 255, 0.5);
-            --currency-color: rgba(0, 210, 255, 0.3);
+            --bg-gradient-start: #134e5e;
+            --bg-gradient-end: #71b280;
+            --glass-bg: rgba(30, 60, 40, 0.45);
+            --glass-border: rgba(46, 204, 113, 0.4);
+            --text-primary: #eaffea;
+            --text-secondary: #c8e0b0;
+            --accent-1: #2ecc71;
+            --accent-2: #27ae60;
+            --glow-color: rgba(46, 204, 113, 0.5);
+            --currency-color: rgba(46, 204, 113, 0.3);
         }
 
         body[data-theme="ocean"] {
@@ -117,7 +117,7 @@
             background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
         }
 
-        /* ========== FLOATING CURRENCY SYMBOLS BACKGROUND ========== */
+        /* Floating Currency Background */
         .currency-float-bg {
             position: fixed;
             top: 0;
@@ -165,7 +165,7 @@
             z-index: 10;
         }
 
-        /* ========== GLOWING ORB THEME SWITCHER ========== */
+        /* Glowing Orb Theme Switcher */
         .theme-orb-container {
             position: fixed;
             bottom: 1.2rem;
@@ -408,7 +408,7 @@
             box-shadow: 0 0 8px var(--glow-color);
         }
 
-        /* Game Cards - 16 per page */
+        /* Game Cards - WITH BLADE SHINE EFFECT ON HOVER */
         .games-grid-vibrant {
             display: grid;
             grid-template-columns: 1fr;
@@ -428,9 +428,32 @@
             position: relative;
             overflow: hidden;
         }
+        /* BLADE SHINE EFFECT - Added this for game cards */
+        .game-card-vibrant::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(115deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.25) 45%, 
+                rgba(255, 255, 255, 0.25) 55%, 
+                transparent 70%);
+            transform: rotate(25deg);
+            transition: left 0.5s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .game-card-vibrant:hover::after {
+            left: 100%;
+            opacity: 1;
+        }
         .game-card-vibrant:hover {
             transform: translateY(-3px);
             border-color: var(--accent-1);
+            box-shadow: 0 0 15px var(--glow-color);
         }
         .game-icon-vibrant {
             width: 50px;
@@ -592,7 +615,7 @@
         }
     </style>
 </head>
-<body data-theme="ocean">
+<body data-theme="forest">
     <div class="currency-float-bg" id="currencyFloatBg"></div>
 
     <!-- Glowing Orb Theme Switcher -->
@@ -637,8 +660,8 @@
             <div class="glass-header-premium">
                 <div class="animated-border"></div>
                 <div class="logo-area">
-                    <div class="logo"><i class="fas fa-water"></i> ONISTAR <i class="fas fa-chart-line"></i></div>
-                    <div class="subhead">✦ DEEP OCEAN • GLOWING ORB ✦</div>
+                    <div class="logo"><i class="fas fa-tree"></i> ONISTAR <i class="fas fa-chart-line"></i></div>
+                    <div class="subhead">✦ EMERALD FOREST • BLADE SHINE ✦</div>
                 </div>
             </div>
 
@@ -658,9 +681,9 @@
                 </div>
             </div>
 
-            <div id="gamesGrid" class="games-grid-vibrant">✨ loading ocean games...</div>
+            <div id="gamesGrid" class="games-grid-vibrant">✨ loading forest games...</div>
             <div id="paginationArea" class="pagination-vibrant"></div>
-            <footer><i class="fas fa-sync-alt"></i> 7 THEMES • 16 GAMES/PAGE • S2S READY</footer>
+            <footer><i class="fas fa-sync-alt"></i> 7 THEMES • 16 GAMES/PAGE • BLADE SHINE</footer>
         </div>
 
         <div id="detailView" class="hidden">
@@ -700,7 +723,7 @@
         }
         createFlowLines();
 
-        // Game Database
+        // Game Database (same as before)
         const GAMES_LIB = {
             "appsflyer": {
                 "domino_dreams": { "name": "Domino Dreams", "package": "com.screenshake.dominodreams", "android": true, "ios": false, "icon": "🎲", "image": "https://play-lh.googleusercontent.com/_brT-4DSyZtx1SBTfL3yMQtytM_dPBIOaOMlGF7dG67Yw9rKe4oVj3OSt96hO7w1t2Q=s48-rw", "bg_image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&auto=format", "dev_key": "af_Hn5qYjVAaRNJYDcwF4LaWF", "event_format": "af_area_{}_completed", "added_date": "2024-01-15" },
@@ -737,7 +760,7 @@
         allGames.forEach(g => { if (!g.image) g.image = g.icon; if (!g.bg_image) g.bg_image = null; });
 
         let currentPlatform = "all", currentProvider = "all", searchTerm = "", currentPage = 1;
-        const perPage = 16; // 16 games per page
+        const perPage = 16;
 
         function updateStats() {
             const total = allGames.length;
@@ -775,7 +798,7 @@
             const pageGames = filtered.slice(start, start+perPage);
             const container = document.getElementById("gamesGrid");
             if(!pageGames.length) {
-                container.innerHTML = `<div class="no-results-vibrant"><i class="fas fa-water"></i> No games found</div>`;
+                container.innerHTML = `<div class="no-results-vibrant"><i class="fas fa-tree"></i> No games found</div>`;
                 document.getElementById("paginationArea").innerHTML = "";
                 return;
             }
@@ -919,7 +942,6 @@
                 document.body.setAttribute("data-theme", theme);
                 localStorage.setItem("onistar_theme", theme);
                 themeMenu.classList.remove("show");
-                // Update orb gradient dynamically
                 const computedStyle = getComputedStyle(document.body);
                 themeOrb.style.background = `radial-gradient(circle at 30% 30%, var(--accent-1), var(--accent-2))`;
             });
@@ -932,10 +954,10 @@
         });
 
         const savedTheme = localStorage.getItem("onistar_theme");
-        if(savedTheme && savedTheme !== "ocean") {
+        if(savedTheme && savedTheme !== "forest") {
             document.body.setAttribute("data-theme", savedTheme);
         } else {
-            document.body.setAttribute("data-theme", "ocean");
+            document.body.setAttribute("data-theme", "forest");
         }
 
         document.getElementById("searchInput").addEventListener("input", (e) => { searchTerm = e.target.value; currentPage = 1; renderGames(); });
