@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ONISTAR | WEALTH VORTEX — Fixed Background Image</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>ONISTAR | WEALTH VORTEX — Mobile Optimized</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -16,7 +16,7 @@
         body {
             min-height: 100vh;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            padding: 1.2rem;
+            padding: 0.8rem;
             position: relative;
             overflow-x: hidden;
             transition: background 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), color 0.4s ease;
@@ -132,7 +132,7 @@
         }
         .floating-currency {
             position: absolute;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 900;
             opacity: 0;
             animation: floatCurrency 15s linear infinite;
@@ -140,34 +140,23 @@
             text-shadow: 0 0 10px currentColor;
         }
         @keyframes floatCurrency {
-            0% {
-                transform: translateY(100vh) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.4;
-            }
-            80% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-20vh) translateX(50px) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.35; }
+            80% { opacity: 0.25; }
+            100% { transform: translateY(-20vh) translateX(50px) rotate(360deg); opacity: 0; }
         }
 
-        /* Additional flowing line effect */
         .flow-line-wealth {
             position: absolute;
-            height: 2px;
+            height: 1px;
             background: linear-gradient(90deg, transparent, var(--accent-1), var(--accent-2), transparent);
             animation: flowLineWealth 8s linear infinite;
             filter: blur(1px);
         }
         @keyframes flowLineWealth {
             0% { transform: translateX(-100%); opacity: 0; }
-            20% { opacity: 0.6; }
-            80% { opacity: 0.4; }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.3; }
             100% { transform: translateX(100vw); opacity: 0; }
         }
 
@@ -178,47 +167,80 @@
             z-index: 10;
         }
 
-        /* Theme Switcher */
-        .theme-switcher-premium {
+        /* ========== CONSOLIDATED THEME SWITCHER (DROPDOWN FOR MOBILE) ========== */
+        .theme-switcher-wrapper {
             position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
+            bottom: 1rem;
+            right: 1rem;
             z-index: 200;
+        }
+        .theme-dropdown {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            border-radius: 3rem;
-            padding: 0.6rem 1rem;
-            display: flex;
-            gap: 0.6rem;
+            border-radius: 2.5rem;
             border: 1px solid var(--glass-border);
+            overflow: hidden;
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            flex-wrap: wrap;
-            max-width: calc(100% - 2rem);
         }
-        .theme-option {
-            width: 38px;
-            height: 38px;
+        .theme-dropdown-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .theme-dropdown-header i {
+            color: var(--accent-1);
+        }
+        .theme-dropdown-menu {
+            display: none;
+            flex-direction: column;
+            padding: 0.5rem;
+            gap: 0.4rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        .theme-dropdown-menu.show {
+            display: flex;
+        }
+        .theme-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.4rem 0.8rem;
             border-radius: 2rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            border: 2px solid rgba(255,255,255,0.5);
+            transition: all 0.2s;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-secondary);
         }
-        .theme-option:hover { transform: scale(1.15) rotate(5deg); border-color: white; }
-        .theme-midnight { background: linear-gradient(135deg, #0f0c29, #302b63); }
-        .theme-sunset { background: linear-gradient(135deg, #ff6b6b, #feca57); }
-        .theme-forest { background: linear-gradient(135deg, #134e5e, #71b280); }
-        .theme-cherry { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
-        .theme-ocean { background: linear-gradient(135deg, #00b4db, #0083b0); }
-        .theme-royal { background: linear-gradient(135deg, #8e2de2, #4a00e0); }
-        .theme-mono { background: linear-gradient(135deg, #1a1a1a, #444444); border: 2px solid #fff; }
+        .theme-dropdown-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .theme-color-preview {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .preview-midnight { background: linear-gradient(135deg, #0f0c29, #302b63); }
+        .preview-sunset { background: linear-gradient(135deg, #ff6b6b, #feca57); }
+        .preview-forest { background: linear-gradient(135deg, #134e5e, #71b280); }
+        .preview-cherry { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+        .preview-ocean { background: linear-gradient(135deg, #00b4db, #0083b0); }
+        .preview-royal { background: linear-gradient(135deg, #8e2de2, #4a00e0); }
+        .preview-mono { background: linear-gradient(135deg, #1a1a1a, #444444); }
 
         /* Glass Header */
         .glass-header-premium {
             background: var(--glass-bg);
             backdrop-filter: blur(24px) saturate(180%);
-            border-radius: 2rem;
+            border-radius: 1.5rem;
             border: 1px solid var(--glass-border);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             position: relative;
             overflow: hidden;
         }
@@ -227,7 +249,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 3px;
+            height: 2px;
             background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-1));
             background-size: 200% 100%;
             animation: borderFlow 2.5s linear infinite;
@@ -238,76 +260,68 @@
         }
         .logo-area {
             text-align: center;
-            padding: 1.3rem 1rem;
+            padding: 0.8rem 0.8rem;
         }
         .logo {
-            font-size: 2.2rem;
+            font-size: 1.5rem;
             font-weight: 900;
             background: linear-gradient(135deg, #ffe6a3, var(--accent-1), var(--accent-2));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: logoPulse 2s ease-in-out infinite alternate;
-        }
-        @keyframes logoPulse {
-            from { filter: drop-shadow(0 0 2px rgba(255,200,100,0.3)); }
-            to { filter: drop-shadow(0 0 12px var(--glow-color)); }
         }
         .subhead {
-            font-size: 0.7rem;
-            letter-spacing: 2px;
+            font-size: 0.55rem;
+            letter-spacing: 1px;
             color: var(--text-secondary);
-            margin-top: 0.4rem;
+            margin-top: 0.2rem;
         }
 
-        /* Stats Cards */
+        /* Stats Cards - SMALLER FOR MOBILE */
         .stats-grid {
             display: flex;
-            gap: 1rem;
+            gap: 0.6rem;
             overflow-x: auto;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             justify-content: center;
+            scrollbar-width: thin;
         }
         .stat-card-theme {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
-            border-radius: 1.2rem;
-            padding: 0.6rem 1.2rem;
+            border-radius: 0.9rem;
+            padding: 0.35rem 0.7rem;
             text-align: center;
             border: 1px solid var(--glass-border);
             transition: all 0.3s;
-            min-width: 90px;
-        }
-        .stat-card-theme:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-1);
-            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.3);
+            min-width: 65px;
+            flex-shrink: 0;
         }
         .stat-number {
-            font-size: 1.4rem;
+            font-size: 1rem;
             font-weight: 800;
             color: var(--text-primary);
         }
         .stat-label {
-            font-size: 0.6rem;
+            font-size: 0.5rem;
             font-weight: 600;
             color: var(--text-secondary);
             text-transform: uppercase;
         }
 
-        /* Sticky Search with Blade Shine */
+        /* Sticky Search */
         .sticky-search-area {
             position: sticky;
-            top: 0.8rem;
+            top: 0.6rem;
             z-index: 150;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
         .search-glass-premium {
             background: var(--glass-bg);
             backdrop-filter: blur(28px);
-            border-radius: 2rem;
+            border-radius: 1.5rem;
             border: 1px solid var(--glass-border);
-            padding: 0.9rem 1.3rem;
+            padding: 0.6rem 1rem;
             position: relative;
             overflow: hidden;
         }
@@ -318,7 +332,7 @@
             left: -100%;
             width: 80%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
             transform: skewX(-20deg);
             animation: bladeShine 3.5s infinite;
             pointer-events: none;
@@ -331,44 +345,44 @@
         .search-wrapper {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.6rem;
             background: rgba(0,0,0,0.2);
-            border-radius: 3rem;
-            padding: 0.2rem 1.2rem;
+            border-radius: 2.5rem;
+            padding: 0.1rem 1rem;
             position: relative;
             z-index: 2;
         }
-        .search-wrapper i { color: var(--accent-1); }
+        .search-wrapper i { color: var(--accent-1); font-size: 0.8rem; }
         #searchInput {
             flex: 1;
             background: transparent;
             border: none;
-            padding: 0.8rem 0;
-            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            font-size: 0.75rem;
             outline: none;
             color: var(--text-primary);
         }
-        #searchInput::placeholder { color: var(--text-secondary); opacity: 0.7; }
+        #searchInput::placeholder { color: var(--text-secondary); opacity: 0.7; font-size: 0.7rem; }
         
         /* Filter Group - 2 Lines */
         .filter-group-wrapper {
-            margin-top: 0.9rem;
+            margin-top: 0.6rem;
             position: relative;
             z-index: 2;
         }
         .filter-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.7rem;
-            margin-bottom: 0.6rem;
+            gap: 0.5rem;
+            margin-bottom: 0.4rem;
             justify-content: center;
         }
         .filter-chip-theme {
             background: rgba(0,0,0,0.3);
             backdrop-filter: blur(8px);
-            padding: 0.3rem 1.2rem;
-            border-radius: 2rem;
-            font-size: 0.7rem;
+            padding: 0.2rem 0.9rem;
+            border-radius: 1.5rem;
+            font-size: 0.6rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
@@ -380,81 +394,58 @@
             background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
             color: white;
             border-color: transparent;
-            box-shadow: 0 0 12px var(--glow-color);
-        }
-        .filter-chip-theme:hover {
-            transform: translateY(-2px);
-            background: rgba(255,255,255,0.15);
+            box-shadow: 0 0 8px var(--glow-color);
         }
 
-        /* Game Cards with 3D TILT */
+        /* Game Cards */
         .games-grid-vibrant {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-            gap: 1.3rem;
-            margin: 2rem 0;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+            margin: 1rem 0;
         }
         .game-card-vibrant {
             background: var(--glass-bg);
             backdrop-filter: blur(18px);
-            border-radius: 1.8rem;
-            padding: 1.1rem;
+            border-radius: 1.2rem;
+            padding: 0.8rem;
             display: flex;
-            gap: 1.1rem;
+            gap: 0.8rem;
             cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            transition: all 0.3s;
             border: 1px solid var(--glass-border);
             position: relative;
             overflow: hidden;
-            transform-style: preserve-3d;
-            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
-            transition: transform 0.15s ease-out, box-shadow 0.3s, border-color 0.2s;
         }
         .game-card-vibrant:hover {
-            transform: perspective(1000px) rotateX(2deg) rotateY(4deg) translateY(-5px);
+            transform: translateY(-3px);
             border-color: var(--accent-1);
-            box-shadow: 0 25px 40px -15px var(--glow-color);
         }
-        .game-card-vibrant:active {
-            transform: perspective(1000px) rotateX(4deg) rotateY(8deg) scale(0.98);
-            transition: transform 0.05s;
-        }
-        .game-card-vibrant::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-            transition: left 0.5s;
-        }
-        .game-card-vibrant:hover::after { left: 100%; }
-        
         .game-icon-vibrant {
-            width: 65px;
-            height: 65px;
+            width: 50px;
+            height: 50px;
             background: rgba(0,0,0,0.3);
-            border-radius: 1.3rem;
+            border-radius: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             overflow: hidden;
+            flex-shrink: 0;
         }
         .game-info-vibrant { flex: 1; }
-        .game-name-vibrant { font-weight: 800; font-size: 1rem; color: var(--text-primary); }
-        .game-package-vibrant { font-size: 0.6rem; font-family: monospace; color: var(--text-secondary); margin: 5px 0 8px; }
+        .game-name-vibrant { font-weight: 800; font-size: 0.85rem; color: var(--text-primary); }
+        .game-package-vibrant { font-size: 0.5rem; font-family: monospace; color: var(--text-secondary); margin: 3px 0 5px; word-break: break-all; }
         .tags-vibrant {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.3rem;
         }
         .tag-vibrant {
-            font-size: 0.55rem;
+            font-size: 0.45rem;
             font-weight: 700;
-            padding: 0.2rem 0.8rem;
-            border-radius: 2rem;
+            padding: 0.15rem 0.6rem;
+            border-radius: 1.5rem;
             background: rgba(0,0,0,0.4);
         }
         .tag-android { background: rgba(46, 204, 113, 0.5); color: #ccffcc; }
@@ -467,49 +458,37 @@
         .pagination-vibrant {
             display: flex;
             justify-content: center;
-            gap: 0.7rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
-            margin: 1.2rem 0;
+            margin: 1rem 0;
         }
         .page-btn-vibrant {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
-            padding: 0.45rem 1.1rem;
-            border-radius: 2rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 1.5rem;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             cursor: pointer;
             color: var(--text-secondary);
-            transition: all 0.2s;
         }
         .page-btn-vibrant.active {
             background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
             color: white;
-            border-color: transparent;
-        }
-        .page-btn-vibrant:hover:not(.disabled) {
-            transform: translateY(-2px);
-            background: rgba(255,255,255,0.15);
         }
         .disabled { opacity: 0.4; pointer-events: none; }
 
-        /* Detail View with Background Image Support */
+        /* Detail View */
         .detail-vibrant {
-            background: rgba(0, 0, 0, 0.65);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(40px);
-            border-radius: 2rem;
-            padding: 1.8rem;
-            animation: slideUp 0.45s ease;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            animation: slideUp 0.4s ease;
             border: 1px solid var(--glass-border);
-            position: relative;
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
-        }
-        /* Overlay for better text readability when background image exists */
-        .detail-vibrant.has-bg {
-            background-blend-mode: overlay;
         }
         .detail-vibrant.has-bg::before {
             content: '';
@@ -518,30 +497,27 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 2rem;
+            background: rgba(0, 0, 0, 0.55);
+            border-radius: 1.5rem;
             z-index: 0;
         }
-        .detail-vibrant.has-bg > * {
-            position: relative;
-            z-index: 1;
-        }
+        .detail-vibrant.has-bg > * { position: relative; z-index: 1; }
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(25px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .detail-icon-vibrant {
-            width: 100px; height: 100px;
+            width: 70px; height: 70px;
             background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            border-radius: 2rem;
-            margin: 0 auto 1rem;
+            border-radius: 1.5rem;
+            margin: 0 auto 0.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 2rem;
         }
         .detail-title-vibrant {
-            font-size: 1.7rem;
+            font-size: 1.2rem;
             font-weight: 800;
             text-align: center;
             background: linear-gradient(135deg, var(--text-primary), var(--accent-1));
@@ -551,73 +527,101 @@
         }
         .detail-meta-vibrant {
             background: rgba(0,0,0,0.5);
-            border-radius: 1.2rem;
-            padding: 1rem;
-            margin-top: 1rem;
-            backdrop-filter: blur(4px);
+            border-radius: 1rem;
+            padding: 0.7rem;
+            margin-top: 0.8rem;
         }
         .detail-row-vibrant {
             display: flex;
             justify-content: space-between;
-            padding: 0.6rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 0.4rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.7rem;
         }
         .back-btn-vibrant {
             background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
             width: 100%;
-            padding: 0.9rem;
-            border-radius: 2rem;
+            padding: 0.7rem;
+            border-radius: 1.5rem;
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
             cursor: pointer;
             font-weight: 700;
+            font-size: 0.8rem;
             color: white;
-            transition: 0.3s;
-        }
-        .back-btn-vibrant:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.05);
         }
         .hidden { display: none; }
         .no-results-vibrant {
             text-align: center;
-            padding: 2.5rem;
+            padding: 1.5rem;
             background: var(--glass-bg);
-            border-radius: 2rem;
+            border-radius: 1.5rem;
             color: var(--text-secondary);
+            font-size: 0.8rem;
         }
         footer {
             text-align: center;
-            font-size: 0.65rem;
-            padding: 1rem;
+            font-size: 0.5rem;
+            padding: 0.6rem;
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
-            margin-top: 1rem;
+            border-radius: 1rem;
+            margin-top: 0.8rem;
             color: var(--text-secondary);
         }
-        @media (max-width: 680px) {
-            body { padding: 0.8rem; }
-            .games-grid-vibrant { grid-template-columns: 1fr; }
-            .theme-switcher-premium { bottom: 1rem; right: 1rem; padding: 0.4rem 0.8rem; gap: 0.4rem; }
-            .theme-option { width: 32px; height: 32px; }
-            .filter-row { gap: 0.5rem; }
+        @media (min-width: 640px) {
+            body { padding: 1rem; }
+            .games-grid-vibrant { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+            .game-card-vibrant { padding: 1rem; }
+            .game-icon-vibrant { width: 60px; height: 60px; font-size: 1.8rem; }
+            .stat-card-theme { min-width: 75px; padding: 0.4rem 0.8rem; }
+            .stat-number { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body data-theme="midnight">
     <div class="currency-float-bg" id="currencyFloatBg"></div>
 
-    <div class="theme-switcher-premium">
-        <div class="theme-option theme-midnight" data-theme="midnight" title="Midnight Nebula"></div>
-        <div class="theme-option theme-sunset" data-theme="sunset" title="Sunset Blaze"></div>
-        <div class="theme-option theme-forest" data-theme="forest" title="Emerald Forest"></div>
-        <div class="theme-option theme-cherry" data-theme="cherry" title="Cherry Sakura"></div>
-        <div class="theme-option theme-ocean" data-theme="ocean" title="Deep Ocean"></div>
-        <div class="theme-option theme-royal" data-theme="royal" title="Royal Purple"></div>
-        <div class="theme-option theme-mono" data-theme="mono" title="Black & White"></div>
+    <!-- Consolidated Theme Switcher Dropdown -->
+    <div class="theme-switcher-wrapper">
+        <div class="theme-dropdown">
+            <div class="theme-dropdown-header" id="themeDropdownBtn">
+                <i class="fas fa-palette"></i>
+                <span>THEMES</span>
+                <i class="fas fa-chevron-down" style="font-size: 0.6rem;"></i>
+            </div>
+            <div class="theme-dropdown-menu" id="themeDropdownMenu">
+                <div class="theme-dropdown-item" data-theme="midnight">
+                    <div class="theme-color-preview preview-midnight"></div>
+                    <span>Midnight Nebula</span>
+                </div>
+                <div class="theme-dropdown-item" data-theme="sunset">
+                    <div class="theme-color-preview preview-sunset"></div>
+                    <span>Sunset Blaze</span>
+                </div>
+                <div class="theme-dropdown-item" data-theme="forest">
+                    <div class="theme-color-preview preview-forest"></div>
+                    <span>Emerald Forest</span>
+                </div>
+                <div class="theme-dropdown-item" data-theme="cherry">
+                    <div class="theme-color-preview preview-cherry"></div>
+                    <span>Cherry Sakura</span>
+                </div>
+                <div class="theme-dropdown-item" data-theme="ocean">
+                    <div class="theme-color-preview preview-ocean"></div>
+                    <span>Deep Ocean</span>
+                </div>
+                <div class="theme-dropdown-item" data-theme="royal">
+                    <div class="theme-color-preview preview-royal"></div>
+                    <span>Royal Purple</span>
+                </div>
+                <div class="theme-dropdown-item" data-theme="mono">
+                    <div class="theme-color-preview preview-mono"></div>
+                    <span>Black & White</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container">
@@ -626,7 +630,7 @@
                 <div class="animated-border"></div>
                 <div class="logo-area">
                     <div class="logo"><i class="fas fa-coins"></i> ONISTAR <i class="fas fa-chart-line"></i></div>
-                    <div class="subhead">✦ WEALTH VORTEX • FLOATING CURRENCY ✦</div>
+                    <div class="subhead">✦ WEALTH VORTEX • MOBILE OPTIMIZED ✦</div>
                 </div>
             </div>
 
@@ -636,7 +640,7 @@
                 <div class="search-glass-premium">
                     <div class="search-wrapper">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Search games or package ID...">
+                        <input type="text" id="searchInput" placeholder="Search games...">
                         <i class="fas fa-magic"></i>
                     </div>
                     <div class="filter-group-wrapper">
@@ -648,67 +652,61 @@
 
             <div id="gamesGrid" class="games-grid-vibrant">✨ loading wealth games...</div>
             <div id="paginationArea" class="pagination-vibrant"></div>
-            <footer><i class="fas fa-sync-alt"></i> 7 THEMES • FLOATING CURRENCY • 3D TILT • S2S READY</footer>
+            <footer><i class="fas fa-sync-alt"></i> 7 THEMES • 3D TILT • S2S READY</footer>
         </div>
 
         <div id="detailView" class="hidden">
             <div class="detail-vibrant" id="detailContainer"></div>
-            <div class="back-btn-vibrant" id="closeDetailBtn"><i class="fas fa-arrow-left"></i> BACK TO GAMES</div>
+            <div class="back-btn-vibrant" id="closeDetailBtn"><i class="fas fa-arrow-left"></i> BACK</div>
         </div>
     </div>
 
     <script>
-        // Create floating currency symbols ($, €, £, ¥, ৳, BTC, ETH)
+        // Floating currencies
         const currencies = ['$', '€', '£', '¥', '৳', '₿', 'Ξ', '₹', '₩', '₦', '฿', '₪'];
-        
         function createFloatingCurrencies() {
             const container = document.getElementById('currencyFloatBg');
-            for (let i = 0; i < 45; i++) {
+            for (let i = 0; i < 40; i++) {
                 const currency = document.createElement('div');
                 currency.classList.add('floating-currency');
-                const randomCurrency = currencies[Math.floor(Math.random() * currencies.length)];
-                currency.innerHTML = randomCurrency;
-                const size = Math.random() * 1.5 + 1;
-                currency.style.fontSize = (Math.random() * 2 + 1.2) + 'rem';
+                currency.innerHTML = currencies[Math.floor(Math.random() * currencies.length)];
+                currency.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
                 currency.style.left = Math.random() * 100 + '%';
                 currency.style.animationDuration = Math.random() * 12 + 10 + 's';
                 currency.style.animationDelay = Math.random() * 15 + 's';
-                currency.style.opacity = Math.random() * 0.4 + 0.1;
                 container.appendChild(currency);
             }
         }
         createFloatingCurrencies();
 
-        // Create flowing lines
         function createFlowLines() {
             const container = document.getElementById('currencyFloatBg');
-            for (let i = 0; i < 12; i++) {
+            for (let i = 0; i < 8; i++) {
                 const line = document.createElement('div');
                 line.classList.add('flow-line-wealth');
                 line.style.top = Math.random() * 100 + '%';
-                line.style.width = Math.random() * 200 + 100 + 'px';
+                line.style.width = Math.random() * 150 + 80 + 'px';
                 line.style.animationDelay = Math.random() * 8 + 's';
-                line.style.animationDuration = Math.random() * 6 + 5 + 's';
                 container.appendChild(line);
             }
         }
         createFlowLines();
 
-        // Game Database with Dice Dreams having proper background image
+        // Game Database
         const GAMES_LIB = {
             "appsflyer": {
-                "domino_dreams": { "name": "Domino Dreams", "package": "com.screenshake.dominodreams", "android": true, "ios": false, "icon": "🎲", "image": "https://play-lh.googleusercontent.com/_brT-4DSyZtx1SBTfL3yMQtytM_dPBIOaOMlGF7dG67Yw9rKe4oVj3OSt96hO7w1t2Q=s48-rw", "bg_image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&auto=format", "dev_key": "af_Hn5qYjVAaRNJYDcwF4LaWF", "event_format": "af_area_{}_completed", "added_date": "2024-01-15" },
-                "sunshine_island": { "name": "Sunshine Island", "package": "com.newmoon.sunshine", "android": true, "ios": true, "icon": "🏝️", "image": "https://play-lh.googleusercontent.com/CJum7I6RZyYd7hQ_qpPgg1PyErE8jJbNiF2-yOmH86lW16wKpEPoZ1dOHFswGkwLcA=s48-rw", "bg_image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format", "dev_key": "af_FtaT5WH9rMJjJkMd4LfBCT", "event_format": "af_level{}_achieved", "added_date": "2024-01-20" },
-                "nations_darkness": { "name": "Nations of Darkness", "package": "com.allstarunion.nod", "android": true, "ios": true, "icon": "🌑", "image": "https://play-lh.googleusercontent.com/f8nIYbPI7TZtTQt3R4R_YBgQ5QdYpZQcZi2vU6cYv6o-TIq5VXpM0dE8q4DlF1Q=s48-rw", "bg_image": "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800&auto=format", "dev_key": "af_x88hdqNmd8vALRmRMhgY4Q", "event_format": "af_upgrade_city_lv_{}", "added_date": "2024-01-10" },
-                "dice_dreams": { "name": "Dice Dreams", "package": "com.superplay.dicedreams", "android": true, "ios": false, "icon": "🎲", "image": "https://play-lh.googleusercontent.com/5MLgC2WWXcq1Pol8qRAXOKzIJY9qySkjF43DnWyd5F9fPj_heinHeIxvgIpPQwcaQ1w-mUzUmoP1Xeslf29irg=s48-rw", "bg_image": "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=800&auto=format", "dev_key": "af_Hn5qYjVAaRNJYDcwF4LaWF", "event_format": "af_kingdom_{}_restored", "added_date": "2024-01-25" }
+                "domino_dreams": { "name": "Domino Dreams", "package": "com.screenshake.dominodreams", "android": true, "ios": false, "icon": "🎲", "image": "https://play-lh.googleusercontent.com/_brT-4DSyZtx1SBTfL3yMQtytM_dPBIOaOMlGF7dG67Yw9rKe4oVj3OSt96hO7w1t2Q=s48-rw", "bg_image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&auto=format", "dev_key": "af_Hn5qYjVAaRNJYDcwF4LaWF", "event_format": "af_area_{}_completed", "added_date": "2024-01-15" },
+                "sunshine_island": { "name": "Sunshine Island", "package": "com.newmoon.sunshine", "android": true, "ios": true, "icon": "🏝️", "image": "https://play-lh.googleusercontent.com/CJum7I6RZyYd7hQ_qpPgg1PyErE8jJbNiF2-yOmH86lW16wKpEPoZ1dOHFswGkwLcA=s48-rw", "bg_image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format", "dev_key": "af_FtaT5WH9rMJjJkMd4LfBCT", "event_format": "af_level{}_achieved", "added_date": "2024-01-20" },
+                "nations_darkness": { "name": "Nations of Darkness", "package": "com.allstarunion.nod", "android": true, "ios": true, "icon": "🌑", "image": "https://play-lh.googleusercontent.com/f8nIYbPI7TZtTQt3R4R_YBgQ5QdYpZQcZi2vU6cYv6o-TIq5VXpM0dE8q4DlF1Q=s48-rw", "bg_image": "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=600&auto=format", "dev_key": "af_x88hdqNmd8vALRmRMhgY4Q", "event_format": "af_upgrade_city_lv_{}", "added_date": "2024-01-10" },
+                "dice_dreams": { "name": "Dice Dreams", "package": "com.superplay.dicedreams", "android": true, "ios": false, "icon": "🎲", "image": "https://play-lh.googleusercontent.com/5MLgC2WWXcq1Pol8qRAXOKzIJY9qySkjF43DnWyd5F9fPj_heinHeIxvgIpPQwcaQ1w-mUzUmoP1Xeslf29irg=s48-rw", "bg_image": "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=600&auto=format", "dev_key": "af_Hn5qYjVAaRNJYDcwF4LaWF", "event_format": "af_kingdom_{}_restored", "added_date": "2024-01-25" }
             },
             "adjust": {
-                "mythic_raid": { "name": "Mythic Raid", "package": "com.adjust.mythicraid", "android": true, "ios": true, "icon": "⚔️", "image": "https://cdn-icons-png.flaticon.com/512/4162/4162476.png", "bg_image": "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&auto=format", "dev_key": "adj_mythic123", "event_format": "adjust_raid_boss_{}", "added_date": "2024-02-10" },
-                "empire_clash": { "name": "Empire Clash", "package": "com.adjust.empire", "android": true, "ios": false, "icon": "🏰", "image": "", "bg_image": "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&auto=format", "dev_key": "adj_empire", "event_format": "adjust_territory_{}", "added_date": "2024-03-05" }
+                "mythic_raid": { "name": "Mythic Raid", "package": "com.adjust.mythicraid", "android": true, "ios": true, "icon": "⚔️", "image": "https://cdn-icons-png.flaticon.com/512/4162/4162476.png", "bg_image": "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=600&auto=format", "dev_key": "adj_mythic123", "event_format": "adjust_raid_boss_{}", "added_date": "2024-02-10" },
+                "empire_clash": { "name": "Empire Clash", "package": "com.adjust.empire", "android": true, "ios": false, "icon": "🏰", "image": "", "bg_image": "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&auto=format", "dev_key": "adj_empire", "event_format": "adjust_territory_{}", "added_date": "2024-03-05" }
             },
             "singular": {
-                "shadow_legends": { "name": "Shadow Legends", "package": "com.singular.shadow", "android": true, "ios": true, "icon": "👑", "image": "https://cdn-icons-png.flaticon.com/512/1035/1035308.png", "bg_image": "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&auto=format", "dev_key": "sing_shadow456", "event_format": "singular_battle_{}", "added_date": "2024-03-01" },
-                "eternal_crusade": { "name": "Eternal Crusade", "package": "com.singular.crusade", "android": true, "ios": true, "icon": "⚜️", "image": "", "bg_image": "https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=800&auto=format", "dev_key": "sing_crusade", "event_format": "singular_crusade_{}", "added_date": "2024-03-15" }
+                "shadow_legends": { "name": "Shadow Legends", "package": "com.singular.shadow", "android": true, "ios": true, "icon": "👑", "image": "https://cdn-icons-png.flaticon.com/512/1035/1035308.png", "bg_image": "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=600&auto=format", "dev_key": "sing_shadow456", "event_format": "singular_battle_{}", "added_date": "2024-03-01" },
+                "eternal_crusade": { "name": "Eternal Crusade", "package": "com.singular.crusade", "android": true, "ios": true, "icon": "⚜️", "image": "", "bg_image": "https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=600&auto=format", "dev_key": "sing_crusade", "event_format": "singular_crusade_{}", "added_date": "2024-03-15" }
             }
         };
 
@@ -719,18 +717,15 @@
             }
         }
         const extraGames = [
-            { provider: "appsflyer", name: "Galaxy Raid", package: "com.af.galaxyraid", android: true, ios: true, icon: "🚀", dev_key: "af_galaxy", event_format: "af_raid_win", added_date: "2024-04-01", bg_image: "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=800&auto=format" },
-            { provider: "adjust", name: "Farm Fables", package: "com.adjust.farm", android: true, ios: false, icon: "🌾", dev_key: "adj_farm", event_format: "adjust_harvest", added_date: "2024-04-12", bg_image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&auto=format" },
-            { provider: "singular", name: "Mythic Puzzles", package: "com.singular.puzzle", android: true, ios: true, icon: "🧩", dev_key: "sing_puzzle", event_format: "singular_puzzle", added_date: "2024-04-18", bg_image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=800&auto=format" },
-            { provider: "appsflyer", name: "Ocean Conquest", package: "com.af.ocean", android: false, ios: true, icon: "🐟", dev_key: "af_ocean", event_format: "af_ocean", added_date: "2024-04-20", bg_image: "https://images.unsplash.com/photo-1551244072-5d12893278ab?w=800&auto=format" },
-            { provider: "adjust", name: "Dragon Skies", package: "com.adjust.dragon", android: true, ios: true, icon: "🐉", dev_key: "adj_dragon", event_format: "adjust_dragon", added_date: "2024-04-22", bg_image: "https://images.unsplash.com/photo-1500964757637-c85e8a162366?w=800&auto=format" },
-            { provider: "singular", name: "Neon Riders", package: "com.singular.neon", android: true, ios: false, icon: "🏍️", dev_key: "sing_neon", event_format: "singular_race", added_date: "2024-04-25", bg_image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&auto=format" }
+            { provider: "appsflyer", name: "Galaxy Raid", package: "com.af.galaxyraid", android: true, ios: true, icon: "🚀", dev_key: "af_galaxy", event_format: "af_raid_win", added_date: "2024-04-01", bg_image: "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=600&auto=format" },
+            { provider: "adjust", name: "Farm Fables", package: "com.adjust.farm", android: true, ios: false, icon: "🌾", dev_key: "adj_farm", event_format: "adjust_harvest", added_date: "2024-04-12", bg_image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&auto=format" },
+            { provider: "singular", name: "Mythic Puzzles", package: "com.singular.puzzle", android: true, ios: true, icon: "🧩", dev_key: "sing_puzzle", event_format: "singular_puzzle", added_date: "2024-04-18", bg_image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=600&auto=format" }
         ];
         extraGames.forEach((ex, idx) => allGames.push({ id: `ex_${idx}`, ...ex }));
         allGames.forEach(g => { if (!g.image) g.image = g.icon; if (!g.bg_image) g.bg_image = null; });
 
         let currentPlatform = "all", currentProvider = "all", searchTerm = "", currentPage = 1;
-        const perPage = 12;
+        const perPage = 8;
 
         function updateStats() {
             const total = allGames.length;
@@ -768,7 +763,7 @@
             const pageGames = filtered.slice(start, start+perPage);
             const container = document.getElementById("gamesGrid");
             if(!pageGames.length) {
-                container.innerHTML = `<div class="no-results-vibrant"><i class="fas fa-coins"></i> No games found — try another filter ✨</div>`;
+                container.innerHTML = `<div class="no-results-vibrant"><i class="fas fa-coins"></i> No games found</div>`;
                 document.getElementById("paginationArea").innerHTML = "";
                 return;
             }
@@ -810,7 +805,7 @@
             for(let i=1;i<=totalPages;i++) {
                 if(i===1 || i===totalPages || (i>=currentPage-2 && i<=currentPage+2)) {
                     btns += `<button class="page-btn-vibrant ${currentPage===i ? 'active' : ''}" data-page="${i}">${i}</button>`;
-                } else if(i===currentPage-3 || i===currentPage+3) btns += `<span style="padding:0 6px;">...</span>`;
+                } else if(i===currentPage-3 || i===currentPage+3) btns += `<span style="padding:0 4px;">...</span>`;
             }
             btns += `<button class="page-btn-vibrant ${currentPage===totalPages ? 'disabled' : ''}" data-page="next">NEXT ▶</button>`;
             wrap.innerHTML = btns;
@@ -827,7 +822,7 @@
         function changePage(p) {
             currentPage = p;
             renderGames();
-            window.scrollTo({ top: 220, behavior: 'smooth' });
+            window.scrollTo({ top: 180, behavior: 'smooth' });
         }
 
         function showDetail(id, provider) {
@@ -836,36 +831,27 @@
             const platforms = [];
             if(game.android) platforms.push("🤖 Android");
             if(game.ios) platforms.push("🍎 iOS");
-            
-            // Get the detail container element
-            const detailContainer = document.getElementById("detailContainer");
-            const detailViewDiv = document.querySelector(".detail-vibrant");
-            
-            // Set background image if exists
-            if (game.bg_image && game.bg_image !== "") {
-                detailViewDiv.style.backgroundImage = `url('${game.bg_image}')`;
-                detailViewDiv.style.backgroundSize = "cover";
-                detailViewDiv.style.backgroundPosition = "center";
-                detailViewDiv.classList.add("has-bg");
+            const detailDiv = document.querySelector(".detail-vibrant");
+            if(game.bg_image && game.bg_image !== "") {
+                detailDiv.style.backgroundImage = `url('${game.bg_image}')`;
+                detailDiv.classList.add("has-bg");
             } else {
-                detailViewDiv.style.backgroundImage = "none";
-                detailViewDiv.classList.remove("has-bg");
+                detailDiv.style.backgroundImage = "none";
+                detailDiv.classList.remove("has-bg");
             }
-            
             const detailHtml = `
                 <div class="detail-icon-vibrant">${getIconHtml(game)}</div>
                 <div class="detail-title-vibrant">${escapeHtml(game.name)}</div>
-                <div style="text-align:center;font-size:0.7rem;color:var(--text-secondary);margin-top:5px;">${game.package}</div>
+                <div style="text-align:center;font-size:0.6rem;color:var(--text-secondary);margin-top:3px;">${game.package}</div>
                 <div class="detail-meta-vibrant">
                     <div class="detail-row-vibrant"><span>📡 Provider</span><span>${game.provider.toUpperCase()}</span></div>
                     <div class="detail-row-vibrant"><span>📱 Platform</span><span>${platforms.join(" | ")}</span></div>
-                    <div class="detail-row-vibrant"><span>✅ Status</span><span>Active • Wealth Ready</span></div>
+                    <div class="detail-row-vibrant"><span>✅ Status</span><span>Active</span></div>
                     <div class="detail-row-vibrant"><span>🔑 Dev Key</span><span>${game.dev_key || '—'}</span></div>
-                    <div class="detail-row-vibrant"><span>📌 Event Format</span><span>${game.event_format || 'dynamic'}</span></div>
-                    <div class="detail-row-vibrant"><span>📅 Added</span><span>${game.added_date || '2024'}</span></div>
+                    <div class="detail-row-vibrant"><span>📌 Event</span><span>${game.event_format || 'dynamic'}</span></div>
                 </div>
             `;
-            detailContainer.innerHTML = detailHtml;
+            document.getElementById("detailContainer").innerHTML = detailHtml;
             document.getElementById("mainView").classList.add("hidden");
             document.getElementById("detailView").classList.remove("hidden");
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -906,15 +892,26 @@
             });
         }
 
-        // Theme Switcher
-        const themeBtns = document.querySelectorAll(".theme-option");
-        themeBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                const theme = btn.getAttribute("data-theme");
+        // Theme Dropdown
+        const dropdownBtn = document.getElementById("themeDropdownBtn");
+        const dropdownMenu = document.getElementById("themeDropdownMenu");
+        dropdownBtn.addEventListener("click", () => {
+            dropdownMenu.classList.toggle("show");
+        });
+        document.querySelectorAll(".theme-dropdown-item").forEach(item => {
+            item.addEventListener("click", () => {
+                const theme = item.getAttribute("data-theme");
                 document.body.setAttribute("data-theme", theme);
                 localStorage.setItem("onistar_wealth_theme", theme);
+                dropdownMenu.classList.remove("show");
             });
         });
+        document.addEventListener("click", (e) => {
+            if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove("show");
+            }
+        });
+
         const savedTheme = localStorage.getItem("onistar_wealth_theme");
         if(savedTheme) document.body.setAttribute("data-theme", savedTheme);
 
