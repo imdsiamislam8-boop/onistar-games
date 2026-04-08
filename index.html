@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>ONISTAR | WEALTH VORTEX — Mobile Optimized</title>
+    <title>ONISTAR | OCEAN GLOW — Floating Orb Theme Switcher</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -22,20 +22,29 @@
             transition: background 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), color 0.4s ease;
         }
 
-        /* ========== THEME SYSTEM ========== */
+        /* ========== THEME SYSTEM - DEEP OCEAN DEFAULT ========== */
         :root {
-            --bg-gradient-start: #0f0c29;
-            --bg-gradient-end: #302b63;
-            --glass-bg: rgba(15, 20, 35, 0.55);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --text-primary: #f0f0f0;
-            --text-secondary: #b0c4de;
-            --accent-1: #6c63ff;
-            --accent-2: #ff6584;
-            --glow-color: rgba(108, 99, 255, 0.5);
-            --currency-color: rgba(108, 99, 255, 0.3);
+            --bg-gradient-start: #00b4db;
+            --bg-gradient-end: #0083b0;
+            --glass-bg: rgba(0, 50, 70, 0.45);
+            --glass-border: rgba(0, 210, 255, 0.35);
+            --text-primary: #e0f8ff;
+            --text-secondary: #a8dadc;
+            --accent-1: #00d2ff;
+            --accent-2: #3a7bd5;
+            --glow-color: rgba(0, 210, 255, 0.5);
+            --currency-color: rgba(0, 210, 255, 0.3);
         }
 
+        body[data-theme="ocean"] {
+            --bg-gradient-start: #00b4db;
+            --bg-gradient-end: #0083b0;
+            --glass-bg: rgba(0, 50, 70, 0.45);
+            --accent-1: #00d2ff;
+            --accent-2: #3a7bd5;
+            --glow-color: rgba(0, 210, 255, 0.5);
+            --currency-color: rgba(0, 210, 255, 0.3);
+        }
         body[data-theme="midnight"] {
             --bg-gradient-start: #0f0c29;
             --bg-gradient-end: #302b63;
@@ -79,17 +88,6 @@
             --accent-2: #ff4757;
             --glow-color: rgba(255, 107, 129, 0.5);
             --currency-color: rgba(255, 107, 129, 0.3);
-        }
-        body[data-theme="ocean"] {
-            --bg-gradient-start: #00b4db;
-            --bg-gradient-end: #0083b0;
-            --glass-bg: rgba(0, 50, 70, 0.45);
-            --text-primary: #e0f8ff;
-            --text-secondary: #a8dadc;
-            --accent-1: #00d2ff;
-            --accent-2: #3a7bd5;
-            --glow-color: rgba(0, 210, 255, 0.5);
-            --currency-color: rgba(0, 210, 255, 0.3);
         }
         body[data-theme="royal"] {
             --bg-gradient-start: #8e2de2;
@@ -167,48 +165,61 @@
             z-index: 10;
         }
 
-        /* ========== CONSOLIDATED THEME SWITCHER (DROPDOWN FOR MOBILE) ========== */
-        .theme-switcher-wrapper {
+        /* ========== GLOWING ORB THEME SWITCHER ========== */
+        .theme-orb-container {
             position: fixed;
-            bottom: 1rem;
-            right: 1rem;
+            bottom: 1.2rem;
+            right: 1.2rem;
             z-index: 200;
         }
-        .theme-dropdown {
+        .glowing-orb {
+            width: 55px;
+            height: 55px;
+            background: radial-gradient(circle at 30% 30%, var(--accent-1), var(--accent-2));
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--glow-color), 0 0 40px rgba(0,210,255,0.3);
+            animation: orbPulse 2s ease-in-out infinite alternate;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .glowing-orb i {
+            font-size: 1.5rem;
+            color: white;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+        }
+        @keyframes orbPulse {
+            0% { transform: scale(1); box-shadow: 0 0 15px var(--glow-color); }
+            100% { transform: scale(1.08); box-shadow: 0 0 35px var(--glow-color), 0 0 50px rgba(0,210,255,0.4); }
+        }
+        .glowing-orb:hover {
+            transform: scale(1.05);
+        }
+        .theme-menu {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            border-radius: 2.5rem;
+            border-radius: 1.2rem;
             border: 1px solid var(--glass-border);
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-        .theme-dropdown-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .theme-dropdown-header i {
-            color: var(--accent-1);
-        }
-        .theme-dropdown-menu {
+            padding: 0.6rem;
             display: none;
             flex-direction: column;
-            padding: 0.5rem;
-            gap: 0.4rem;
-            border-top: 1px solid var(--glass-border);
+            gap: 0.5rem;
+            min-width: 150px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .theme-dropdown-menu.show {
+        .theme-menu.show {
             display: flex;
         }
-        .theme-dropdown-item {
+        .theme-menu-item {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.7rem;
             padding: 0.4rem 0.8rem;
             border-radius: 2rem;
             cursor: pointer;
@@ -217,22 +228,22 @@
             font-weight: 600;
             color: var(--text-secondary);
         }
-        .theme-dropdown-item:hover {
-            background: rgba(255,255,255,0.1);
+        .theme-menu-item:hover {
+            background: rgba(255,255,255,0.15);
         }
-        .theme-color-preview {
-            width: 24px;
-            height: 24px;
+        .theme-color-dot {
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             border: 1px solid rgba(255,255,255,0.3);
         }
-        .preview-midnight { background: linear-gradient(135deg, #0f0c29, #302b63); }
-        .preview-sunset { background: linear-gradient(135deg, #ff6b6b, #feca57); }
-        .preview-forest { background: linear-gradient(135deg, #134e5e, #71b280); }
-        .preview-cherry { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
-        .preview-ocean { background: linear-gradient(135deg, #00b4db, #0083b0); }
-        .preview-royal { background: linear-gradient(135deg, #8e2de2, #4a00e0); }
-        .preview-mono { background: linear-gradient(135deg, #1a1a1a, #444444); }
+        .dot-ocean { background: linear-gradient(135deg, #00b4db, #0083b0); }
+        .dot-midnight { background: linear-gradient(135deg, #0f0c29, #302b63); }
+        .dot-sunset { background: linear-gradient(135deg, #ff6b6b, #feca57); }
+        .dot-forest { background: linear-gradient(135deg, #134e5e, #71b280); }
+        .dot-cherry { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+        .dot-royal { background: linear-gradient(135deg, #8e2de2, #4a00e0); }
+        .dot-mono { background: linear-gradient(135deg, #1a1a1a, #444444); }
 
         /* Glass Header */
         .glass-header-premium {
@@ -277,7 +288,7 @@
             margin-top: 0.2rem;
         }
 
-        /* Stats Cards - SMALLER FOR MOBILE */
+        /* Stats Cards */
         .stats-grid {
             display: flex;
             gap: 0.6rem;
@@ -364,7 +375,7 @@
         }
         #searchInput::placeholder { color: var(--text-secondary); opacity: 0.7; font-size: 0.7rem; }
         
-        /* Filter Group - 2 Lines */
+        /* Filter Group */
         .filter-group-wrapper {
             margin-top: 0.6rem;
             position: relative;
@@ -397,7 +408,7 @@
             box-shadow: 0 0 8px var(--glow-color);
         }
 
-        /* Game Cards */
+        /* Game Cards - 16 per page */
         .games-grid-vibrant {
             display: grid;
             grid-template-columns: 1fr;
@@ -489,6 +500,7 @@
             border: 1px solid var(--glass-border);
             background-size: cover;
             background-position: center;
+            position: relative;
         }
         .detail-vibrant.has-bg::before {
             content: '';
@@ -580,46 +592,42 @@
         }
     </style>
 </head>
-<body data-theme="midnight">
+<body data-theme="ocean">
     <div class="currency-float-bg" id="currencyFloatBg"></div>
 
-    <!-- Consolidated Theme Switcher Dropdown -->
-    <div class="theme-switcher-wrapper">
-        <div class="theme-dropdown">
-            <div class="theme-dropdown-header" id="themeDropdownBtn">
-                <i class="fas fa-palette"></i>
-                <span>THEMES</span>
-                <i class="fas fa-chevron-down" style="font-size: 0.6rem;"></i>
+    <!-- Glowing Orb Theme Switcher -->
+    <div class="theme-orb-container">
+        <div class="glowing-orb" id="themeOrb">
+            <i class="fas fa-palette"></i>
+        </div>
+        <div class="theme-menu" id="themeMenu">
+            <div class="theme-menu-item" data-theme="ocean">
+                <div class="theme-color-dot dot-ocean"></div>
+                <span>Deep Ocean</span>
             </div>
-            <div class="theme-dropdown-menu" id="themeDropdownMenu">
-                <div class="theme-dropdown-item" data-theme="midnight">
-                    <div class="theme-color-preview preview-midnight"></div>
-                    <span>Midnight Nebula</span>
-                </div>
-                <div class="theme-dropdown-item" data-theme="sunset">
-                    <div class="theme-color-preview preview-sunset"></div>
-                    <span>Sunset Blaze</span>
-                </div>
-                <div class="theme-dropdown-item" data-theme="forest">
-                    <div class="theme-color-preview preview-forest"></div>
-                    <span>Emerald Forest</span>
-                </div>
-                <div class="theme-dropdown-item" data-theme="cherry">
-                    <div class="theme-color-preview preview-cherry"></div>
-                    <span>Cherry Sakura</span>
-                </div>
-                <div class="theme-dropdown-item" data-theme="ocean">
-                    <div class="theme-color-preview preview-ocean"></div>
-                    <span>Deep Ocean</span>
-                </div>
-                <div class="theme-dropdown-item" data-theme="royal">
-                    <div class="theme-color-preview preview-royal"></div>
-                    <span>Royal Purple</span>
-                </div>
-                <div class="theme-dropdown-item" data-theme="mono">
-                    <div class="theme-color-preview preview-mono"></div>
-                    <span>Black & White</span>
-                </div>
+            <div class="theme-menu-item" data-theme="midnight">
+                <div class="theme-color-dot dot-midnight"></div>
+                <span>Midnight Nebula</span>
+            </div>
+            <div class="theme-menu-item" data-theme="sunset">
+                <div class="theme-color-dot dot-sunset"></div>
+                <span>Sunset Blaze</span>
+            </div>
+            <div class="theme-menu-item" data-theme="forest">
+                <div class="theme-color-dot dot-forest"></div>
+                <span>Emerald Forest</span>
+            </div>
+            <div class="theme-menu-item" data-theme="cherry">
+                <div class="theme-color-dot dot-cherry"></div>
+                <span>Cherry Sakura</span>
+            </div>
+            <div class="theme-menu-item" data-theme="royal">
+                <div class="theme-color-dot dot-royal"></div>
+                <span>Royal Purple</span>
+            </div>
+            <div class="theme-menu-item" data-theme="mono">
+                <div class="theme-color-dot dot-mono"></div>
+                <span>Black & White</span>
             </div>
         </div>
     </div>
@@ -629,8 +637,8 @@
             <div class="glass-header-premium">
                 <div class="animated-border"></div>
                 <div class="logo-area">
-                    <div class="logo"><i class="fas fa-coins"></i> ONISTAR <i class="fas fa-chart-line"></i></div>
-                    <div class="subhead">✦ WEALTH VORTEX • MOBILE OPTIMIZED ✦</div>
+                    <div class="logo"><i class="fas fa-water"></i> ONISTAR <i class="fas fa-chart-line"></i></div>
+                    <div class="subhead">✦ DEEP OCEAN • GLOWING ORB ✦</div>
                 </div>
             </div>
 
@@ -650,9 +658,9 @@
                 </div>
             </div>
 
-            <div id="gamesGrid" class="games-grid-vibrant">✨ loading wealth games...</div>
+            <div id="gamesGrid" class="games-grid-vibrant">✨ loading ocean games...</div>
             <div id="paginationArea" class="pagination-vibrant"></div>
-            <footer><i class="fas fa-sync-alt"></i> 7 THEMES • 3D TILT • S2S READY</footer>
+            <footer><i class="fas fa-sync-alt"></i> 7 THEMES • 16 GAMES/PAGE • S2S READY</footer>
         </div>
 
         <div id="detailView" class="hidden">
@@ -719,13 +727,17 @@
         const extraGames = [
             { provider: "appsflyer", name: "Galaxy Raid", package: "com.af.galaxyraid", android: true, ios: true, icon: "🚀", dev_key: "af_galaxy", event_format: "af_raid_win", added_date: "2024-04-01", bg_image: "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=600&auto=format" },
             { provider: "adjust", name: "Farm Fables", package: "com.adjust.farm", android: true, ios: false, icon: "🌾", dev_key: "adj_farm", event_format: "adjust_harvest", added_date: "2024-04-12", bg_image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&auto=format" },
-            { provider: "singular", name: "Mythic Puzzles", package: "com.singular.puzzle", android: true, ios: true, icon: "🧩", dev_key: "sing_puzzle", event_format: "singular_puzzle", added_date: "2024-04-18", bg_image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=600&auto=format" }
+            { provider: "singular", name: "Mythic Puzzles", package: "com.singular.puzzle", android: true, ios: true, icon: "🧩", dev_key: "sing_puzzle", event_format: "singular_puzzle", added_date: "2024-04-18", bg_image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=600&auto=format" },
+            { provider: "appsflyer", name: "Cyber Ocean", package: "com.af.cyber", android: true, ios: true, icon: "🤖", dev_key: "af_cyber", event_format: "af_cyber", added_date: "2024-05-01", bg_image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format" },
+            { provider: "adjust", name: "Star Empire", package: "com.adjust.star", android: true, ios: true, icon: "⭐", dev_key: "adj_star", event_format: "adjust_star", added_date: "2024-05-05", bg_image: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=600&auto=format" },
+            { provider: "singular", name: "Dragon Fury", package: "com.singular.fury", android: true, ios: false, icon: "🐲", dev_key: "sing_fury", event_format: "singular_fury", added_date: "2024-05-08", bg_image: "https://images.unsplash.com/photo-1500964757637-c85e8a162366?w=600&auto=format" },
+            { provider: "appsflyer", name: "Magic Kingdom", package: "com.af.magic", android: true, ios: true, icon: "🪄", dev_key: "af_magic", event_format: "af_magic", added_date: "2024-05-10", bg_image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format" }
         ];
         extraGames.forEach((ex, idx) => allGames.push({ id: `ex_${idx}`, ...ex }));
         allGames.forEach(g => { if (!g.image) g.image = g.icon; if (!g.bg_image) g.bg_image = null; });
 
         let currentPlatform = "all", currentProvider = "all", searchTerm = "", currentPage = 1;
-        const perPage = 8;
+        const perPage = 16; // 16 games per page
 
         function updateStats() {
             const total = allGames.length;
@@ -763,7 +775,7 @@
             const pageGames = filtered.slice(start, start+perPage);
             const container = document.getElementById("gamesGrid");
             if(!pageGames.length) {
-                container.innerHTML = `<div class="no-results-vibrant"><i class="fas fa-coins"></i> No games found</div>`;
+                container.innerHTML = `<div class="no-results-vibrant"><i class="fas fa-water"></i> No games found</div>`;
                 document.getElementById("paginationArea").innerHTML = "";
                 return;
             }
@@ -892,28 +904,39 @@
             });
         }
 
-        // Theme Dropdown
-        const dropdownBtn = document.getElementById("themeDropdownBtn");
-        const dropdownMenu = document.getElementById("themeDropdownMenu");
-        dropdownBtn.addEventListener("click", () => {
-            dropdownMenu.classList.toggle("show");
+        // Glowing Orb Theme Switcher
+        const themeOrb = document.getElementById("themeOrb");
+        const themeMenu = document.getElementById("themeMenu");
+        
+        themeOrb.addEventListener("click", (e) => {
+            e.stopPropagation();
+            themeMenu.classList.toggle("show");
         });
-        document.querySelectorAll(".theme-dropdown-item").forEach(item => {
+        
+        document.querySelectorAll(".theme-menu-item").forEach(item => {
             item.addEventListener("click", () => {
                 const theme = item.getAttribute("data-theme");
                 document.body.setAttribute("data-theme", theme);
-                localStorage.setItem("onistar_wealth_theme", theme);
-                dropdownMenu.classList.remove("show");
+                localStorage.setItem("onistar_theme", theme);
+                themeMenu.classList.remove("show");
+                // Update orb gradient dynamically
+                const computedStyle = getComputedStyle(document.body);
+                themeOrb.style.background = `radial-gradient(circle at 30% 30%, var(--accent-1), var(--accent-2))`;
             });
         });
+        
         document.addEventListener("click", (e) => {
-            if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                dropdownMenu.classList.remove("show");
+            if (!themeOrb.contains(e.target) && !themeMenu.contains(e.target)) {
+                themeMenu.classList.remove("show");
             }
         });
 
-        const savedTheme = localStorage.getItem("onistar_wealth_theme");
-        if(savedTheme) document.body.setAttribute("data-theme", savedTheme);
+        const savedTheme = localStorage.getItem("onistar_theme");
+        if(savedTheme && savedTheme !== "ocean") {
+            document.body.setAttribute("data-theme", savedTheme);
+        } else {
+            document.body.setAttribute("data-theme", "ocean");
+        }
 
         document.getElementById("searchInput").addEventListener("input", (e) => { searchTerm = e.target.value; currentPage = 1; renderGames(); });
         document.getElementById("closeDetailBtn").addEventListener("click", showMainView);
