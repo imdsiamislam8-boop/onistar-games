@@ -2,34 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>ONISTAR | Centered Light Blur Search</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ONISTAR | WEALTH VORTEX — Fixed Background Image</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-    /* স্মুথ স্ক্রোল কোড - শুরুতে */
-    html {
-        scroll-behavior: smooth;
-    }
-
-    /* মসৃণ স্ক্রোলবারের জন্য */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: #d0d8d8;
-        border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: #9aacac;
-        border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: #7a8e8e;
-    }
-	
         * {
             margin: 0;
             padding: 0;
@@ -37,748 +14,916 @@
         }
 
         body {
-            background-color: #E0E5E5;
             min-height: 100vh;
-            font-family: 'Poppins', 'Segoe UI', sans-serif;
-            padding: 1rem;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            padding: 1.2rem;
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow-x: hidden;
+            transition: background 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), color 0.4s ease;
         }
 
-        /* Background floating shapes */
-        .bg-shape {
-            position: fixed;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            filter: blur(100px);
-            animation: float 12s ease-in-out infinite alternate;
-            z-index: 0;
-            opacity: 0.3;
+        /* ========== THEME SYSTEM ========== */
+        :root {
+            --bg-gradient-start: #0f0c29;
+            --bg-gradient-end: #302b63;
+            --glass-bg: rgba(15, 20, 35, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #f0f0f0;
+            --text-secondary: #b0c4de;
+            --accent-1: #6c63ff;
+            --accent-2: #ff6584;
+            --glow-color: rgba(108, 99, 255, 0.5);
+            --currency-color: rgba(108, 99, 255, 0.3);
         }
-        .shape1 { background: #c5d0d0; top: -10%; left: -5%; }
-        .shape2 { background: #d0dbdb; bottom: -10%; right: -5%; animation-delay: -5s; }
-        .shape3 { background: #bcc7c7; top: 40%; left: 60%; width: 300px; height: 300px; animation-delay: -3s; }
-        @keyframes float {
-            0% { transform: translateY(0) translateX(0) scale(1);}
-            100% { transform: translateY(40px) translateX(25px) scale(1.1);}
+
+        body[data-theme="midnight"] {
+            --bg-gradient-start: #0f0c29;
+            --bg-gradient-end: #302b63;
+            --glass-bg: rgba(15, 20, 35, 0.55);
+            --accent-1: #6c63ff;
+            --accent-2: #ff6584;
+            --glow-color: rgba(108, 99, 255, 0.5);
+            --currency-color: rgba(108, 99, 255, 0.35);
+        }
+        body[data-theme="sunset"] {
+            --bg-gradient-start: #ff6b6b;
+            --bg-gradient-end: #feca57;
+            --glass-bg: rgba(255, 240, 200, 0.25);
+            --glass-border: rgba(255, 200, 100, 0.4);
+            --text-primary: #2d1b0a;
+            --text-secondary: #5e3a1a;
+            --accent-1: #ff9f43;
+            --accent-2: #ee5a24;
+            --glow-color: rgba(255, 159, 67, 0.5);
+            --currency-color: rgba(255, 159, 67, 0.3);
+        }
+        body[data-theme="forest"] {
+            --bg-gradient-start: #134e5e;
+            --bg-gradient-end: #71b280;
+            --glass-bg: rgba(30, 60, 40, 0.45);
+            --text-primary: #eaffea;
+            --text-secondary: #c8e0b0;
+            --accent-1: #2ecc71;
+            --accent-2: #27ae60;
+            --glow-color: rgba(46, 204, 113, 0.5);
+            --currency-color: rgba(46, 204, 113, 0.3);
+        }
+        body[data-theme="cherry"] {
+            --bg-gradient-start: #ff9a9e;
+            --bg-gradient-end: #fecfef;
+            --glass-bg: rgba(255, 240, 245, 0.5);
+            --glass-border: rgba(255, 180, 180, 0.5);
+            --text-primary: #5e2a2a;
+            --text-secondary: #a05050;
+            --accent-1: #ff6b81;
+            --accent-2: #ff4757;
+            --glow-color: rgba(255, 107, 129, 0.5);
+            --currency-color: rgba(255, 107, 129, 0.3);
+        }
+        body[data-theme="ocean"] {
+            --bg-gradient-start: #00b4db;
+            --bg-gradient-end: #0083b0;
+            --glass-bg: rgba(0, 50, 70, 0.45);
+            --text-primary: #e0f8ff;
+            --text-secondary: #a8dadc;
+            --accent-1: #00d2ff;
+            --accent-2: #3a7bd5;
+            --glow-color: rgba(0, 210, 255, 0.5);
+            --currency-color: rgba(0, 210, 255, 0.3);
+        }
+        body[data-theme="royal"] {
+            --bg-gradient-start: #8e2de2;
+            --bg-gradient-end: #4a00e0;
+            --glass-bg: rgba(40, 20, 70, 0.5);
+            --text-primary: #f0e8ff;
+            --text-secondary: #d4c4ff;
+            --accent-1: #f5af19;
+            --accent-2: #f12711;
+            --glow-color: rgba(245, 175, 25, 0.5);
+            --currency-color: rgba(245, 175, 25, 0.3);
+        }
+        body[data-theme="mono"] {
+            --bg-gradient-start: #1a1a1a;
+            --bg-gradient-end: #2d2d2d;
+            --glass-bg: rgba(20, 20, 20, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent-1: #ffffff;
+            --accent-2: #888888;
+            --glow-color: rgba(255, 255, 255, 0.3);
+            --currency-color: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+        }
+
+        /* ========== FLOATING CURRENCY SYMBOLS BACKGROUND ========== */
+        .currency-float-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .floating-currency {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: 900;
+            opacity: 0;
+            animation: floatCurrency 15s linear infinite;
+            color: var(--currency-color);
+            text-shadow: 0 0 10px currentColor;
+        }
+        @keyframes floatCurrency {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            80% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-20vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Additional flowing line effect */
+        .flow-line-wealth {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-1), var(--accent-2), transparent);
+            animation: flowLineWealth 8s linear infinite;
+            filter: blur(1px);
+        }
+        @keyframes flowLineWealth {
+            0% { transform: translateX(-100%); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.4; }
+            100% { transform: translateX(100vw); opacity: 0; }
         }
 
         .container {
-            max-width: 1000px;
-            width: 100%;
+            max-width: 1440px;
             margin: 0 auto;
             position: relative;
             z-index: 10;
         }
 
-        /* Header - Centered */
-        .glass-header {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(8px);
-            border-radius: 1.5rem;
-            padding: 1rem 1.5rem;
+        /* Theme Switcher */
+        .theme-switcher-premium {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 200;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 3rem;
+            padding: 0.6rem 1rem;
+            display: flex;
+            gap: 0.6rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            flex-wrap: wrap;
+            max-width: calc(100% - 2rem);
+        }
+        .theme-option {
+            width: 38px;
+            height: 38px;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+        .theme-option:hover { transform: scale(1.15) rotate(5deg); border-color: white; }
+        .theme-midnight { background: linear-gradient(135deg, #0f0c29, #302b63); }
+        .theme-sunset { background: linear-gradient(135deg, #ff6b6b, #feca57); }
+        .theme-forest { background: linear-gradient(135deg, #134e5e, #71b280); }
+        .theme-cherry { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+        .theme-ocean { background: linear-gradient(135deg, #00b4db, #0083b0); }
+        .theme-royal { background: linear-gradient(135deg, #8e2de2, #4a00e0); }
+        .theme-mono { background: linear-gradient(135deg, #1a1a1a, #444444); border: 2px solid #fff; }
+
+        /* Glass Header */
+        .glass-header-premium {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            border-radius: 2rem;
+            border: 1px solid var(--glass-border);
             margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .animated-border {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-1));
+            background-size: 200% 100%;
+            animation: borderFlow 2.5s linear infinite;
+        }
+        @keyframes borderFlow {
+            0% { background-position: 0% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .logo-area {
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 1.3rem 1rem;
         }
         .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #2c3e3e, #1a2a2a);
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffe6a3, var(--accent-1), var(--accent-2));
             -webkit-background-clip: text;
             background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: transparent;
+            animation: logoPulse 2s ease-in-out infinite alternate;
         }
-        .logo span {
-            background: linear-gradient(135deg, #e6b422, #ffd966);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+        @keyframes logoPulse {
+            from { filter: drop-shadow(0 0 2px rgba(255,200,100,0.3)); }
+            to { filter: drop-shadow(0 0 12px var(--glow-color)); }
         }
-        .subtitle {
-            font-size: 0.65rem;
-            color: #5a6a6a;
+        .subhead {
+            font-size: 0.7rem;
             letter-spacing: 2px;
-            margin-top: 0.3rem;
+            color: var(--text-secondary);
+            margin-top: 0.4rem;
         }
 
-        /* Stats Cards - Centered with Horizontal Scroll */
-        .stats-wrapper {
-            margin-bottom: 1.5rem;
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-        }
-        .stats-wrapper::-webkit-scrollbar {
-            height: 4px;
-        }
-        .stats-wrapper::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.05);
-            border-radius: 10px;
-        }
-        .stats-wrapper::-webkit-scrollbar-thumb {
-            background: rgba(0,0,0,0.2);
-            border-radius: 10px;
-        }
-        
+        /* Stats Cards */
         .stats-grid {
             display: flex;
-            gap: .6rem;
-            min-width: min-content;
+            gap: 1rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
             justify-content: center;
         }
-        .stat-card {
-            background: #E0E5E5;
-            backdrop-filter: blur(1px);
-            border-radius: .7rem;
-            padding: 0.4rem 0.7rem;
+        .stat-card-theme {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border-radius: 1.2rem;
+            padding: 0.6rem 1.2rem;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: 0.2s;
-            min-width: 70px;
-            flex-shrink: 0;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s;
+            min-width: 90px;
         }
-        .stat-card:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.75);
+        .stat-card-theme:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-1);
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.3);
         }
         .stat-number {
-            font-size: 0.9rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            background: linear-gradient(145deg, #2c3e3e, #1e2e2e);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-primary);
         }
         .stat-label {
-            font-size: 0.9rem;
-            color: #4a5a5a;
+            font-size: 0.6rem;
             font-weight: 600;
-            margin-top: 0.2rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
         }
 
-        /* ========== STICKY LIGHT BLUR SEARCH BAR ========== */
-        .sticky-search-wrapper {
+        /* Sticky Search with Blade Shine */
+        .sticky-search-area {
             position: sticky;
-            top: 0.5rem;
-            z-index: 100;
+            top: 0.8rem;
+            z-index: 150;
             margin-bottom: 1.5rem;
         }
-        
-        .blur-search-bar-container {
-            position: relative;
-            border-radius: 1.5rem;
-            background: rgba(220, 230, 230, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-        }
-        
-        .search-bar-content {
-            padding: 0.8rem 1.2rem;
-        }
-        
-        .blur-search-input {
-            width: 100%;
-            padding: 0.7rem 1rem;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 245, 0.7);
+        .search-glass-premium {
+            background: var(--glass-bg);
+            backdrop-filter: blur(28px);
             border-radius: 2rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #1e2e2a;
-            font-family: 'Poppins', sans-serif;
+            border: 1px solid var(--glass-border);
+            padding: 0.9rem 1.3rem;
+            position: relative;
+            overflow: hidden;
         }
-        .blur-search-input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.95);
-            border-color: #c0d0b0;
+        .search-glass-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            transform: skewX(-20deg);
+            animation: bladeShine 3.5s infinite;
+            pointer-events: none;
         }
-        
-        /* Filter sections - BUTTONS IN SINGLE LINE */
-        .filter-section {
-            margin-top: 0.6rem;
+        @keyframes bladeShine {
+            0% { left: -100%; }
+            20% { left: 120%; }
+            100% { left: 120%; }
         }
-        .filter-title {
-            font-size: 0.55rem;
-            font-weight: 700;
-            color: #4a5e5a;
-            letter-spacing: 1.5px;
-            margin-bottom: 0.3rem;
-            padding-left: 0.5rem;
-        }
-        .filter-buttons {
+        .search-wrapper {
             display: flex;
-            flex-wrap: nowrap;
-            gap: 0.4rem;
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-            padding-bottom: 0.3rem;
-        }
-        .filter-buttons::-webkit-scrollbar {
-            height: 3px;
-        }
-        .filter-buttons::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.05);
-            border-radius: 10px;
-        }
-        .filter-buttons::-webkit-scrollbar-thumb {
+            align-items: center;
+            gap: 1rem;
             background: rgba(0,0,0,0.2);
-            border-radius: 10px;
+            border-radius: 3rem;
+            padding: 0.2rem 1.2rem;
+            position: relative;
+            z-index: 2;
         }
-        .filter-btn {
-            background: rgba(250, 252, 250, 0.75);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(180, 190, 170, 0.5);
-            padding: 0.1rem 0.8rem;
-            border-radius: 1.5rem;
-            font-size: 0.75rem;
+        .search-wrapper i { color: var(--accent-1); }
+        #searchInput {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.8rem 0;
+            font-size: 0.9rem;
+            outline: none;
+            color: var(--text-primary);
+        }
+        #searchInput::placeholder { color: var(--text-secondary); opacity: 0.7; }
+        
+        /* Filter Group - 2 Lines */
+        .filter-group-wrapper {
+            margin-top: 0.9rem;
+            position: relative;
+            z-index: 2;
+        }
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-bottom: 0.6rem;
+            justify-content: center;
+        }
+        .filter-chip-theme {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(8px);
+            padding: 0.3rem 1.2rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            color: #3a4e4a;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+            border: 1px solid var(--glass-border);
             white-space: nowrap;
-            flex-shrink: 0;
         }
-        .filter-btn:hover {
-            background: rgba(255, 250, 220, 0.9);
-            transform: scale(1.02);
-        }
-        .filter-btn.active {
-            background: #2c3e3e;
-            border-color: #2c3e3e;
+        .filter-chip-theme.active {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
             color: white;
-            font-weight: 700;
+            border-color: transparent;
+            box-shadow: 0 0 12px var(--glow-color);
+        }
+        .filter-chip-theme:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.15);
         }
 
-        /* ========== GAME CARDS ========== */
-        .games-grid {
+        /* Game Cards with 3D TILT */
+        .games-grid-vibrant {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 1.3rem;
+            margin: 2rem 0;
         }
-        .game-card {
-            background: rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 1.5rem;
-            padding: 1rem;
+        .game-card-vibrant {
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px);
+            border-radius: 1.8rem;
+            padding: 1.1rem;
             display: flex;
-            gap: 0.8rem;
+            gap: 1.1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+            transition: transform 0.15s ease-out, box-shadow 0.3s, border-color 0.2s;
         }
-        .game-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(16px);
-            border-color: rgba(255, 245, 200, 0.8);
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.12);
+        .game-card-vibrant:hover {
+            transform: perspective(1000px) rotateX(2deg) rotateY(4deg) translateY(-5px);
+            border-color: var(--accent-1);
+            box-shadow: 0 25px 40px -15px var(--glow-color);
         }
-        .game-icon {
-            width: 55px;
-            height: 55px;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(4px);
-            border-radius: 1rem;
+        .game-card-vibrant:active {
+            transform: perspective(1000px) rotateX(4deg) rotateY(8deg) scale(0.98);
+            transition: transform 0.05s;
+        }
+        .game-card-vibrant::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            transition: left 0.5s;
+        }
+        .game-card-vibrant:hover::after { left: 100%; }
+        
+        .game-icon-vibrant {
+            width: 65px;
+            height: 65px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 1.3rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        .game-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .game-info {
-            flex: 1;
-        }
-        .game-name {
-            font-size: 1rem;
-            font-weight: 800;
-            color: #1a2a2a;
-            letter-spacing: -0.3px;
-        }
-        .game-package {
-            font-size: 0.6rem;
-            color: #5a6a6a;
-            font-family: monospace;
-            margin: 0.2rem 0 0.5rem;
-        }
-        .game-tags {
+        .game-info-vibrant { flex: 1; }
+        .game-name-vibrant { font-weight: 800; font-size: 1rem; color: var(--text-primary); }
+        .game-package-vibrant { font-size: 0.6rem; font-family: monospace; color: var(--text-secondary); margin: 5px 0 8px; }
+        .tags-vibrant {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
+            gap: 0.5rem;
         }
-        .tag {
+        .tag-vibrant {
             font-size: 0.55rem;
-            padding: 0.15rem 0.6rem;
-            border-radius: 1.2rem;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(2px);
-            font-weight: 600;
+            font-weight: 700;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            background: rgba(0,0,0,0.4);
         }
-        .tag.android { background: rgba(165, 215, 110, 0.55); color: #1e4a1a; }
-        .tag.ios { background: rgba(210, 225, 250, 0.75); color: #2c3a6a; }
-        .tag.appsflyer { background: rgba(0, 160, 210, 0.4); color: #005577; }
-        .tag.adjust { background: rgba(255, 140, 80, 0.4); color: #884d00; }
-        .tag.singular { background: rgba(140, 100, 200, 0.4); color: #3a2260; }
-        .status-badge { background: rgba(100, 180, 100, 0.35); color: #2a6a2a; border: 1px solid rgba(100, 150, 70, 0.4); }
+        .tag-android { background: rgba(46, 204, 113, 0.5); color: #ccffcc; }
+        .tag-ios { background: rgba(52, 152, 219, 0.5); color: #ccddff; }
+        .tag-appsflyer { background: rgba(90, 200, 192, 0.5); color: #aaffdd; }
+        .tag-adjust { background: rgba(230, 126, 34, 0.5); color: #ffe0aa; }
+        .tag-singular { background: rgba(155, 89, 182, 0.5); color: #e0ccff; }
 
-        /* Pagination - Centered */
-        .pagination {
+        /* Pagination */
+        .pagination-vibrant {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
-            margin: 1.5rem 0 1rem;
+            gap: 0.7rem;
             flex-wrap: wrap;
+            margin: 1.2rem 0;
         }
-        .page-btn {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 0.4rem 0.8rem;
-            border-radius: 1.5rem;
-            font-size: 0.7rem;
+        .page-btn-vibrant {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 0.45rem 1.1rem;
+            border-radius: 2rem;
             font-weight: 600;
-            color: #4a5a5a;
+            font-size: 0.75rem;
             cursor: pointer;
-            transition: 0.2s;
+            color: var(--text-secondary);
+            transition: all 0.2s;
         }
-        .page-btn:hover {
-            background: rgba(255, 255, 255, 0.85);
-            transform: scale(1.03);
-        }
-        .page-btn.active {
-            background: #2c3e3e;
-            border-color: #2c3e3e;
+        .page-btn-vibrant.active {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
             color: white;
+            border-color: transparent;
         }
-        .page-btn.disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
+        .page-btn-vibrant:hover:not(.disabled) {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.15);
         }
+        .disabled { opacity: 0.4; pointer-events: none; }
 
-        /* Detail View */
-        .detail-view {
+        /* Detail View with Background Image Support */
+        .detail-vibrant {
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(40px);
+            border-radius: 2rem;
+            padding: 1.8rem;
+            animation: slideUp 0.45s ease;
+            border: 1px solid var(--glass-border);
             position: relative;
             background-size: cover;
             background-position: center;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            min-height: 400px;
+            background-repeat: no-repeat;
         }
-        .detail-view::before {
+        /* Overlay for better text readability when background image exists */
+        .detail-vibrant.has-bg {
+            background-blend-mode: overlay;
+        }
+        .detail-vibrant.has-bg::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(2px);
-            border-radius: 1.5rem;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 2rem;
             z-index: 0;
         }
-        .detail-content {
+        .detail-vibrant.has-bg > * {
             position: relative;
-            z-index: 2;
-            color: white;
+            z-index: 1;
         }
-        .detail-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .detail-icon-vibrant {
+            width: 100px; height: 100px;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            border-radius: 2rem;
+            margin: 0 auto 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
-            margin: 0 auto 1rem;
-            border: 1px solid rgba(255,215,120,0.6);
+            font-size: 3rem;
         }
-        .detail-name {
-            font-size: 1.5rem;
+        .detail-title-vibrant {
+            font-size: 1.7rem;
             font-weight: 800;
             text-align: center;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-1));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        .detail-package {
-            text-align: center;
-            font-family: monospace;
-            margin: 0.5rem 0 1rem;
-            opacity: 0.8;
-            font-size: 0.7rem;
-        }
-        .detail-info {
-            background: rgba(0,0,0,0.45);
-            backdrop-filter: blur(16px);
+        .detail-meta-vibrant {
+            background: rgba(0,0,0,0.5);
             border-radius: 1.2rem;
             padding: 1rem;
+            margin-top: 1rem;
+            backdrop-filter: blur(4px);
         }
-        .detail-row {
+        .detail-row-vibrant {
             display: flex;
             justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,215,120,0.2);
-            font-size: 0.8rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
         }
-        .back-btn {
-            background: #1a1a2e;;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.4);
-            padding: 0.6rem;
-            border-radius: 1.5rem;
+        .back-btn-vibrant {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
             width: 100%;
+            padding: 0.9rem;
+            border-radius: 2rem;
+            text-align: center;
             margin-top: 1rem;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             color: white;
-            transition: 0.2s;
-            font-size: 0.8rem;
+            transition: 0.3s;
         }
-        .back-btn:hover {
-            background: rgba(255,255,255,0.35);
+        .back-btn-vibrant:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
         }
         .hidden { display: none; }
-        .no-results {
+        .no-results-vibrant {
             text-align: center;
-            padding: 2rem;
-            background: rgba(255,255,255,0.6);
+            padding: 2.5rem;
+            background: var(--glass-bg);
+            border-radius: 2rem;
+            color: var(--text-secondary);
+        }
+        footer {
+            text-align: center;
+            font-size: 0.65rem;
+            padding: 1rem;
+            background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border-radius: 1.5rem;
-            color: #6a7a6a;
-            font-size: 0.8rem;
+            margin-top: 1rem;
+            color: var(--text-secondary);
         }
-        .footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.6rem;
-            color: #6a7a7a;
-            padding: 0.8rem;
-            background: rgba(255,255,255,0.4);
-            backdrop-filter: blur(4px);
-            border-radius: 1.5rem;
-        }
-
         @media (max-width: 680px) {
             body { padding: 0.8rem; }
-            .games-grid { grid-template-columns: 1fr; }
-            .game-card { padding: 0.8rem; }
-            .stat-card {
-                padding: 0.5rem 0.8rem;
-                min-width: 60px;
-            }
-            .stat-number {
-                font-size: 1rem;
-            }
-            .stat-label {
-                font-size: 0.55rem;
-            }
-            .stats-grid {
-                justify-content: flex-start;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .stats-grid {
-                justify-content: center;
-            }
-            .filter-buttons {
-                justify-content: center;
-                flex-wrap: wrap;
-                overflow-x: visible;
-            }
+            .games-grid-vibrant { grid-template-columns: 1fr; }
+            .theme-switcher-premium { bottom: 1rem; right: 1rem; padding: 0.4rem 0.8rem; gap: 0.4rem; }
+            .theme-option { width: 32px; height: 32px; }
+            .filter-row { gap: 0.5rem; }
         }
     </style>
 </head>
-<body>
+<body data-theme="midnight">
+    <div class="currency-float-bg" id="currencyFloatBg"></div>
 
-<div class="bg-shape shape1"></div>
-<div class="bg-shape shape2"></div>
-<div class="bg-shape shape3"></div>
+    <div class="theme-switcher-premium">
+        <div class="theme-option theme-midnight" data-theme="midnight" title="Midnight Nebula"></div>
+        <div class="theme-option theme-sunset" data-theme="sunset" title="Sunset Blaze"></div>
+        <div class="theme-option theme-forest" data-theme="forest" title="Emerald Forest"></div>
+        <div class="theme-option theme-cherry" data-theme="cherry" title="Cherry Sakura"></div>
+        <div class="theme-option theme-ocean" data-theme="ocean" title="Deep Ocean"></div>
+        <div class="theme-option theme-royal" data-theme="royal" title="Royal Purple"></div>
+        <div class="theme-option theme-mono" data-theme="mono" title="Black & White"></div>
+    </div>
 
-<div class="container">
-    <div id="mainView">
-        <div class="glass-header">
-            <div class="logo">ONI<span>STAR</span></div>
-            <div class="subtitle">✦ LIGHT BLUR STICKY SEARCH ✦</div>
-        </div>
+    <div class="container">
+        <div id="mainView">
+            <div class="glass-header-premium">
+                <div class="animated-border"></div>
+                <div class="logo-area">
+                    <div class="logo"><i class="fas fa-coins"></i> ONISTAR <i class="fas fa-chart-line"></i></div>
+                    <div class="subhead">✦ WEALTH VORTEX • FLOATING CURRENCY ✦</div>
+                </div>
+            </div>
 
-        <!-- Stats Cards with Horizontal Scroll - Centered on PC -->
-        <div class="stats-wrapper">
-            <div class="stats-grid" id="stats"></div>
-        </div>
+            <div class="stats-grid" id="statsPanel"></div>
 
-        <!-- Sticky Search Bar Wrapper -->
-        <div class="sticky-search-wrapper">
-            <div class="blur-search-bar-container">
-                <div class="search-bar-content">
-                    <input type="text" class="blur-search-input" id="searchInput" placeholder="🔍 search game or package...">
-                    <div class="filter-section">
-                        <div class="filter-title">PLATFORM</div>
-                        <div class="filter-buttons" id="platformFilters">
-                            <button class="filter-btn active" data-platform="all">ALL</button>
-                            <button class="filter-btn" data-platform="android">🤖 ANDROID</button>
-                            <button class="filter-btn" data-platform="ios">🍎 IOS</button>
-                        </div>
+            <div class="sticky-search-area">
+                <div class="search-glass-premium">
+                    <div class="search-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search games or package ID...">
+                        <i class="fas fa-magic"></i>
                     </div>
-                    <div class="filter-section">
-                        <div class="filter-title">PROVIDER</div>
-                        <div class="filter-buttons" id="providerFilters">
-                            <button class="filter-btn active" data-provider="all">ALL</button>
-                            <button class="filter-btn" data-provider="appsflyer">📡 APPSFLYER</button>
-                            <button class="filter-btn" data-provider="adjust">📊 ADJUST</button>
-                            <button class="filter-btn" data-provider="singular">🎯 SINGULAR</button>
-                        </div>
+                    <div class="filter-group-wrapper">
+                        <div class="filter-row" id="platformFilters"></div>
+                        <div class="filter-row" id="providerFilters"></div>
                     </div>
                 </div>
             </div>
+
+            <div id="gamesGrid" class="games-grid-vibrant">✨ loading wealth games...</div>
+            <div id="paginationArea" class="pagination-vibrant"></div>
+            <footer><i class="fas fa-sync-alt"></i> 7 THEMES • FLOATING CURRENCY • 3D TILT • S2S READY</footer>
         </div>
 
-        <!-- Games Grid -->
-        <div class="games-grid" id="gamesList">🎮 loading games...</div>
-        <div class="pagination" id="pagination"></div>
-        <div class="footer">ONISTAR • S2S BYPASS • LIGHT BLUR SYSTEM</div>
+        <div id="detailView" class="hidden">
+            <div class="detail-vibrant" id="detailContainer"></div>
+            <div class="back-btn-vibrant" id="closeDetailBtn"><i class="fas fa-arrow-left"></i> BACK TO GAMES</div>
+        </div>
     </div>
 
-    <div id="detailView" class="hidden">
-        <div class="detail-view" id="detailContent"></div>
-        <button class="back-btn" onclick="showMainView()">🔙 BACK TO GAMES</button>
-    </div>
-</div>
-
-<script>
-    // Game Database
-    const GAMES_DB = {
-        "appsflyer": {
-            "domino_dreams": { "name": "Domino Dreams", "package": "com.screenshake.dominodreams", "android": true, "ios": false, "icon": "🎲", "image": "https://play-lh.googleusercontent.com/_brT-4DSyZtx1SBTfL3yMQtytM_dPBIOaOMlGF7dG67Yw9rKe4oVj3OSt96hO7w1t2Q=s48-rw", "dev_key": "Hn5qYjVAaRNJYDcwF4LaWF", "event_format": "af_area_{}_completed", "added_date": "2024-01-15" },
-            "sunshine_island": { "name": "Sunshine Island", "package": "com.newmoonproduction.sunshineisland", "android": true, "ios": false, "icon": "🏝️", "image": "https://play-lh.googleusercontent.com/CJum7I6RZyYd7hQ_qpPgg1PyErE8jJbNiF2-yOmH86lW16wKpEPoZ1dOHFswGkwLcA=s48-rw", "dev_key": "FtaT5WH9rMJjJkMd4LfBCT", "event_format": "af_level{}_achieved", "added_date": "2024-01-20" },
-            "nations_of_darkness": { "name": "Nations of Darkness", "package": "com.allstarunion.nod", "android": true, "ios": true, "icon": "🌑", "image": "https://play-lh.googleusercontent.com/f8nIYbPI7TZtTQt3R4R_YBgQ5QdYpZQcZi2vU6cYv6o-TIq5VXpM0dE8q4DlF1Q=s48-rw", "dev_key": "x88hdqNmd8vALRmRMhgY4Q", "event_format": "af_upgrade_city_lv_{}", "added_date": "2024-01-10" },
-            "dice_dreams": { "name": "Dice Dreams", "package": "com.superplaystudios.dicedreams", "android": true, "ios": false, "icon": "🎲", "image": "https://play-lh.googleusercontent.com/5MLgC2WWXcq1Pol8qRAXOKzIJY9qySkjF43DnWyd5F9fPj_heinHeIxvgIpPQwcaQ1w-mUzUmoP1Xeslf29irg=s48-rw", "bg_image": "https://play-lh.googleusercontent.com/jZxrlBZlBckylCQbtdTF082laUuKjg0H9xzAtDgZG9vJeFx9KZHGZiS_VXkJ4SG9vxFxbeFw0m4RSgLbxXrW", "dev_key": "Hn5qYjVAaRNJYDcwF4LaWF", "event_format": "af_kingdom_{}_restored", "added_date": "2024-01-25" }
-        },
-        "adjust": {
-            "mythic_raid": { "name": "Mythic Raid", "package": "com.adjust.mythicraid", "android": true, "ios": true, "icon": "⚔️", "image": "", "dev_key": "adj_mythic123", "event_format": "adjust_raid_boss_{}", "added_date": "2024-02-10" }
-        },
-        "singular": {
-            "shadow_legends": { "name": "Shadow Legends", "package": "com.singular.shadow", "android": true, "ios": true, "icon": "👑", "image": "", "dev_key": "sing_shadow456", "event_format": "singular_battle_{}", "added_date": "2024-03-01" }
+    <script>
+        // Create floating currency symbols ($, €, £, ¥, ৳, BTC, ETH)
+        const currencies = ['$', '€', '£', '¥', '৳', '₿', 'Ξ', '₹', '₩', '₦', '฿', '₪'];
+        
+        function createFloatingCurrencies() {
+            const container = document.getElementById('currencyFloatBg');
+            for (let i = 0; i < 45; i++) {
+                const currency = document.createElement('div');
+                currency.classList.add('floating-currency');
+                const randomCurrency = currencies[Math.floor(Math.random() * currencies.length)];
+                currency.innerHTML = randomCurrency;
+                const size = Math.random() * 1.5 + 1;
+                currency.style.fontSize = (Math.random() * 2 + 1.2) + 'rem';
+                currency.style.left = Math.random() * 100 + '%';
+                currency.style.animationDuration = Math.random() * 12 + 10 + 's';
+                currency.style.animationDelay = Math.random() * 15 + 's';
+                currency.style.opacity = Math.random() * 0.4 + 0.1;
+                container.appendChild(currency);
+            }
         }
-    };
+        createFloatingCurrencies();
 
-    let allGames = [];
-    for (const [provider, games] of Object.entries(GAMES_DB)) {
-        for (const [id, game] of Object.entries(games)) {
-            allGames.push({ id, provider, ...game });
+        // Create flowing lines
+        function createFlowLines() {
+            const container = document.getElementById('currencyFloatBg');
+            for (let i = 0; i < 12; i++) {
+                const line = document.createElement('div');
+                line.classList.add('flow-line-wealth');
+                line.style.top = Math.random() * 100 + '%';
+                line.style.width = Math.random() * 200 + 100 + 'px';
+                line.style.animationDelay = Math.random() * 8 + 's';
+                line.style.animationDuration = Math.random() * 6 + 5 + 's';
+                container.appendChild(line);
+            }
         }
-    }
-    // extra games
-    for (let i = 1; i <= 14; i++) {
-        const prov = i % 3 === 0 ? "adjust" : (i % 2 === 0 ? "singular" : "appsflyer");
-        allGames.push({
-            id: `extra_${i}`, provider: prov, name: `${prov === 'appsflyer' ? 'Aurora' : prov === 'adjust' ? 'Vortex' : 'Eclipse'} Game ${i}`,
-            package: `com.blur.${prov}.game${i}`, android: true, ios: i % 2 === 0, icon: "🎮",
-            dev_key: `blurkey_${i}`, event_format: `blur_event_${i}_{}`, added_date: "2024-04-10"
-        });
-    }
+        createFlowLines();
 
-    let currentPlatform = "all", currentProvider = "all", searchTerm = "", currentPage = 1;
-    const gamesPerPage = 12;
+        // Game Database with Dice Dreams having proper background image
+        const GAMES_LIB = {
+            "appsflyer": {
+                "domino_dreams": { "name": "Domino Dreams", "package": "com.screenshake.dominodreams", "android": true, "ios": false, "icon": "🎲", "image": "https://play-lh.googleusercontent.com/_brT-4DSyZtx1SBTfL3yMQtytM_dPBIOaOMlGF7dG67Yw9rKe4oVj3OSt96hO7w1t2Q=s48-rw", "bg_image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&auto=format", "dev_key": "af_Hn5qYjVAaRNJYDcwF4LaWF", "event_format": "af_area_{}_completed", "added_date": "2024-01-15" },
+                "sunshine_island": { "name": "Sunshine Island", "package": "com.newmoon.sunshine", "android": true, "ios": true, "icon": "🏝️", "image": "https://play-lh.googleusercontent.com/CJum7I6RZyYd7hQ_qpPgg1PyErE8jJbNiF2-yOmH86lW16wKpEPoZ1dOHFswGkwLcA=s48-rw", "bg_image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format", "dev_key": "af_FtaT5WH9rMJjJkMd4LfBCT", "event_format": "af_level{}_achieved", "added_date": "2024-01-20" },
+                "nations_darkness": { "name": "Nations of Darkness", "package": "com.allstarunion.nod", "android": true, "ios": true, "icon": "🌑", "image": "https://play-lh.googleusercontent.com/f8nIYbPI7TZtTQt3R4R_YBgQ5QdYpZQcZi2vU6cYv6o-TIq5VXpM0dE8q4DlF1Q=s48-rw", "bg_image": "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800&auto=format", "dev_key": "af_x88hdqNmd8vALRmRMhgY4Q", "event_format": "af_upgrade_city_lv_{}", "added_date": "2024-01-10" },
+                "dice_dreams": { "name": "Dice Dreams", "package": "com.superplay.dicedreams", "android": true, "ios": false, "icon": "🎲", "image": "https://play-lh.googleusercontent.com/5MLgC2WWXcq1Pol8qRAXOKzIJY9qySkjF43DnWyd5F9fPj_heinHeIxvgIpPQwcaQ1w-mUzUmoP1Xeslf29irg=s48-rw", "bg_image": "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=800&auto=format", "dev_key": "af_Hn5qYjVAaRNJYDcwF4LaWF", "event_format": "af_kingdom_{}_restored", "added_date": "2024-01-25" }
+            },
+            "adjust": {
+                "mythic_raid": { "name": "Mythic Raid", "package": "com.adjust.mythicraid", "android": true, "ios": true, "icon": "⚔️", "image": "https://cdn-icons-png.flaticon.com/512/4162/4162476.png", "bg_image": "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&auto=format", "dev_key": "adj_mythic123", "event_format": "adjust_raid_boss_{}", "added_date": "2024-02-10" },
+                "empire_clash": { "name": "Empire Clash", "package": "com.adjust.empire", "android": true, "ios": false, "icon": "🏰", "image": "", "bg_image": "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&auto=format", "dev_key": "adj_empire", "event_format": "adjust_territory_{}", "added_date": "2024-03-05" }
+            },
+            "singular": {
+                "shadow_legends": { "name": "Shadow Legends", "package": "com.singular.shadow", "android": true, "ios": true, "icon": "👑", "image": "https://cdn-icons-png.flaticon.com/512/1035/1035308.png", "bg_image": "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&auto=format", "dev_key": "sing_shadow456", "event_format": "singular_battle_{}", "added_date": "2024-03-01" },
+                "eternal_crusade": { "name": "Eternal Crusade", "package": "com.singular.crusade", "android": true, "ios": true, "icon": "⚜️", "image": "", "bg_image": "https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=800&auto=format", "dev_key": "sing_crusade", "event_format": "singular_crusade_{}", "added_date": "2024-03-15" }
+            }
+        };
 
-    function getGameIcon(g) { return (g.image && g.image.startsWith("http")) ? `<img src="${g.image}" alt="${g.name}">` : g.icon; }
-    
-    function updateStats() {
-        document.getElementById("stats").innerHTML = `
-            <div class="stat-card"><div class="stat-number">${allGames.length}</div><div class="stat-label">TOTAL</div></div>
-            <div class="stat-card"><div class="stat-number">${allGames.filter(g=>g.provider==="appsflyer").length}</div><div class="stat-label">APPSFLYER</div></div>
-            <div class="stat-card"><div class="stat-number">${allGames.filter(g=>g.provider==="adjust").length}</div><div class="stat-label">ADJUST</div></div>
-            <div class="stat-card"><div class="stat-number">${allGames.filter(g=>g.provider==="singular").length}</div><div class="stat-label">SINGULAR</div></div>
-            <div class="stat-card"><div class="stat-number">${allGames.length}</div><div class="stat-label">ACTIVE</div></div>
-        `;
-    }
+        let allGames = [];
+        for (const [prov, games] of Object.entries(GAMES_LIB)) {
+            for (const [id, g] of Object.entries(games)) {
+                allGames.push({ id, provider: prov, ...g });
+            }
+        }
+        const extraGames = [
+            { provider: "appsflyer", name: "Galaxy Raid", package: "com.af.galaxyraid", android: true, ios: true, icon: "🚀", dev_key: "af_galaxy", event_format: "af_raid_win", added_date: "2024-04-01", bg_image: "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=800&auto=format" },
+            { provider: "adjust", name: "Farm Fables", package: "com.adjust.farm", android: true, ios: false, icon: "🌾", dev_key: "adj_farm", event_format: "adjust_harvest", added_date: "2024-04-12", bg_image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&auto=format" },
+            { provider: "singular", name: "Mythic Puzzles", package: "com.singular.puzzle", android: true, ios: true, icon: "🧩", dev_key: "sing_puzzle", event_format: "singular_puzzle", added_date: "2024-04-18", bg_image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=800&auto=format" },
+            { provider: "appsflyer", name: "Ocean Conquest", package: "com.af.ocean", android: false, ios: true, icon: "🐟", dev_key: "af_ocean", event_format: "af_ocean", added_date: "2024-04-20", bg_image: "https://images.unsplash.com/photo-1551244072-5d12893278ab?w=800&auto=format" },
+            { provider: "adjust", name: "Dragon Skies", package: "com.adjust.dragon", android: true, ios: true, icon: "🐉", dev_key: "adj_dragon", event_format: "adjust_dragon", added_date: "2024-04-22", bg_image: "https://images.unsplash.com/photo-1500964757637-c85e8a162366?w=800&auto=format" },
+            { provider: "singular", name: "Neon Riders", package: "com.singular.neon", android: true, ios: false, icon: "🏍️", dev_key: "sing_neon", event_format: "singular_race", added_date: "2024-04-25", bg_image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&auto=format" }
+        ];
+        extraGames.forEach((ex, idx) => allGames.push({ id: `ex_${idx}`, ...ex }));
+        allGames.forEach(g => { if (!g.image) g.image = g.icon; if (!g.bg_image) g.bg_image = null; });
 
-    function getFiltered() {
-        return allGames.filter(g => {
-            if (searchTerm && !g.name.toLowerCase().includes(searchTerm.toLowerCase()) && !g.package.toLowerCase().includes(searchTerm.toLowerCase())) return false;
-            if (currentPlatform !== "all") { if (currentPlatform === "android" && !g.android) return false; if (currentPlatform === "ios" && !g.ios) return false; }
-            if (currentProvider !== "all" && g.provider !== currentProvider) return false;
-            return true;
-        });
-    }
+        let currentPlatform = "all", currentProvider = "all", searchTerm = "", currentPage = 1;
+        const perPage = 12;
 
-    function renderGames() {
-        const filtered = getFiltered();
-        const totalPages = Math.ceil(filtered.length / gamesPerPage);
-        const start = (currentPage-1)*gamesPerPage;
-        const gamesToShow = filtered.slice(start, start+gamesPerPage);
-        const container = document.getElementById("gamesList");
-        if (!gamesToShow.length) { container.innerHTML = `<div class="no-results">🎮 NO GAMES FOUND</div>`; document.getElementById("pagination").innerHTML = ""; return; }
-        let html = "";
-        gamesToShow.forEach(g => {
-            let tags = `<span class="tag ${g.provider}">📡 ${g.provider.toUpperCase()}</span>`;
-            if(g.android) tags += `<span class="tag android">🤖 ANDROID</span>`;
-            if(g.ios) tags += `<span class="tag ios">🍎 IOS</span>`;
-            tags += `<span class="tag status-badge">● ACTIVE</span>`;
-            html += `<div class="game-card" onclick='showDetail("${g.id}","${g.provider}")'>
-                <div class="game-icon">${getGameIcon(g)}</div>
-                <div class="game-info">
-                    <div class="game-name">${escapeHtml(g.name)}</div>
-                    <div class="game-package">${g.package}</div>
-                    <div class="game-tags">${tags}</div>
+        function updateStats() {
+            const total = allGames.length;
+            const af = allGames.filter(g=>g.provider==="appsflyer").length;
+            const adj = allGames.filter(g=>g.provider==="adjust").length;
+            const sing = allGames.filter(g=>g.provider==="singular").length;
+            document.getElementById("statsPanel").innerHTML = `
+                <div class="stat-card-theme"><div class="stat-number">${total}</div><div class="stat-label">TOTAL</div></div>
+                <div class="stat-card-theme"><div class="stat-number">${af}</div><div class="stat-label">APPSFLYER</div></div>
+                <div class="stat-card-theme"><div class="stat-number">${adj}</div><div class="stat-label">ADJUST</div></div>
+                <div class="stat-card-theme"><div class="stat-number">${sing}</div><div class="stat-label">SINGULAR</div></div>
+                <div class="stat-card-theme"><div class="stat-number">${total}</div><div class="stat-label">ACTIVE</div></div>
+            `;
+        }
+
+        function getFiltered() {
+            return allGames.filter(g => {
+                const matchSearch = searchTerm === "" || g.name.toLowerCase().includes(searchTerm.toLowerCase()) || g.package.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchPlatform = currentPlatform === "all" ? true : (currentPlatform === "android" ? g.android : g.ios);
+                const matchProvider = currentProvider === "all" ? true : g.provider === currentProvider;
+                return matchSearch && matchPlatform && matchProvider;
+            });
+        }
+
+        function getIconHtml(g) {
+            if(g.image && g.image.startsWith("http")) return `<img src="${g.image}" style="width:100%;height:100%;object-fit:cover;">`;
+            return g.icon;
+        }
+
+        function renderGames() {
+            const filtered = getFiltered();
+            const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
+            if(currentPage > totalPages) currentPage = totalPages;
+            const start = (currentPage-1)*perPage;
+            const pageGames = filtered.slice(start, start+perPage);
+            const container = document.getElementById("gamesGrid");
+            if(!pageGames.length) {
+                container.innerHTML = `<div class="no-results-vibrant"><i class="fas fa-coins"></i> No games found — try another filter ✨</div>`;
+                document.getElementById("paginationArea").innerHTML = "";
+                return;
+            }
+            let html = "";
+            pageGames.forEach(g => {
+                let providerTag = g.provider === "appsflyer" ? "tag-appsflyer" : (g.provider === "adjust" ? "tag-adjust" : "tag-singular");
+                let tags = `<span class="tag-vibrant ${providerTag}">📡 ${g.provider.toUpperCase()}</span>`;
+                if(g.android) tags += `<span class="tag-vibrant tag-android">🤖 ANDROID</span>`;
+                if(g.ios) tags += `<span class="tag-vibrant tag-ios">🍎 IOS</span>`;
+                tags += `<span class="tag-vibrant" style="background:rgba(90,200,192,0.4);">● ACTIVE</span>`;
+                html += `
+                    <div class="game-card-vibrant" data-id="${g.id}" data-prov="${g.provider}">
+                        <div class="game-icon-vibrant">${getIconHtml(g)}</div>
+                        <div class="game-info-vibrant">
+                            <div class="game-name-vibrant">${escapeHtml(g.name)}</div>
+                            <div class="game-package-vibrant">${g.package}</div>
+                            <div class="tags-vibrant">${tags}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            document.querySelectorAll(".game-card-vibrant").forEach(card => {
+                card.addEventListener("click", () => {
+                    const id = card.getAttribute("data-id");
+                    const prov = card.getAttribute("data-prov");
+                    showDetail(id, prov);
+                });
+            });
+            renderPagination(totalPages);
+        }
+
+        function escapeHtml(str) { return String(str).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]); }
+
+        function renderPagination(totalPages) {
+            const wrap = document.getElementById("paginationArea");
+            if(totalPages <= 1) { wrap.innerHTML = ""; return; }
+            let btns = `<button class="page-btn-vibrant ${currentPage===1 ? 'disabled' : ''}" data-page="prev">◀ PREV</button>`;
+            for(let i=1;i<=totalPages;i++) {
+                if(i===1 || i===totalPages || (i>=currentPage-2 && i<=currentPage+2)) {
+                    btns += `<button class="page-btn-vibrant ${currentPage===i ? 'active' : ''}" data-page="${i}">${i}</button>`;
+                } else if(i===currentPage-3 || i===currentPage+3) btns += `<span style="padding:0 6px;">...</span>`;
+            }
+            btns += `<button class="page-btn-vibrant ${currentPage===totalPages ? 'disabled' : ''}" data-page="next">NEXT ▶</button>`;
+            wrap.innerHTML = btns;
+            wrap.querySelectorAll("[data-page]").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    let val = btn.getAttribute("data-page");
+                    if(val === "prev" && currentPage > 1) changePage(currentPage-1);
+                    else if(val === "next" && currentPage < totalPages) changePage(currentPage+1);
+                    else if(!isNaN(parseInt(val))) changePage(parseInt(val));
+                });
+            });
+        }
+
+        function changePage(p) {
+            currentPage = p;
+            renderGames();
+            window.scrollTo({ top: 220, behavior: 'smooth' });
+        }
+
+        function showDetail(id, provider) {
+            const game = allGames.find(g => g.id === id && g.provider === provider);
+            if(!game) return;
+            const platforms = [];
+            if(game.android) platforms.push("🤖 Android");
+            if(game.ios) platforms.push("🍎 iOS");
+            
+            // Get the detail container element
+            const detailContainer = document.getElementById("detailContainer");
+            const detailViewDiv = document.querySelector(".detail-vibrant");
+            
+            // Set background image if exists
+            if (game.bg_image && game.bg_image !== "") {
+                detailViewDiv.style.backgroundImage = `url('${game.bg_image}')`;
+                detailViewDiv.style.backgroundSize = "cover";
+                detailViewDiv.style.backgroundPosition = "center";
+                detailViewDiv.classList.add("has-bg");
+            } else {
+                detailViewDiv.style.backgroundImage = "none";
+                detailViewDiv.classList.remove("has-bg");
+            }
+            
+            const detailHtml = `
+                <div class="detail-icon-vibrant">${getIconHtml(game)}</div>
+                <div class="detail-title-vibrant">${escapeHtml(game.name)}</div>
+                <div style="text-align:center;font-size:0.7rem;color:var(--text-secondary);margin-top:5px;">${game.package}</div>
+                <div class="detail-meta-vibrant">
+                    <div class="detail-row-vibrant"><span>📡 Provider</span><span>${game.provider.toUpperCase()}</span></div>
+                    <div class="detail-row-vibrant"><span>📱 Platform</span><span>${platforms.join(" | ")}</span></div>
+                    <div class="detail-row-vibrant"><span>✅ Status</span><span>Active • Wealth Ready</span></div>
+                    <div class="detail-row-vibrant"><span>🔑 Dev Key</span><span>${game.dev_key || '—'}</span></div>
+                    <div class="detail-row-vibrant"><span>📌 Event Format</span><span>${game.event_format || 'dynamic'}</span></div>
+                    <div class="detail-row-vibrant"><span>📅 Added</span><span>${game.added_date || '2024'}</span></div>
                 </div>
-            </div>`;
-        });
-        container.innerHTML = html;
-        renderPagination(totalPages);
-    }
-
-    function escapeHtml(str) { return String(str).replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
-    
-    function renderPagination(totalPages) {
-    console.log("Total pages:", totalPages);  // ডিবাগিং
-    console.log("Current page:", currentPage); // ডিবাগিং
-    
-    if (totalPages <= 1) {
-        document.getElementById("pagination").innerHTML = "";
-        return;
-    }
-    
-    let paginationHtml = '';
-    
-    // PREV বাটন
-    if (currentPage > 1) {
-        paginationHtml += `<button class="page-btn" onclick="changePage(${currentPage - 1})">◀ PREV</button>`;
-    } else {
-        paginationHtml += `<button class="page-btn disabled" style="opacity:0.5; cursor:not-allowed;">◀ PREV</button>`;
-    }
-    
-    // পেজ নম্বর
-    for (let i = 1; i <= totalPages; i++) {
-        if (i === currentPage) {
-            paginationHtml += `<button class="page-btn active" style="background:#2c3e3e; color:white;">${i}</button>`;
-        } else if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
-            paginationHtml += `<button class="page-btn" onclick="changePage(${i})">${i}</button>`;
-        } else if (i === currentPage - 3 || i === currentPage + 3) {
-            paginationHtml += `<span class="page-dots" style="padding:0 5px;">...</span>`;
+            `;
+            detailContainer.innerHTML = detailHtml;
+            document.getElementById("mainView").classList.add("hidden");
+            document.getElementById("detailView").classList.remove("hidden");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    }
-    
-    // NEXT বাটন
-    if (currentPage < totalPages) {
-        paginationHtml += `<button class="page-btn" onclick="changePage(${currentPage + 1})">NEXT ▶</button>`;
-    } else {
-        paginationHtml += `<button class="page-btn disabled" style="opacity:0.5; cursor:not-allowed;">NEXT ▶</button>`;
-    }
-    
-    document.getElementById("pagination").innerHTML = paginationHtml;
-}
 
-// changePage ফাংশন ঠিক করুন
-function changePage(page) {
-    console.log("Navigating to page:", page);
-    if (page < 1) return;
-    
-    currentPage = page;
-    renderGames();
-    
-    // স্মুথ স্ক্রোল
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
-
-// showDetail ফাংশন - এটি যোগ করুন
-function showDetail(id, provider) {
-    console.log("Opening detail for:", id, provider);
-    
-    const game = GAMES_DB[provider]?.[id];
-    if (!game) {
-        console.error("Game not found!");
-        return;
-    }
-    
-    const platforms = [];
-    if (game.android) platforms.push("🤖 Android");
-    if (game.ios) platforms.push("🍎 iOS");
-    
-    const dv = document.querySelector(".detail-view");
-    if (game.bg_image && game.bg_image !== "") {
-        dv.style.backgroundImage = `url('${game.bg_image}')`;
-        dv.style.backgroundSize = "cover";
-        dv.style.backgroundPosition = "center";
-    } else {
-        dv.style.backgroundImage = "none";
-        dv.style.background = "#1e2a2a";
-    }
-    
-    const detailHtml = `
-        <div class="detail-content">
-            <div class="detail-icon">${getGameIcon(game)}</div>
-            <div class="detail-name">${escapeHtml(game.name)}</div>
-            <div class="detail-package">${game.package}</div>
-            <div class="detail-info">
-                <div class="detail-row"><span class="detail-label">Provider</span><span class="detail-value">📡 ${provider.toUpperCase()}</span></div>
-                <div class="detail-row"><span class="detail-label">Platform</span><span class="detail-value">${platforms.join(" | ")}</span></div>
-                <div class="detail-row"><span class="detail-label">Status</span><span class="detail-value">✅ Active</span></div>
-                <div class="detail-row"><span class="detail-label">Dev Key</span><span class="detail-value">${game.dev_key || '—'}</span></div>
-                <div class="detail-row"><span class="detail-label">Event Format</span><span class="detail-value">${game.event_format || '—'}</span></div>
-                <div class="detail-row"><span class="detail-label">Added</span><span class="detail-value">${game.added_date || '—'}</span></div>
-            </div>
-        </div>
-    `;
-    
-    document.getElementById("detailContent").innerHTML = detailHtml;
-    document.getElementById("mainView").classList.add("hidden");
-    document.getElementById("detailView").classList.remove("hidden");
-    
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-    
-    function showMainView() { 
-    document.getElementById("mainView").classList.remove("hidden"); 
-    document.getElementById("detailView").classList.add("hidden"); 
-    renderGames(); 
-    updateStats(); 
-}
-
-    // Event Listeners
-    document.querySelectorAll("#platformFilters .filter-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            document.querySelectorAll("#platformFilters .filter-btn").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            currentPlatform = btn.getAttribute("data-platform");
-            currentPage = 1;
+        function showMainView() {
+            document.getElementById("mainView").classList.remove("hidden");
+            document.getElementById("detailView").classList.add("hidden");
             renderGames();
-        });
-    });
-    document.querySelectorAll("#providerFilters .filter-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            document.querySelectorAll("#providerFilters .filter-btn").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            currentProvider = btn.getAttribute("data-provider");
-            currentPage = 1;
-            renderGames();
-        });
-    });
-    document.getElementById("searchInput").addEventListener("input", (e) => { searchTerm = e.target.value; currentPage = 1; renderGames(); });
+            updateStats();
+        }
 
-    updateStats();
-    renderGames();
-</script>
+        function initFilters() {
+            const platformDiv = document.getElementById("platformFilters");
+            const providerDiv = document.getElementById("providerFilters");
+            platformDiv.innerHTML = `<div class="filter-chip-theme active" data-filter="platform" data-val="all">🌍 ALL</div>
+                                     <div class="filter-chip-theme" data-filter="platform" data-val="android">🤖 ANDROID</div>
+                                     <div class="filter-chip-theme" data-filter="platform" data-val="ios">🍎 IOS</div>`;
+            providerDiv.innerHTML = `<div class="filter-chip-theme active" data-filter="provider" data-val="all">📡 ALL</div>
+                                     <div class="filter-chip-theme" data-filter="provider" data-val="appsflyer">📊 APPSFLYER</div>
+                                     <div class="filter-chip-theme" data-filter="provider" data-val="adjust">📈 ADJUST</div>
+                                     <div class="filter-chip-theme" data-filter="provider" data-val="singular">🎯 SINGULAR</div>`;
+            document.querySelectorAll(".filter-chip-theme").forEach(chip => {
+                chip.addEventListener("click", () => {
+                    const type = chip.getAttribute("data-filter");
+                    const val = chip.getAttribute("data-val");
+                    if(type === "platform") {
+                        currentPlatform = val;
+                        document.querySelectorAll("#platformFilters .filter-chip-theme").forEach(c => c.classList.remove("active"));
+                    } else {
+                        currentProvider = val;
+                        document.querySelectorAll("#providerFilters .filter-chip-theme").forEach(c => c.classList.remove("active"));
+                    }
+                    chip.classList.add("active");
+                    currentPage = 1;
+                    renderGames();
+                });
+            });
+        }
+
+        // Theme Switcher
+        const themeBtns = document.querySelectorAll(".theme-option");
+        themeBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const theme = btn.getAttribute("data-theme");
+                document.body.setAttribute("data-theme", theme);
+                localStorage.setItem("onistar_wealth_theme", theme);
+            });
+        });
+        const savedTheme = localStorage.getItem("onistar_wealth_theme");
+        if(savedTheme) document.body.setAttribute("data-theme", savedTheme);
+
+        document.getElementById("searchInput").addEventListener("input", (e) => { searchTerm = e.target.value; currentPage = 1; renderGames(); });
+        document.getElementById("closeDetailBtn").addEventListener("click", showMainView);
+
+        updateStats();
+        initFilters();
+        renderGames();
+    </script>
 </body>
 </html>
